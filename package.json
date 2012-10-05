@@ -1,0 +1,38 @@
+{
+  "name": "grunt-contrib-qunit",
+  "description": "Run QUnit unit tests in a headless PhantomJS instance.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/gruntjs/grunt-contrib-qunit",
+  "author": {
+    "name": "Grunt Team",
+    "url": "http://gruntjs.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/gruntjs/grunt-contrib-qunit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gruntjs/grunt-contrib-qunit/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/gruntjs/grunt-contrib-qunit/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "Gruntfile.js",
+  "engines": {
+    "node": ">= 0.6.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "0.1.0",
+    "grunt-contrib-internal": "*",
+    "grunt-lib-phantomjs": "0.1.0",
+    "grunt": "~0.4.0a"
+  },
+  "keywords": [
+  ]
+}
