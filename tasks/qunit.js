@@ -21,6 +21,9 @@ module.exports = function(grunt) {
   // Keep track of the last-started test(s).
   var unfinished = {};
 
+  // Get an asset file, local to the root of the project.
+  var asset = path.join.bind(null, __dirname, '..');
+
   // Allow an error message to retain its color when split across multiple lines.
   var formatMessage = function(str) {
     return String(str).split('\n').map(function(s) { return s.magenta; }).join('\n');
@@ -130,9 +133,7 @@ module.exports = function(grunt) {
       // Default PhantomJS timeout.
       timeout: 5000,
       // QUnit-PhantomJS bridge file to be injected.
-      inject: grunt.task.getFile('phantomjs/qunit-bridge.js'),
-      // PhantomJS config file.
-      '--config': grunt.task.getFile('phantomjs/config.json')
+      inject: asset('phantomjs/bridge.js'),
     });
 
     // Get files as URLs.
