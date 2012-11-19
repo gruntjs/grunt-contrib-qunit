@@ -22,6 +22,18 @@ module.exports = function(grunt) {
       }
     },
 
+    // Unit tests.
+    qunit: {
+      all_tests: ['test/*.html'],
+      individual_tests: {
+        files: [
+          {src: 'test/*1.html'},
+          {src: 'test/*{1,2}.html'},
+          {src: 'test/*.html'},
+        ]
+      }
+    }
+
   });
 
   // Actually load this plugin's task(s).
@@ -29,8 +41,12 @@ module.exports = function(grunt) {
 
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-internal');
 
-  // By default, lint task.
-  grunt.registerTask('default', 'jshint');
+  // The "test" task is just an alias for the default task.
+  grunt.registerTask('test', ['default']);
+
+  // By default, lint and run all tests.
+  grunt.registerTask('default', ['jshint', 'qunit', 'build-contrib']);
 
 };
