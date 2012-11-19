@@ -137,7 +137,7 @@ module.exports = function(grunt) {
     });
 
     // Get files as URLs.
-    var urls = grunt.file.expandFileURLs(grunt.util._.pluck(this.files, 'src'));
+    var urls = grunt.file.expandFileURLs(this.file.srcRaw);
 
     // This task is asynchronous.
     var done = this.async();
