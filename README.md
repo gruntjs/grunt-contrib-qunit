@@ -18,7 +18,7 @@ npm install grunt-contrib-qunit --save-dev
 ## Qunit task
 _Run this task with the `grunt qunit` command._
 
-This plugin will automatically download and install [PhantomJS][] locally via the [grunt-lib-phantomjs][] library.
+When installed by npm, this plugin will automatically download and install [PhantomJS][] locally via the [grunt-lib-phantomjs][] library.
 
 [PhantomJS]: http://www.phantomjs.org/
 [grunt-lib-phantomjs]: https://github.com/gruntjs/grunt-lib-phantomjs
@@ -90,8 +90,12 @@ grunt.initConfig({
     all: ['http://localhost:8000/test/foo.html', 'http://localhost:8000/test/bar.html']
   },
   connect: {
-    port: 8000,
-    base: '.'
+    server: {
+      options: {
+        port: 8000,
+        base: '.'
+      }
+    }
   }
 });
 
@@ -129,4 +133,4 @@ grunt.initConfig({
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Mon Nov 19 2012 16:26:40.*
+*This file was generated on Fri Nov 23 2012 15:08:33.*

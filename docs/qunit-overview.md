@@ -1,4 +1,4 @@
-This plugin will automatically download and install [PhantomJS][] locally via the [grunt-lib-phantomjs][] library.
+When installed by npm, this plugin will automatically download and install [PhantomJS][] locally via the [grunt-lib-phantomjs][] library.
 
 [PhantomJS]: http://www.phantomjs.org/
 [grunt-lib-phantomjs]: https://github.com/gruntjs/grunt-lib-phantomjs

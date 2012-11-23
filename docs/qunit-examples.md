@@ -41,8 +41,12 @@ grunt.initConfig({
     all: ['http://localhost:8000/test/foo.html', 'http://localhost:8000/test/bar.html']
   },
   connect: {
-    port: 8000,
-    base: '.'
+    server: {
+      options: {
+        port: 8000,
+        base: '.'
+      }
+    }
   }
 });
 
