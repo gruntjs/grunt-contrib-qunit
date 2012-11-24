@@ -125,7 +125,7 @@ module.exports = function(grunt) {
   });
 
   // Pass-through console.log statements.
-  phantomjs.on('console', console.log.bind(console));
+  phantomjs.on('console', console.log.bind(console, '\n> '.cyan));
 
   grunt.registerMultiTask('qunit', 'Run QUnit unit tests in a headless PhantomJS instance.', function() {
     // Merge task-specific and/or target-specific options with these defaults.
