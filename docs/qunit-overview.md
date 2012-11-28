@@ -1,3 +1,5 @@
+{%= s.multi_task %}
+
 When installed by npm, this plugin will automatically download and install [PhantomJS][] locally via the [grunt-lib-phantomjs][] library.
 
 [PhantomJS]: http://www.phantomjs.org/

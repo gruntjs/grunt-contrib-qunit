@@ -1,5 +1,4 @@
 # Options
-{%= s.multi_task_options %}
 
 ## timeout
 Type: `Number`  

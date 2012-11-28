@@ -18,6 +18,10 @@ npm install grunt-contrib-qunit --save-dev
 ## Qunit task
 _Run this task with the `grunt qunit` command._
 
+_This task is a [multi task][] so any targets, files and options should be specified according to the [multi task][] documentation._
+[multi task]: https://github.com/gruntjs/grunt/wiki/Configuring-tasks
+
+
 When installed by npm, this plugin will automatically download and install [PhantomJS][] locally via the [grunt-lib-phantomjs][] library.
 
 [PhantomJS]: http://www.phantomjs.org/
@@ -26,8 +30,6 @@ When installed by npm, this plugin will automatically download and install [Phan
 Also note that running grunt with the `--debug` flag will output a lot of PhantomJS-specific debugging information. This can be very helpful in seeing what actual URIs are being requested and received by PhantomJS.
 
 ### Options
-_The following options are specified in the task configuration according to the [multi task options](https://github.com/gruntjs/grunt/blob/devel/docs/tasks.md) format._
-
 
 #### timeout
 Type: `Number`  
@@ -50,7 +52,7 @@ Additional `--` style arguments that need to be passed in to PhantomJS may be sp
 ### Usage examples
 
 #### Wildcards
-In this example, `grunt qunit` will test all `.html` files in the test directory _and all subdirectories_. First, the wildcard is expanded to match each individual file. Then, each matched filename is converted to the appropriate `file://` URI. Finally, each URI is passed to [PhantomJS][] (one at a time).
+In this example, `grunt qunit:all` (or `grunt qunit` because `qunit` is a [multi task][]) will test all `.html` files in the test directory _and all subdirectories_. First, the wildcard is expanded to match each individual file. Then, each matched filename is converted to the appropriate `file://` URI. Finally, each URI is passed to [PhantomJS][] (one at a time).
 
 ```js
 // Project configuration.
@@ -133,4 +135,4 @@ grunt.initConfig({
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Fri Nov 23 2012 15:08:33.*
+*This file was generated on Wed Nov 28 2012 08:54:17.*
