@@ -149,6 +149,7 @@ module.exports = function(grunt) {
     grunt.util.async.forEachSeries(urls, function(url, next) {
       var basename = path.basename(url);
       grunt.verbose.subhead('Testing ' + basename).or.write('Testing ' + basename);
+      grunt.event.emit('qunit.spawn', url);
 
       // Reset current module.
       currentModule = null;
