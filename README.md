@@ -126,6 +126,31 @@ grunt.initConfig({
 });
 ```
 
+#### Events and reporting
+[QUnit callback](http://api.qunitjs.com/category/callbacks/) methods and arguments are also emitted through grunt's event system so that you may build custom reporting tools. Please refer to to the QUnit documentation for more information.
+
+The events (with arguments) are as follows:
+
+* `qunit.begin`
+* `qunit.moduleStart`: name
+* `qunit.testStart`: name
+* `qunit.log`: result, actual, expected, message, source
+* `qunit.testDone`: name, failed, passed, total
+* `qunit.moduleDone`: name, failed, passed, total
+* `qunit.done`: failed, passed, total, runtime
+
+In addition to QUnit callback-named events, the following event is emitted when [PhantomJS][] is spawned for a test:
+
+* `qunit.spawn`: url
+
+You can listen for these events like so:
+
+```js
+grunt.event.on('qunit.spawn', function (url) {
+  grunt.log.ok("Running test: " + url);
+});
+```
+
 
 ## Release History
 
@@ -135,4 +160,4 @@ grunt.initConfig({
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Wed Nov 28 2012 08:54:17.*
+*This file was generated on Mon Dec 10 2012 16:40:38.*

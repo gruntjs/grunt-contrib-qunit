@@ -154,6 +154,7 @@ module.exports = function(grunt) {
       currentModule = null;
 
       // Launch PhantomJS.
+      grunt.event.emit('qunit.spawn', url);
       phantomjs.spawn(url, {
         // Exit code to use if PhantomJS fails in an uncatchable way.
         failCode: 90,
