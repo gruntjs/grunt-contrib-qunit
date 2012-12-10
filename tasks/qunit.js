@@ -93,6 +93,9 @@ module.exports = function(grunt) {
     status.passed += passed;
     status.total += total;
     status.duration += duration;
+    if (total === 0) {
+      grunt.log.error("No assertions ran, testsuite must be broken");
+    }
     // Print assertion errors here, if verbose mode is disabled.
     if (!grunt.option('verbose')) {
       if (failed > 0) {
