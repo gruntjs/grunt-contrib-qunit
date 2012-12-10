@@ -143,7 +143,7 @@ In addition to QUnit callback-named events, the following event is emitted when 
 
 * `qunit.spawn`: url
 
-You can listen for these events like so:
+You may listen for these events like so:
 
 ```js
 grunt.event.on('qunit.spawn', function (url) {
@@ -160,4 +160,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Mon Dec 10 2012 16:40:38.*
+*This file was generated on Mon Dec 10 2012 16:42:20.*
