@@ -138,6 +138,9 @@ module.exports = function(grunt) {
 
     // Get files as URLs.
     var urls = grunt.file.expandFileURLs(this.file.srcRaw);
+    if (urls.length === 0) {
+      grunt.warn('No test files were found for the source "' + this.file.srcRaw + '".');
+    }
 
     // This task is asynchronous.
     var done = this.async();
