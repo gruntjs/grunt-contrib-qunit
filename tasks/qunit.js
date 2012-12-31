@@ -178,6 +178,8 @@ module.exports = function(grunt) {
       if (status.failed > 0) {
         grunt.warn(status.failed + '/' + status.total + ' assertions failed (' +
           status.duration + 'ms)', Math.min(99, 90 + status.failed));
+      } else if (status.total === 0) {
+        grunt.warn('0/0 assertions ran (' + status.duration + 'ms)');
       } else {
         grunt.verbose.writeln();
         grunt.log.ok(status.total + ' assertions passed (' + status.duration + 'ms)');
