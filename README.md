@@ -184,6 +184,7 @@ In addition to QUnit callback-named events, the following events are emitted by 
 * `qunit.spawn` `(url)`: when [PhantomJS][] is spawned for a test
 * `qunit.fail.load` `(url)`: when [PhantomJS][] could not open the given url
 * `qunit.fail.timeout`: when a QUnit test times out, usually due to a missing `QUnit.start()` call
+* `qunit.error.onError` `(message, stackTrace)`
 
 You may listen for these events like so:
 
@@ -208,4 +209,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Tue Aug 20 2013 15:25:07.*
+*This file was generated on Fri Aug 23 2013 09:35:29.*

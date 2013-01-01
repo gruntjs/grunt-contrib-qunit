@@ -140,6 +140,11 @@ module.exports = function(grunt) {
     status.total += 1;
   });
 
+  phantomjs.on('error.onError', function (msg, stackTrace) {
+    grunt.event.emit('qunit.error.onError', msg, stackTrace);
+  });
+
+
   // Pass-through console.log statements.
   phantomjs.on('console', console.log.bind(console));
 
