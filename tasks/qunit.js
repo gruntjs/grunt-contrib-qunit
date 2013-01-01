@@ -123,6 +123,11 @@ module.exports = function(grunt) {
     grunt.log.writeln();
     grunt.warn('PhantomJS timed out, possibly due to a missing QUnit start() call.');
   });
+  
+  phantomjs.on('error.onError', function (msg, stackTrace) {
+    grunt.event.emit('qunit.error.onError', msg, stackTrace);
+  });
+
 
   // Pass-through console.log statements.
   phantomjs.on('console', console.log.bind(console));
