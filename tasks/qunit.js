@@ -116,14 +116,14 @@ module.exports = function(grunt) {
     grunt.verbose.write('Running PhantomJS...').or.write('...');
     grunt.log.error();
     grunt.event.emit('qunit.fail.load', url);
-    grunt.warn('PhantomJS unable to load "' + url + '" URI.', 90);
+    grunt.warn('PhantomJS unable to load "' + url + '" URI.');
   });
 
   phantomjs.on('fail.timeout', function() {
     phantomjs.halt();
     grunt.log.writeln();
     grunt.event.emit('qunit.fail.timeout');
-    grunt.warn('PhantomJS timed out, possibly due to a missing QUnit start() call.', 90);
+    grunt.warn('PhantomJS timed out, possibly due to a missing QUnit start() call.');
   });
 
   // Pass-through console.log statements.
@@ -158,8 +158,6 @@ module.exports = function(grunt) {
       // Launch PhantomJS.
       grunt.event.emit('qunit.spawn', url);
       phantomjs.spawn(url, {
-        // Exit code to use if PhantomJS fails in an uncatchable way.
-        failCode: 90,
         // Additional PhantomJS options.
         options: options,
         // Do stuff when done.
@@ -179,7 +177,9 @@ module.exports = function(grunt) {
       // Log results.
       if (status.failed > 0) {
         grunt.warn(status.failed + '/' + status.total + ' assertions failed (' +
-          status.duration + 'ms)', Math.min(99, 90 + status.failed));
+          status.duration + 'ms)');
+      } else if (status.total === 0) {
+        grunt.warn('0/0 assertions ran (' + status.duration + 'ms)');
       } else {
         grunt.verbose.writeln();
         grunt.log.ok(status.total + ' assertions passed (' + status.duration + 'ms)');
