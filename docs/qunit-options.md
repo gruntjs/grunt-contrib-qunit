@@ -12,6 +12,12 @@ Default: (built-in)
 
 Path to an alternate QUnit-PhantomJS bridge file to be injected. See [the built-in bridge](https://github.com/gruntjs/grunt-contrib-qunit/blob/master/phantomjs/bridge.js) for more information.
 
+## stopOnFailure
+Type: `boolean`  
+Default: `true`
+
+When true, upon completion of all tests, any test that failed will cause the whole task to fail. This can be set to false when you always want other tasks in the queue to be executed.
+
 ## (-- PhantomJS arguments)
 Type: `String`  
 Default: (none)

@@ -43,6 +43,12 @@ Default: (built-in)
 
 Path to an alternate QUnit-PhantomJS bridge file to be injected. See [the built-in bridge](https://github.com/gruntjs/grunt-contrib-qunit/blob/master/phantomjs/bridge.js) for more information.
 
+#### stopOnFailure
+Type: `boolean`  
+Default: `true`
+
+When true, upon completion of all tests, any test that failed will cause the whole task to fail. This can be set to false when you always want other tasks in the queue to be executed.
+
 #### (-- PhantomJS arguments)
 Type: `String`  
 Default: (none)
@@ -162,4 +168,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Mon Dec 17 2012 23:08:25.*
+*This file was generated on Sun Jan 06 2013 19:03:46.*
