@@ -12,6 +12,12 @@ Default: (built-in)
 
 Path to an alternate QUnit-PhantomJS bridge file to be injected. See [the built-in bridge](https://github.com/gruntjs/grunt-contrib-qunit/blob/master/phantomjs/bridge.js) for more information.
 
+## urls
+Type: `Array`  
+Default: `[]`
+
+Absolute `http://` or `https://` urls to be passed to PhantomJS. Specified URLs will be merged with any specified `src` files first. Note that urls must be served by a web server, and since this task doesn't contain a web server, one will need to be configured separately. The [grunt-contrib-connect plugin](https://github.com/gruntjs/grunt-contrib-connect) provides a basic web server.
+
 ## (-- PhantomJS arguments)
 Type: `String`  
 Default: (none)
