@@ -169,10 +169,11 @@ grunt.event.on('qunit.spawn', function (url) {
 
 ## Release History
 
+ * 2013-01-08   v0.1.1rc5   Updating to work with grunt v0.4.0rc5. Switching to this.filesSrc api. Adding "urls" option for specifying absolute test URLs.
  * 2012-10-04   v0.1.0   Work in progress, not yet officially released.
 
 ---
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Tue Jan 08 2013 16:45:38.*
+*This file was generated on Wed Jan 09 2013 14:12:29.*

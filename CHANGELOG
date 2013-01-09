@@ -1,3 +1,9 @@
+v0.1.1rc5:
+  date: 2013-01-09
+  changes:
+    - Updating to work with grunt v0.4.0rc5.
+    - Switching to this.filesSrc api.
+    - Adding "urls" option for specifying absolute test URLs.
 v0.1.0:
   date: 2012-10-05
   changes:
