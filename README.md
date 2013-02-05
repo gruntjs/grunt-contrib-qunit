@@ -12,7 +12,7 @@ npm install grunt-contrib-qunit --save-dev
 ```
 
 [grunt]: http://gruntjs.com/
-[Getting Started]: https://github.com/gruntjs/grunt/blob/devel/docs/getting_started.md
+[Getting Started]: http://gruntjs.com/getting-started
 
 
 ## Qunit task
@@ -177,4 +177,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Fri Jan 18 2013 10:16:16.*
+*This file was generated on Tue Feb 05 2013 12:00:43.*
