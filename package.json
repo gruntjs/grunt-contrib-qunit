@@ -1,7 +1,7 @@
 {
   "name": "grunt-contrib-qunit",
   "description": "Run QUnit unit tests in a headless PhantomJS instance.",
-  "version": "0.1.1rc6",
+  "version": "0.1.1",
   "homepage": "https://github.com/gruntjs/grunt-contrib-qunit",
   "author": {
     "name": "Grunt Team",
@@ -31,11 +31,13 @@
     "grunt-lib-phantomjs": "~0.1.0"
   },
   "devDependencies": {
-    "grunt-contrib-jshint": "0.1.1rc6",
-    "grunt-contrib-connect": "0.1.1rc6",
-    "grunt-contrib-internal": "*",
-    "grunt": "0.4.0rc6",
+    "grunt-contrib-jshint": "~0.1.1",
+    "grunt-contrib-connect": "~0.1.1",
+    "grunt-contrib-internal": "~0.4.0",
+    "grunt": "~0.4.0",
     "difflet": "~0.2.3"
   },
-  "keywords": []
+  "keywords": [
+    "gruntplugin"
+  ]
 }
