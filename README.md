@@ -112,22 +112,21 @@ grunt.initConfig({
       options: {
         urls: [
           'http://localhost:8000/test/foo.html',
-          'http://localhost:8000/test/bar.html'
-        ]
-      }
-    }
+          'http://localhost:8000/test/bar.html',
+        ],
+      },
+    },
   },
   connect: {
     server: {
       options: {
         port: 8000,
-        base: '.'
-      }
-    }
-  }
+        base: '.',
+      },
+    },
+  },
 });
 
-grunt.loadNpmTasks('grunt-contrib-qunit');
 // This plugin provides the "connect" task.
 grunt.loadNpmTasks('grunt-contrib-connect');
 
@@ -191,4 +190,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Thu Feb 28 2013 11:58:59.*
+*This file was generated on Thu Mar 21 2013 15:10:48.*
