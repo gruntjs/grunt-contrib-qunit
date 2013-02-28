@@ -173,6 +173,7 @@ grunt.event.on('qunit.spawn', function (url) {
 
 ## Release History
 
+ * 2013-02-27   v0.2.0   Update to use PhantomJS 1.8.1.
  * 2013-02-14   v0.1.1   First official release for Grunt 0.4.0.
  * 2013-01-17   v0.1.1rc6   Updating grunt/gruntplugin dependencies to rc6. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions.
  * 2013-01-08   v0.1.1rc5   Updating to work with grunt v0.4.0rc5. Switching to this.filesSrc api. Adding "urls" option for specifying absolute test URLs.
@@ -182,4 +183,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Wed Feb 20 2013 12:37:03.*
+*This file was generated on Thu Feb 28 2013 11:58:59.*
