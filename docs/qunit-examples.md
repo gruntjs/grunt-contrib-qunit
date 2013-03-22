@@ -1,7 +1,7 @@
 # Usage examples
 
 ## Wildcards
-In this example, `grunt qunit:all` (or `grunt qunit` because `qunit` is a [multi task][]) will test all `.html` files in the test directory _and all subdirectories_. First, the wildcard is expanded to match each individual file. Then, each matched filename is converted to the appropriate `file://` URI. Finally, each URI is passed to [PhantomJS][] (one at a time).
+In this example, `grunt qunit:all` (or `grunt qunit` because `qunit` is a [multi task][]) will test all `.html` files in the test directory _and all subdirectories_. First, the wildcard is expanded to match each individual file. Then, each matched filename is passed to [PhantomJS][] (one at a time).
 
 ```js
 // Project configuration.
@@ -13,7 +13,7 @@ grunt.initConfig({
 ```
 
 ## Testing via http:// or https://
-In circumstances where running unit tests from `file://` URIs is inadequate, you can specify `http://` or `https://` URIs instead. If `http://` or `https://` URIs have been specified, those URIs will be passed directly to [PhantomJS][], as-specified.
+In circumstances where running unit tests from local files is inadequate, you can specify `http://` or `https://` URLs via the `urls` option. Each URL is passed to [PhantomJS][] (one at a time).
 
 In this example, `grunt qunit` will test two files, served from the server running at `localhost:8000`.
 
@@ -21,10 +21,19 @@ In this example, `grunt qunit` will test two files, served from the server runni
 // Project configuration.
 grunt.initConfig({
   qunit: {
-    all: ['http://localhost:8000/test/foo.html', 'http://localhost:8000/test/bar.html']
+    all: {
+      options: {
+        urls: [
+          'http://localhost:8000/test/foo.html',
+          'http://localhost:8000/test/bar.html'
+        ]
+      }
+    }
   }
 });
 ```
+
+Wildcards and URLs may be combined by specifying both.
 
 ## Using the grunt-contrib-connect plugin
 It's important to note that grunt does not automatically start a `localhost` web server. That being said, the [grunt-contrib-connect plugin][] `connect` task can be run before the `qunit` task to serve files via a simple [connect][] web server.
@@ -32,22 +41,29 @@ It's important to note that grunt does not automatically start a `localhost` web
 [grunt-contrib-connect plugin]: https://github.com/gruntjs/grunt-contrib-connect
 [connect]: http://www.senchalabs.org/connect/
 
-In the following example, if a web server isn't running at `localhost:8000`, running `grunt qunit` with the following configuration will fail because the `qunit` task won't be able to load the specified URIs. However, running `grunt connect qunit` will first start a static [connect][] web server at `localhost:8000` with its base path set to the Gruntfile's directory. Then, the `qunit` task will be run, requesting the specified URIs.
+In the following example, if a web server isn't running at `localhost:8000`, running `grunt qunit` with the following configuration will fail because the `qunit` task won't be able to load the specified URLs. However, running `grunt connect qunit` will first start a static [connect][] web server at `localhost:8000` with its base path set to the Gruntfile's directory. Then, the `qunit` task will be run, requesting the specified URLs.
 
 ```js
 // Project configuration.
 grunt.initConfig({
   qunit: {
-    all: ['http://localhost:8000/test/foo.html', 'http://localhost:8000/test/bar.html']
+    all: {
+      options: {
+        urls: [
+          'http://localhost:8000/test/foo.html',
+          'http://localhost:8000/test/bar.html',
+        ],
+      },
+    },
   },
   connect: {
     server: {
       options: {
         port: 8000,
-        base: '.'
-      }
-    }
-  }
+        base: '.',
+      },
+    },
+  },
 });
 
 // This plugin provides the "connect" task.

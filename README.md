@@ -2,25 +2,30 @@
 
 > Run QUnit unit tests in a headless PhantomJS instance.
 
-_Note that this plugin has not yet been released, and only works with the latest bleeding-edge, in-development version of grunt. See the [When will I be able to use in-development feature 'X'?](https://github.com/gruntjs/grunt/blob/devel/docs/faq.md#when-will-i-be-able-to-use-in-development-feature-x) FAQ entry for more information._
+
 
 ## Getting Started
-If you haven't used [grunt][] before, be sure to check out the [Getting Started][] guide, as it explains how to create a [gruntfile][Getting Started] as well as install and use grunt plugins. Once you're familiar with that process, install this plugin with this command:
+This plugin requires Grunt `~0.4.0`
+
+If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
 npm install grunt-contrib-qunit --save-dev
 ```
 
-[grunt]: http://gruntjs.com/
-[Getting Started]: https://github.com/gruntjs/grunt/blob/devel/docs/getting_started.md
+Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
+
+```js
+grunt.loadNpmTasks('grunt-contrib-qunit');
+```
+
+
 
 
 ## Qunit task
 _Run this task with the `grunt qunit` command._
 
-_This task is a [multi task][] so any targets, files and options should be specified according to the [multi task][] documentation._
-[multi task]: https://github.com/gruntjs/grunt/wiki/Configuring-tasks
-
+Task targets, files and options may be specified according to the grunt [Configuring tasks](http://gruntjs.com/configuring-tasks) guide.
 
 When installed by npm, this plugin will automatically download and install [PhantomJS][] locally via the [grunt-lib-phantomjs][] library.
 
@@ -28,7 +33,6 @@ When installed by npm, this plugin will automatically download and install [Phan
 [grunt-lib-phantomjs]: https://github.com/gruntjs/grunt-lib-phantomjs
 
 Also note that running grunt with the `--debug` flag will output a lot of PhantomJS-specific debugging information. This can be very helpful in seeing what actual URIs are being requested and received by PhantomJS.
-
 ### Options
 
 #### timeout
@@ -42,6 +46,12 @@ Type: `String`
 Default: (built-in)
 
 Path to an alternate QUnit-PhantomJS bridge file to be injected. See [the built-in bridge](https://github.com/gruntjs/grunt-contrib-qunit/blob/master/phantomjs/bridge.js) for more information.
+
+#### urls
+Type: `Array`  
+Default: `[]`
+
+Absolute `http://` or `https://` urls to be passed to PhantomJS. Specified URLs will be merged with any specified `src` files first. Note that urls must be served by a web server, and since this task doesn't contain a web server, one will need to be configured separately. The [grunt-contrib-connect plugin](https://github.com/gruntjs/grunt-contrib-connect) provides a basic web server.
 
 #### stopOnFailure
 Type: `boolean`  
@@ -58,7 +68,7 @@ Additional `--` style arguments that need to be passed in to PhantomJS may be sp
 ### Usage examples
 
 #### Wildcards
-In this example, `grunt qunit:all` (or `grunt qunit` because `qunit` is a [multi task][]) will test all `.html` files in the test directory _and all subdirectories_. First, the wildcard is expanded to match each individual file. Then, each matched filename is converted to the appropriate `file://` URI. Finally, each URI is passed to [PhantomJS][] (one at a time).
+In this example, `grunt qunit:all` (or `grunt qunit` because `qunit` is a [multi task][]) will test all `.html` files in the test directory _and all subdirectories_. First, the wildcard is expanded to match each individual file. Then, each matched filename is passed to [PhantomJS][] (one at a time).
 
 ```js
 // Project configuration.
@@ -70,7 +80,7 @@ grunt.initConfig({
 ```
 
 #### Testing via http:// or https://
-In circumstances where running unit tests from `file://` URIs is inadequate, you can specify `http://` or `https://` URIs instead. If `http://` or `https://` URIs have been specified, those URIs will be passed directly to [PhantomJS][], as-specified.
+In circumstances where running unit tests from local files is inadequate, you can specify `http://` or `https://` URLs via the `urls` option. Each URL is passed to [PhantomJS][] (one at a time).
 
 In this example, `grunt qunit` will test two files, served from the server running at `localhost:8000`.
 
@@ -78,10 +88,19 @@ In this example, `grunt qunit` will test two files, served from the server runni
 // Project configuration.
 grunt.initConfig({
   qunit: {
-    all: ['http://localhost:8000/test/foo.html', 'http://localhost:8000/test/bar.html']
+    all: {
+      options: {
+        urls: [
+          'http://localhost:8000/test/foo.html',
+          'http://localhost:8000/test/bar.html'
+        ]
+      }
+    }
   }
 });
 ```
+
+Wildcards and URLs may be combined by specifying both.
 
 #### Using the grunt-contrib-connect plugin
 It's important to note that grunt does not automatically start a `localhost` web server. That being said, the [grunt-contrib-connect plugin][] `connect` task can be run before the `qunit` task to serve files via a simple [connect][] web server.
@@ -89,22 +108,29 @@ It's important to note that grunt does not automatically start a `localhost` web
 [grunt-contrib-connect plugin]: https://github.com/gruntjs/grunt-contrib-connect
 [connect]: http://www.senchalabs.org/connect/
 
-In the following example, if a web server isn't running at `localhost:8000`, running `grunt qunit` with the following configuration will fail because the `qunit` task won't be able to load the specified URIs. However, running `grunt connect qunit` will first start a static [connect][] web server at `localhost:8000` with its base path set to the Gruntfile's directory. Then, the `qunit` task will be run, requesting the specified URIs.
+In the following example, if a web server isn't running at `localhost:8000`, running `grunt qunit` with the following configuration will fail because the `qunit` task won't be able to load the specified URLs. However, running `grunt connect qunit` will first start a static [connect][] web server at `localhost:8000` with its base path set to the Gruntfile's directory. Then, the `qunit` task will be run, requesting the specified URLs.
 
 ```js
 // Project configuration.
 grunt.initConfig({
   qunit: {
-    all: ['http://localhost:8000/test/foo.html', 'http://localhost:8000/test/bar.html']
+    all: {
+      options: {
+        urls: [
+          'http://localhost:8000/test/foo.html',
+          'http://localhost:8000/test/bar.html',
+        ],
+      },
+    },
   },
   connect: {
     server: {
       options: {
         port: 8000,
-        base: '.'
-      }
-    }
-  }
+        base: '.',
+      },
+    },
+  },
 });
 
 // This plugin provides the "connect" task.
@@ -162,10 +188,14 @@ grunt.event.on('qunit.spawn', function (url) {
 
 ## Release History
 
- * 2012-10-05   v0.1.0   Work in progress, not yet officially released.
+ * 2013-02-27   v0.2.0   Update to use PhantomJS 1.8.1.
+ * 2013-02-14   v0.1.1   First official release for Grunt 0.4.0.
+ * 2013-01-17   v0.1.1rc6   Updating grunt/gruntplugin dependencies to rc6. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions.
+ * 2013-01-08   v0.1.1rc5   Updating to work with grunt v0.4.0rc5. Switching to this.filesSrc api. Adding "urls" option for specifying absolute test URLs.
+ * 2012-10-04   v0.1.0   Work in progress, not yet officially released.
 
 ---
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Sun Jan 06 2013 19:03:46.*
+*This file was generated on Thu Mar 21 2013 15:10:48.*

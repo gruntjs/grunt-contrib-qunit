@@ -139,11 +139,13 @@ module.exports = function(grunt) {
       timeout: 5000,
       // QUnit-PhantomJS bridge file to be injected.
       inject: asset('phantomjs/bridge.js'),
+      // Explicit non-file URLs to test.
+      urls: [],
       stopOnFailure: true,
     });
 
-    // Get files as URLs.
-    var urls = grunt.file.expandFileURLs(this.file.srcRaw);
+    // Combine any specified URLs with src files.
+    var urls = options.urls.concat(this.filesSrc);
 
     // This task is asynchronous.
     var done = this.async();
@@ -154,7 +156,7 @@ module.exports = function(grunt) {
     // Process each filepath in-order.
     grunt.util.async.forEachSeries(urls, function(url, next) {
       var basename = path.basename(url);
-      grunt.verbose.subhead('Testing ' + basename).or.write('Testing ' + basename);
+      grunt.verbose.subhead('Testing ' + url).or.write('Testing ' + url);
 
       // Reset current module.
       currentModule = null;
