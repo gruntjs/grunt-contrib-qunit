@@ -40,6 +40,9 @@ module.exports = function(grunt) {
 
     // Unit tests.
     qunit: {
+      options: {
+          junitDir: 'build'
+      },
       all_tests: ['test/*{1,2}.html'],
       individual_tests: {
         files: [
