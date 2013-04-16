@@ -98,6 +98,8 @@ module.exports = function(grunt) {
       if (failed > 0) {
         grunt.log.writeln();
         logFailedAssertions();
+      } else if (total === 0) {
+        grunt.warn('0/0 assertions ran (' + duration + 'ms)');
       } else {
         grunt.log.ok();
       }
@@ -151,6 +153,7 @@ module.exports = function(grunt) {
     grunt.util.async.forEachSeries(urls, function(url, next) {
       var basename = path.basename(url);
       grunt.verbose.subhead('Testing ' + url).or.write('Testing ' + url);
+      console.log(); // add newline
 
       // Reset current module.
       currentModule = null;
