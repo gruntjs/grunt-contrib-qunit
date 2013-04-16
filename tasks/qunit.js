@@ -152,8 +152,7 @@ module.exports = function(grunt) {
     // Process each filepath in-order.
     grunt.util.async.forEachSeries(urls, function(url, next) {
       var basename = path.basename(url);
-      grunt.verbose.subhead('Testing ' + url).or.write('Testing ' + url);
-      console.log(); // add newline
+      grunt.verbose.subhead('Testing ' + url + ' ').or.write('Testing ' + url + ' ');
 
       // Reset current module.
       currentModule = null;
