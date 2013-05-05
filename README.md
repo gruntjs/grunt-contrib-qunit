@@ -1,4 +1,4 @@
-# grunt-contrib-qunit [![Build Status](https://secure.travis-ci.org/gruntjs/grunt-contrib-qunit.png?branch=master)](http://travis-ci.org/gruntjs/grunt-contrib-qunit)
+# grunt-contrib-qunit [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-qunit.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit)
 
 > Run QUnit unit tests in a headless PhantomJS instance.
 
@@ -113,18 +113,18 @@ grunt.initConfig({
         urls: [
           'http://localhost:8000/test/foo.html',
           'http://localhost:8000/test/bar.html',
-        ],
-      },
-    },
+        ]
+      }
+    }
   },
   connect: {
     server: {
       options: {
         port: 8000,
-        base: '.',
-      },
-    },
-  },
+        base: '.'
+      }
+    }
+  }
 });
 
 // This plugin provides the "connect" task.
@@ -191,4 +191,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Fri Apr 05 2013 19:55:03.*
+*This file was generated on Fri May 10 2013 00:26:15.*
