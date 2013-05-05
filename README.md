@@ -113,18 +113,18 @@ grunt.initConfig({
         urls: [
           'http://localhost:8000/test/foo.html',
           'http://localhost:8000/test/bar.html',
-        ],
-      },
-    },
+        ]
+      }
+    }
   },
   connect: {
     server: {
       options: {
         port: 8000,
-        base: '.',
-      },
-    },
-  },
+        base: '.'
+      }
+    }
+  }
 });
 
 // This plugin provides the "connect" task.
