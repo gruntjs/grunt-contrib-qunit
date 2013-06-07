@@ -180,6 +180,7 @@ grunt.event.on('qunit.spawn', function (url) {
 
 ## Release History
 
+ * 2013-06-06   v0.2.2   Warn if no assertions ran in a single test. Spaces instead of newlines for clickable urls. Wrap bridge.js in a IIFE.
  * 2013-04-05   v0.2.1   Update to use PhantomJS 1.9.0. Fixes PhantomJS not found errors.
  * 2013-02-28   v0.2.0   Update to use PhantomJS 1.8.1.
  * 2013-02-15   v0.1.1   First official release for Grunt 0.4.0.
@@ -191,4 +192,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Thu Jun 06 2013 21:54:08.*
+*This file was generated on Thu Jun 06 2013 22:11:10.*

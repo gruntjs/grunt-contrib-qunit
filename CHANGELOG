@@ -1,3 +1,9 @@
+v0.2.2:
+  date: 2013-06-06
+  changes: 
+    - Warn if no assertions ran in a single test.
+    - Spaces instead of newlines for clickable urls.
+    - Wrap bridge.js in a IIFE.
 v0.2.1:
   date: 2013-04-05
   changes: 
