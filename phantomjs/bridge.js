@@ -55,3 +55,9 @@ QUnit.begin(function() {
 QUnit.done(function(obj) {
   sendMessage('qunit.done', obj.failed, obj.passed, obj.total, obj.runtime);
 });
+
+// TODO: use event listener style callback 
+// (after https://github.com/jquery/qunit-reporter-junit/issues/5)
+QUnit.jUnitReport = function(report) {
+    sendMessage('qunit.junitreport', report);
+};

@@ -108,6 +108,10 @@ In addition to QUnit callback-named events, the following event is emitted when 
 
 * `qunit.spawn`: url
 
+If the JUnit reporter for QUnit plugin script has been included an additional event is emitted:
+
+* `qunit.junitreport`: report
+
 You may listen for these events like so:
 
 ```js

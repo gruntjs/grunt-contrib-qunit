@@ -48,6 +48,9 @@ module.exports = function(grunt) {
     }
   };
 
+  // Store latest output from qunit-reporter-junit junitReport hook
+  var junitReport = '';
+
   // QUnit hooks.
   phantomjs.on('qunit.moduleStart', function(name) {
     unfinished[name] = true;
@@ -104,6 +107,10 @@ module.exports = function(grunt) {
     }
   });
 
+  phantomjs.on('qunit.junitreport', function(report) {
+    junitReport = report;
+  });
+
   // Re-broadcast qunit events on grunt.event.
   phantomjs.on('qunit.*', function() {
     var args = [this.event].concat(grunt.util.toArray(arguments));
@@ -149,7 +156,7 @@ module.exports = function(grunt) {
 
     // Process each filepath in-order.
     grunt.util.async.forEachSeries(urls, function(url, next) {
-      var basename = path.basename(url);
+      var basename = path.basename(url, path.extname(url));
       grunt.verbose.subhead('Testing ' + url).or.write('Testing ' + url);
 
       // Reset current module.
@@ -166,7 +173,13 @@ module.exports = function(grunt) {
             // If there was an error, abort the series.
             done();
           } else {
-            // Otherwise, process next url.
+            // Otherwise, output jUnit-formatted xml file and process next url
+            if (options.junitDir && junitReport) {
+              var filename = options.junitDir + '/' + basename + '.xml';
+              grunt.log.writeln('jUnit output to: ' + filename);
+              grunt.file.write(filename, junitReport.xml);
+              junitReport = '';  // Reset stored output
+            }
             next();
           }
         },

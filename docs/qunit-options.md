@@ -18,6 +18,12 @@ Default: `[]`
 
 Absolute `http://` or `https://` urls to be passed to PhantomJS. Specified URLs will be merged with any specified `src` files first. Note that urls must be served by a web server, and since this task doesn't contain a web server, one will need to be configured separately. The [grunt-contrib-connect plugin](https://github.com/gruntjs/grunt-contrib-connect) provides a basic web server.
 
+## junitDir
+Type: `String`  
+Default: (none)
+
+Output directory for JUnit-style XML files. No files are output if a directory is not specified. The [qunit-reporter-junit.js](https://github.com/jquery/qunit-reporter-junit) JUnit reporter for QUnit plugin script must be included after QUnit itself in your HTML test files.
+
 ## (-- PhantomJS arguments)
 Type: `String`  
 Default: (none)
