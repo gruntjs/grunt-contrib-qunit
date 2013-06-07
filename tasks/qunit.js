@@ -138,6 +138,8 @@ module.exports = function(grunt) {
       inject: asset('phantomjs/bridge.js'),
       // Explicit non-file URLs to test.
       urls: [],
+      // warn about tests with no assertions
+      warnOnMissingAssertions: true
     });
 
     // Combine any specified URLs with src files.
@@ -171,7 +173,7 @@ module.exports = function(grunt) {
             // Otherwise, process next url.
             next();
           }
-        },
+        }
       });
     },
     // All tests have been run.
@@ -180,7 +182,7 @@ module.exports = function(grunt) {
       if (status.failed > 0) {
         grunt.warn(status.failed + '/' + status.total + ' assertions failed (' +
           status.duration + 'ms)');
-      } else if (status.total === 0) {
+      } else if (status.total === 0 && options.warnOnMissingAssertions) {
         grunt.warn('0/0 assertions ran (' + status.duration + 'ms)');
       } else {
         grunt.verbose.writeln();
