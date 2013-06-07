@@ -61,8 +61,18 @@ module.exports = function(grunt) {
         },
         src: 'test/*{1,2}.html',
       },
+      warnings_enabled: {
+        options: {
+          warnOnMissingAssertions: true
+        }
+      },
+      warnings_disabled: {
+        options: {
+          files: ['test/*3.html'],
+          warnOnMissingAssertions: false
+        }
+      }
     }
-
   });
 
   // Build a mapping of url success counters.
