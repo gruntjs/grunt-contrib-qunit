@@ -53,6 +53,12 @@ Default: `[]`
 
 Absolute `http://` or `https://` urls to be passed to PhantomJS. Specified URLs will be merged with any specified `src` files first. Note that urls must be served by a web server, and since this task doesn't contain a web server, one will need to be configured separately. The [grunt-contrib-connect plugin](https://github.com/gruntjs/grunt-contrib-connect) provides a basic web server.
 
+#### stopOnFailure
+Type: `boolean`  
+Default: `true`
+
+When true, upon completion of all tests, any test that failed will cause the whole task to fail. This can be set to false when you always want other tasks in the queue to be executed.
+
 #### (-- PhantomJS arguments)
 Type: `String`  
 Default: (none)
@@ -155,19 +161,21 @@ grunt.initConfig({
 #### Events and reporting
 [QUnit callback](http://api.qunitjs.com/category/callbacks/) methods and arguments are also emitted through grunt's event system so that you may build custom reporting tools. Please refer to to the QUnit documentation for more information.
 
-The events (with arguments) are as follows:
+The events, with arguments, are as follows:
 
 * `qunit.begin`
-* `qunit.moduleStart`: name
-* `qunit.testStart`: name
-* `qunit.log`: result, actual, expected, message, source
-* `qunit.testDone`: name, failed, passed, total
-* `qunit.moduleDone`: name, failed, passed, total
-* `qunit.done`: failed, passed, total, runtime
+* `qunit.moduleStart` `(name)`
+* `qunit.testStart` `(name)`
+* `qunit.log` `(result, actual, expected, message, source)`
+* `qunit.testDone` `(name, failed, passed, total)`
+* `qunit.moduleDone` `(name, failed, passed, total)`
+* `qunit.done` `(failed, passed, total, runtime)`
 
-In addition to QUnit callback-named events, the following event is emitted when [PhantomJS][] is spawned for a test:
+In addition to QUnit callback-named events, the following events are emitted by Grunt:
 
-* `qunit.spawn`: url
+* `qunit.spawn` `(url)`: when [PhantomJS][] is spawned for a test
+* `qunit.fail.load` `(url)`: when [PhantomJS][] could not open the given url
+* `qunit.fail.timeout`: when a QUnit test times out, usually due to a missing `QUnit.start()` call
 
 You may listen for these events like so:
 

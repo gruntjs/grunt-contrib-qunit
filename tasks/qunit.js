@@ -116,14 +116,19 @@ module.exports = function(grunt) {
   phantomjs.on('fail.load', function(url) {
     phantomjs.halt();
     grunt.verbose.write('Running PhantomJS...').or.write('...');
-    grunt.log.error();
-    grunt.warn('PhantomJS unable to load "' + url + '" URI.');
+    grunt.event.emit('qunit.fail.load', url);
+    grunt.log.error('PhantomJS unable to load "' + url + '" URI.');
+    status.failed += 1;
+    status.total += 1;
   });
 
   phantomjs.on('fail.timeout', function() {
     phantomjs.halt();
     grunt.log.writeln();
-    grunt.warn('PhantomJS timed out, possibly due to a missing QUnit start() call.');
+    grunt.event.emit('qunit.fail.timeout');
+    grunt.log.error('PhantomJS timed out, possibly due to a missing QUnit start() call.');
+    status.failed += 1;
+    status.total += 1;
   });
 
   // Pass-through console.log statements.
@@ -138,6 +143,7 @@ module.exports = function(grunt) {
       inject: asset('phantomjs/bridge.js'),
       // Explicit non-file URLs to test.
       urls: [],
+      stopOnFailure: true,
     });
 
     // Combine any specified URLs with src files.
@@ -176,10 +182,16 @@ module.exports = function(grunt) {
     },
     // All tests have been run.
     function() {
+      var message;
       // Log results.
       if (status.failed > 0) {
-        grunt.warn(status.failed + '/' + status.total + ' assertions failed (' +
-          status.duration + 'ms)');
+        message = status.failed + '/' + status.total + ' assertions failed (' +
+            status.duration + 'ms)';
+        if (options.stopOnFailure) {
+          grunt.warn(message);
+        } else {
+          grunt.log.error(message);
+        }
       } else if (status.total === 0) {
         grunt.warn('0/0 assertions ran (' + status.duration + 'ms)');
       } else {
