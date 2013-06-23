@@ -117,12 +117,14 @@ module.exports = function(grunt) {
     phantomjs.halt();
     grunt.verbose.write('Running PhantomJS...').or.write('...');
     grunt.log.error();
+    grunt.event.emit('qunit.fail.load', url);
     grunt.warn('PhantomJS unable to load "' + url + '" URI.');
   });
 
   phantomjs.on('fail.timeout', function() {
     phantomjs.halt();
     grunt.log.writeln();
+    grunt.event.emit('qunit.fail.timeout');
     grunt.warn('PhantomJS timed out, possibly due to a missing QUnit start() call.');
   });
 
