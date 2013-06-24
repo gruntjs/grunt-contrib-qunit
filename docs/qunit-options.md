@@ -18,6 +18,12 @@ Default: `[]`
 
 Absolute `http://` or `https://` urls to be passed to PhantomJS. Specified URLs will be merged with any specified `src` files first. Note that urls must be served by a web server, and since this task doesn't contain a web server, one will need to be configured separately. The [grunt-contrib-connect plugin](https://github.com/gruntjs/grunt-contrib-connect) provides a basic web server.
 
+## force
+Type: `boolean`  
+Default: `false`
+
+When true, the whole task will not fail when there are individual test failures, or when no assertions for a test have run. This can be set to true when you always want other tasks in the queue to be executed.
+
 ## (-- PhantomJS arguments)
 Type: `String`  
 Default: (none)
