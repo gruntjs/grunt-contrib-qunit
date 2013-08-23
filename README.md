@@ -1,4 +1,4 @@
-# grunt-contrib-qunit [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-qunit.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit)
+# grunt-contrib-qunit v0.2.2 [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-qunit.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit)
 
 > Run QUnit unit tests in a headless PhantomJS instance.
 
