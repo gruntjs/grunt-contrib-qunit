@@ -124,7 +124,7 @@ module.exports = function(grunt) {
   // Built-in error handlers.
   phantomjs.on('fail.load', function(url) {
     phantomjs.halt();
-    grunt.verbose.write('Running PhantomJS...').or.write('...');
+    grunt.verbose.write('...');
     grunt.event.emit('qunit.fail.load', url);
     grunt.log.error('PhantomJS unable to load "' + url + '" URI.');
     status.failed += 1;
