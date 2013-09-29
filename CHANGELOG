@@ -1,3 +1,12 @@
+v0.3.0:
+  date: 2013-09-29
+  changes:
+    - Update grunt-lib-phantomjs to v0.4.0.
+    - Add qunit.fail.load and qunit.fail.timeout events.
+    - Update QUnit to v1.12.0.
+    - Add force option.
+    - Propagate onError events from phantomjs through the qunit.error.onError event.
+    - Remove confusing error message.
 v0.2.2:
   date: 2013-06-06
   changes: 
