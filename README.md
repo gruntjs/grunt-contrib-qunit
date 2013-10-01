@@ -41,6 +41,10 @@ This plugin uses PhantomJS to run tests. PhantomJS requires these dependencies
 
 `apt-get install libfontconfig1 fontconfig libfontconfig1-dev libfreetype6-dev`
 
+**On CentOS**
+
+`yum install fontconfig freetype`
+
 ### Options
 
 #### timeout
