@@ -41,6 +41,10 @@ This plugin uses PhantomJS to run tests. PhantomJS requires these dependencies
 
 `apt-get install libfontconfig1 fontconfig libfontconfig1-dev libfreetype6-dev`
 
+**On CentOS**
+
+`yum install fontconfig freetype`
+
 ### Options
 
 #### timeout
@@ -210,4 +214,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Sun Sep 29 2013 11:09:57.*
+*This file was generated on Tue Oct 01 2013 19:29:21.*
