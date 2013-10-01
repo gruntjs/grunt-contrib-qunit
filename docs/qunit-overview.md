@@ -13,3 +13,7 @@ This plugin uses PhantomJS to run tests. PhantomJS requires these dependencies
 **On Ubuntu/Debian**
 
 `apt-get install libfontconfig1 fontconfig libfontconfig1-dev libfreetype6-dev`
+
+**On CentOS**
+
+`yum install fontconfig freetype`
