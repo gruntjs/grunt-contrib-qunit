@@ -19,7 +19,16 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-contrib-qunit');
 ```
 
+#### OS Dependencies
+This plugin uses PhantomJS to run tests. PhantomJS requires these dependencies:
 
+**On Ubuntu/Debian**
+
+`apt-get install libfontconfig1 fontconfig libfontconfig1-dev libfreetype6-dev`
+
+**On CentOS**
+
+`yum install fontconfig freetype`
 
 
 ## Qunit task
@@ -33,13 +42,6 @@ When installed by npm, this plugin will automatically download and install [Phan
 [grunt-lib-phantomjs]: https://github.com/gruntjs/grunt-lib-phantomjs
 
 Also note that running grunt with the `--debug` flag will output a lot of PhantomJS-specific debugging information. This can be very helpful in seeing what actual URIs are being requested and received by PhantomJS.
-
-#### OS Dependencies
-This plugin uses PhantomJS to run tests. PhantomJS requires these dependencies
-
-**On Ubuntu/Debian**
-
-`apt-get install libfontconfig1 fontconfig libfontconfig1-dev libfreetype6-dev`
 
 ### Options
 
