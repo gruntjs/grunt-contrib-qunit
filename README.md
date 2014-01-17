@@ -1,4 +1,4 @@
-# grunt-contrib-qunit v0.3.0 [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-qunit.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit)
+# grunt-contrib-qunit v0.4.0 [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-qunit.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit)
 
 > Run QUnit unit tests in a headless PhantomJS instance.
 
@@ -214,4 +214,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Tue Oct 01 2013 19:29:21.*
+*This file was generated on Fri Jan 17 2014 11:25:56.*
