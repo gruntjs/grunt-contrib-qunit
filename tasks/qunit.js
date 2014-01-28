@@ -168,7 +168,9 @@ module.exports = function(grunt) {
     status = {failed: 0, passed: 0, total: 0, duration: 0};
 
     // Pass-through console.log statements.
-    if( options.console ) phantomjs.on('console', console.log.bind(console));
+    if(options.console) {
+      phantomjs.on('console', console.log.bind(console));
+    }
 
     // Process each filepath in-order.
     grunt.util.async.forEachSeries(urls, function(url, next) {
