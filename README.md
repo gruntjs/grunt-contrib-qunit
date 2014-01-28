@@ -71,6 +71,12 @@ Default: `false`
 
 When true, the whole task will not fail when there are individual test failures, or when no assertions for a test have run. This can be set to true when you always want other tasks in the queue to be executed.
 
+#### console
+Type: `boolean`
+Default: `true`
+
+Set to false to hide the output of the phantomjs console in the grunt output.
+
 #### (-- PhantomJS arguments)
 Type: `String`  
 Default: (none)
