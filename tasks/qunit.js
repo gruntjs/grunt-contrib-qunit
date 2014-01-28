@@ -143,11 +143,7 @@ module.exports = function(grunt) {
   phantomjs.on('error.onError', function (msg, stackTrace) {
     grunt.event.emit('qunit.error.onError', msg, stackTrace);
   });
-
-
-  // Pass-through console.log statements.
-  phantomjs.on('console', console.log.bind(console));
-
+  
   grunt.registerMultiTask('qunit', 'Run QUnit unit tests in a headless PhantomJS instance.', function() {
     // Merge task-specific and/or target-specific options with these defaults.
     options = this.options({
@@ -157,7 +153,9 @@ module.exports = function(grunt) {
       inject: asset('phantomjs/bridge.js'),
       // Explicit non-file URLs to test.
       urls: [],
-      force: false
+      force: false,
+      // Connect phantomjs console output to grunt output
+      console: true
     });
 
     // Combine any specified URLs with src files.
@@ -168,6 +166,9 @@ module.exports = function(grunt) {
 
     // Reset status.
     status = {failed: 0, passed: 0, total: 0, duration: 0};
+
+    // Pass-through console.log statements.
+    if( options.console ) phantomjs.on('console', console.log.bind(console));
 
     // Process each filepath in-order.
     grunt.util.async.forEachSeries(urls, function(url, next) {
