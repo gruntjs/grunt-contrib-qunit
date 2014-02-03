@@ -59,6 +59,12 @@ Default: (built-in)
 
 Path to an alternate QUnit-PhantomJS bridge file to be injected. See [the built-in bridge](https://github.com/gruntjs/grunt-contrib-qunit/blob/master/phantomjs/bridge.js) for more information.
 
+###### junitDir
+Type: `String`
+Default: (none)
+
+The output directory for junit reports. See more at **JUnit reporting** section.
+
 #### urls
 Type: `Array`  
 Default: `[]`
@@ -204,6 +210,27 @@ grunt.event.on('qunit.spawn', function (url) {
 });
 ```
 
+###### JUnit reporting
+Provides Junit XML output format.
+
+Adjust ``options.inject`` and ``options.junitDir`` in following manner to enable junit reporting.
+
+```js
+// Project configuration.
+grunt.initConfig({
+  qunit: {
+    options: {
+      inject: require.resolve("grunt-contrib-qunit")+"/phantomjs/junit-bridge.js",
+      junitDir: "junit/",
+      timeout: 10000,
+      '--cookies-file': 'misc/cookies.txt'
+    },
+    all: ['test/**/*.html']
+  }
+});
+```
+
+
 
 ## Release History
 
@@ -221,5 +248,3 @@ grunt.event.on('qunit.spawn', function (url) {
 ---
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
-
-*This file was generated on Mon Jan 27 2014 20:45:25.*
