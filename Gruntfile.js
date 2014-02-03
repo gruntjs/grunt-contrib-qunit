@@ -53,8 +53,6 @@ module.exports = function(grunt) {
       },
       urls: {
         options: {
-          junitDir:'tmp/tests',
-          inject:asset('phantomjs/junit-bridge.js'),
           urls: [
             'http://localhost:9000/test/qunit1.html',
             'http://localhost:9001/qunit2.html',
@@ -63,6 +61,14 @@ module.exports = function(grunt) {
       },
       urls_and_files: {
         options: {
+          urls: '<%= qunit.urls.options.urls %>',
+        },
+        src: 'test/*{1,2}.html',
+      },
+      junit_report: {
+        options: {
+          junitDir:'tmp/tests',
+          inject:asset('phantomjs/junit-bridge.js'),
           urls: '<%= qunit.urls.options.urls %>',
         },
         src: 'test/*{1,2}.html',
@@ -101,6 +107,23 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.registerTask('junit-test', 'Test junit report generation.', function() {
+    var assert = require('assert');
+    var reports = [
+      "tmp/tests/qunit1.html.xml",
+      "tmp/tests/qunit2.html.xml"
+      ];
+    try {
+      for( var n in reports ){
+        assert.deepEqual(grunt.file.exists(reports[n]), true, 'jUnit reports must exist '+reports[n]+'.');
+        assert.deepEqual(grunt.file.read(reports[n]).length>0, true, 'jUnit reports must not be empty '+reports[n]+'.');
+      }
+    } catch (err) {
+      grunt.log.subhead('Actual should match expected.');
+      throw new Error(err.message);
+    }
+  });
+
   // Actually load this plugin's task(s).
   grunt.loadTasks('tasks');
 
@@ -110,7 +133,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-internal');
 
   // Whenever the "test" task is run, run some basic tests.
-  grunt.registerTask('test', ['connect', 'qunit', 'really-test']);
+  grunt.registerTask('test', ['connect', 'qunit', 'really-test','junit-test']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test', 'build-contrib']);
