@@ -1,7 +1,7 @@
 {
   "name": "grunt-contrib-qunit",
   "description": "Run QUnit unit tests in a headless PhantomJS instance.",
-  "version": "0.5.0-pre",
+  "version": "0.5.1-pre",
   "homepage": "https://github.com/gruntjs/grunt-contrib-qunit",
   "author": {
     "name": "Grunt Team",
@@ -45,6 +45,7 @@
   "files": [
     "tasks",
     "LICENSE-MIT",
-    "phantomjs"
+    "phantomjs",
+    "formatters"
   ]
 }

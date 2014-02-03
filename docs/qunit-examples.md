@@ -118,3 +118,24 @@ grunt.event.on('qunit.spawn', function (url) {
   grunt.log.ok("Running test: " + url);
 });
 ```
+
+#### JUnit reporting
+Provides Junit XML output format.
+
+Adjust ``options.inject`` and ``options.junitDir`` in following manner to enable junit reporting.
+
+```js
+// Project configuration.
+grunt.initConfig({
+  qunit: {
+    options: {
+      inject: require.resolve("grunt-contrib-qunit")+"/phantomjs/junit-bridge.js",
+      junitDir: "junit/",
+      timeout: 10000,
+      '--cookies-file': 'misc/cookies.txt'
+    },
+    all: ['test/**/*.html']
+  }
+});
+```
+
