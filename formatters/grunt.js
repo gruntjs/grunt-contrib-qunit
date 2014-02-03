@@ -159,8 +159,8 @@ module.exports = function(grunt, force, junitDir) {
       grunt.log.ok("Writing Junit Report");
       for( var url in junitReports ){
         var junitReport = junitReports[url];
-        var basename = path.basename(url);
-        var filename = junitDir + '/' + basename + '.xml';
+        var pathname = require('url').parse(url).pathname;
+        var filename = junitDir + '/' + pathname + '.xml';
         grunt.log.writeln('jUnit output to: ' + filename);
         grunt.file.write(filename, junitReport.xml);
       }
