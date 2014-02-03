@@ -45,6 +45,7 @@
   "files": [
     "tasks",
     "LICENSE-MIT",
-    "phantomjs"
+    "phantomjs",
+    "formatters"
   ]
 }
