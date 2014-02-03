@@ -93,10 +93,10 @@ module.exports = function(grunt) {
     var difflet = require('difflet')({indent: 2, comment: true});
     var actual = successes;
     var expected = {
-      'test/qunit1.html': 3,
-      'test/qunit2.html': 3,
-      'http://localhost:9000/test/qunit1.html': 2,
-      'http://localhost:9001/qunit2.html': 2
+      'test/qunit1.html': 4,
+      'test/qunit2.html': 4,
+      'http://localhost:9000/test/qunit1.html': 3,
+      'http://localhost:9001/qunit2.html': 3
     };
     try {
       assert.deepEqual(actual, expected, 'Actual should match expected.');
