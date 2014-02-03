@@ -12,6 +12,12 @@ Default: (built-in)
 
 Path to an alternate QUnit-PhantomJS bridge file to be injected. See [the built-in bridge](https://github.com/gruntjs/grunt-contrib-qunit/blob/master/phantomjs/bridge.js) for more information.
 
+#### junitDir
+Type: `String`
+Default: (none)
+
+The output directory for junit reports. See more at **JUnit reporting** section.
+
 ## urls
 Type: `Array`  
 Default: `[]`

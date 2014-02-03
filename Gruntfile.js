@@ -10,6 +10,10 @@
 
 module.exports = function(grunt) {
 
+  var path = require("path");
+  // Get an asset file, local to the root of the project.
+  var asset = path.join.bind(null, __dirname, '');
+
   // Project configuration.
   grunt.initConfig({
     jshint: {
@@ -49,6 +53,8 @@ module.exports = function(grunt) {
       },
       urls: {
         options: {
+          junitDir:'tmp/tests',
+          inject:asset('phantomjs/junit-bridge.js'),
           urls: [
             'http://localhost:9000/test/qunit1.html',
             'http://localhost:9001/qunit2.html',
