@@ -157,6 +157,7 @@ module.exports = function(grunt, force, junitDir) {
     // write jUnit result files
     if (junitDir && junitReports) {
       grunt.log.ok("Writing Junit Report");
+      grunt.file.delete(junitDir);
       for( var url in junitReports ){
         var junitReport = junitReports[url];
         var pathname = require('url').parse(url).pathname;
