@@ -110,8 +110,8 @@ module.exports = function(grunt) {
   grunt.registerTask('junit-test', 'Test junit report generation.', function() {
     var assert = require('assert');
     var reports = [
-      "tmp/tests/qunit1.html.xml",
-      "tmp/tests/qunit2.html.xml"
+      "tmp/tests/test/qunit1.xml",
+      "tmp/tests/qunit2.xml"
       ];
     try {
       for( var n in reports ){
