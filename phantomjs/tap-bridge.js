@@ -1,9 +1,13 @@
-// just concat phantom bridge and qunit-tap
-// adds also the Qunit.Junit event listening
-// at the bottom of this file
+// embedded qunit-tap into a reporter function
+// take care of qunitTap var declaration
+// added specific qunitTap instanciation after reorder=false;
+// emits a qunit.tapreport(tap_output)
+//    tap_output is a string
+//
+// !!  disconnected active console logging
 
 var qunitTap;
-var tap_reporter = function(){
+var init_reporter = function(){
   /**
    * QUnit-TAP - A TAP Output Producer Plugin for QUnit
    *
@@ -403,7 +407,7 @@ var tap_reporter = function(){
   QUnit.config.autorun = false;
 
   var report = "";
-  tap_reporter.apply(window);
+  init_reporter.apply(window);
   qunitTap(QUnit, function() { report+=arguments[0]+"\n";  }, {
     showModuleNameOnFailure: true,
     showTestNameOnFailure: true,

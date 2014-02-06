@@ -1,7 +1,13 @@
-// just concat phantom bridge and qunit-junit
+// embedded qunit-junit into a reporter function
+// added specific reporter instanciation after reorder=false;
+// emits a qunit.junitreport(junit_report)
+//    junit_report is an object
+//      {
+//        results:object,
+//        results:xml_str
+//      }
 // adds also the Qunit.Junit event listening
 // at the bottom of this file
-
 
 /**
  * JUnit reporter for QUnit v1.0.2pre
@@ -12,7 +18,7 @@
  * Released under the MIT license.
  * https://jquery.org/license/
  */
-var junit_report = (function(QUnit) {
+var init_reporter = (function(QUnit) {
 
   'use strict';
 
@@ -339,7 +345,7 @@ var junit_report = (function(QUnit) {
   // Run tests serially, not in parallel.
   QUnit.config.autorun = false;
 
-  junit_report(QUnit);
+  init_reporter(QUnit);
 
   // Send messages to the parent PhantomJS process via alert! Good times!!
   function sendMessage() {
