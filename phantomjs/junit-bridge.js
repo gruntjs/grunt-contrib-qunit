@@ -12,7 +12,7 @@
  * Released under the MIT license.
  * https://jquery.org/license/
  */
-(function() {
+var junit_report = (function(QUnit) {
 
   'use strict';
 
@@ -319,7 +319,7 @@
     });
   };
 
-})();
+});
 
 
 /*
@@ -338,6 +338,8 @@
   QUnit.config.reorder = false;
   // Run tests serially, not in parallel.
   QUnit.config.autorun = false;
+
+  junit_report(QUnit);
 
   // Send messages to the parent PhantomJS process via alert! Good times!!
   function sendMessage() {

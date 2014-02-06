@@ -119,10 +119,10 @@ grunt.event.on('qunit.spawn', function (url) {
 });
 ```
 
-#### JUnit reporting
-Provides Junit XML output format.
+###### Reporting
+## Provides Junit XML output format.
 
-Adjust ``options.inject`` and ``options.junitDir`` in following manner to enable junit reporting.
+Adjust ``options.inject``, ``options.outputDir``, ``options.format`` in following manner to enable junit reporting.
 
 ```js
 // Project configuration.
@@ -130,7 +130,8 @@ grunt.initConfig({
   qunit: {
     options: {
       inject: require.resolve("grunt-contrib-qunit")+"/phantomjs/junit-bridge.js",
-      junitDir: "junit/",
+      outputDir: "reporting/",
+      format: "junit",
       timeout: 10000,
       '--cookies-file': 'misc/cookies.txt'
     },
@@ -139,3 +140,22 @@ grunt.initConfig({
 });
 ```
 
+## Provides TAP output format.
+
+Adjust ``options.inject``, ``options.outputDir``, ``options.format`` in following manner to enable tap reporting.
+
+```js
+// Project configuration.
+grunt.initConfig({
+  qunit: {
+    options: {
+      inject: require.resolve("grunt-contrib-qunit")+"/phantomjs/tap-bridge.js",
+      outputDir: "reporting/",
+      format: "tap",
+      timeout: 10000,
+      '--cookies-file': 'misc/cookies.txt'
+    },
+    all: ['test/**/*.html']
+  }
+});
+```

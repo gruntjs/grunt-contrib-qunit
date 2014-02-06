@@ -59,11 +59,17 @@ Default: (built-in)
 
 Path to an alternate QUnit-PhantomJS bridge file to be injected. See [the built-in bridge](https://github.com/gruntjs/grunt-contrib-qunit/blob/master/phantomjs/bridge.js) for more information.
 
-###### junitDir
+###### outputDir
 Type: `String`
 Default: (none)
 
-The output directory for junit reports. See more at **JUnit reporting** section.
+The output directory for file reports. See more at **reporting** section.
+
+###### format
+Type: `String (junit|tap)`
+Default: (none)
+
+The formatter to use for file reporting.
 
 #### urls
 Type: `Array`  
@@ -210,10 +216,10 @@ grunt.event.on('qunit.spawn', function (url) {
 });
 ```
 
-###### JUnit reporting
-Provides Junit XML output format.
+###### Reporting
+## Provides Junit XML output format.
 
-Adjust ``options.inject`` and ``options.junitDir`` in following manner to enable junit reporting.
+Adjust ``options.inject``, ``options.outputDir``, ``options.format`` in following manner to enable junit reporting.
 
 ```js
 // Project configuration.
@@ -221,7 +227,28 @@ grunt.initConfig({
   qunit: {
     options: {
       inject: require.resolve("grunt-contrib-qunit")+"/phantomjs/junit-bridge.js",
-      junitDir: "junit/",
+      outputDir: "reporting/",
+      format: "junit",
+      timeout: 10000,
+      '--cookies-file': 'misc/cookies.txt'
+    },
+    all: ['test/**/*.html']
+  }
+});
+```
+
+## Provides TAP output format.
+
+Adjust ``options.inject``, ``options.outputDir``, ``options.format`` in following manner to enable tap reporting.
+
+```js
+// Project configuration.
+grunt.initConfig({
+  qunit: {
+    options: {
+      inject: require.resolve("grunt-contrib-qunit")+"/phantomjs/tap-bridge.js",
+      outputDir: "reporting/",
+      format: "tap",
       timeout: 10000,
       '--cookies-file': 'misc/cookies.txt'
     },
@@ -231,9 +258,10 @@ grunt.initConfig({
 ```
 
 
-
 ## Release History
 
+ * 2014-02-06   v0.5.2   Add ability export QUnit results to TAP files.
+ * 2014-02-04   v0.5.1   Add ability export QUnit results to jUnit files.
  * 2014-01-27   v0.5.0   Add ability to hide PhantomJS console output.
  * 2014-01-17   v0.4.0   Update grunt-lib-phantomjs to v0.5.0. Explicitly set files to publish to npm. Ref gruntjs/gruntjs.com#65. Update qunit-overview.md, include CentOS dependencies. Closes gh-49.
  * 2013-09-29   v0.3.0   Update grunt-lib-phantomjs to v0.4.0. Add qunit.fail.load and qunit.fail.timeout events. Update QUnit to v1.12.0. Add force option. Propagate onError events from phantomjs through the qunit.error.onError event. Remove confusing error message.

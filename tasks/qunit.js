@@ -21,84 +21,16 @@ module.exports = function(grunt) {
 
   // The output formatter,
   // is nullable, exists only during the execution of the tasks
-  var Fmter = require(__dirname+"/../formatters/grunt.js");
+  var grunt_output = require(__dirname+"/../formatters/grunt.js");
+  var junit_output = require(__dirname+"/../formatters/junit.js");
+  var tap_output = require(__dirname+"/../formatters/tap.js");
   var formatter;
+  var file_formatter;
 
-  // QUnit hooks.
-  // notify formatter for noticeable events
-  phantomjs.on('qunit.moduleStart', function(name) {
-    if(formatter){
-      formatter.moduleStart(name);
-    }
-  });
-
-  phantomjs.on('qunit.moduleDone', function(name, failed, passed, total) {
-    if(formatter){
-      formatter.moduleDone(name, failed, passed, total);
-    }
-  });
-
-  phantomjs.on('qunit.log', function(result, actual, expected, message, source) {
-    if(formatter){
-      formatter.assert(result, actual, expected, message, source);
-    }
-  });
-
-  phantomjs.on('qunit.testStart', function(name) {
-    if(formatter){
-      formatter.testStart(name);
-    }
-  });
-
-  phantomjs.on('qunit.testDone', function(name, failed, passed, total) {
-    if(formatter){
-      formatter.testDone(name, failed, passed, total);
-    }
-  });
-
-  // occurs after an url has completed
-  phantomjs.on('qunit.done', function(failed, passed, total, duration) {
-    phantomjs.halt();
-    if(formatter){
-      formatter.done(failed, passed, total, duration);
-    }
-  });
-
-  // Re-broadcast qunit events on grunt.event.
-  phantomjs.on('qunit.*', function() {
-    var args = [this.event].concat(grunt.util.toArray(arguments));
-    grunt.event.emit.apply(grunt.event, args);
-  });
-
-  // Built-in error handlers.
-  phantomjs.on('fail.load', function(url) {
-    phantomjs.halt();
-    grunt.event.emit('qunit.fail.load', url);
-    if(formatter){
-      formatter.fail("load", url);
-    }
-  });
-
-  phantomjs.on('fail.timeout', function() {
-    phantomjs.halt();
-    grunt.event.emit('qunit.fail.timeout');
-    if(formatter){
-      formatter.fail("timeout");
-    }
-  });
-
-  phantomjs.on('error.onError', function (msg, stackTrace) {
-    grunt.event.emit('qunit.error.onError', msg, stackTrace);
-  });
-
-  // catch junit event from qunit
-  phantomjs.on('qunit.junitreport', function(report) {
-    if(formatter){
-      formatter.junit(report);
-    }
-  });
-  
-  grunt.registerMultiTask('qunit', 'Run QUnit unit tests in a headless PhantomJS instance.', function() {
+  // Execute qunit in phantomjs
+  // ----------
+  grunt.registerMultiTask('qunit',
+    'Run QUnit unit tests in a headless PhantomJS instance.', function() {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
       // Default PhantomJS timeout.
@@ -110,12 +42,21 @@ module.exports = function(grunt) {
       force: false,
       // Connect phantomjs console output to grunt output
       console: true,
-      // path to save junit result files
-      junitDir: null
+      // path to save report result files
+      outputDir: null,
+      // type of report : (tap|junit)
+      type: null
     });
 
     // assign the formatter, to listens the current execution
-    formatter = new Fmter(grunt, options.force, options.junitDir);
+    formatter = new grunt_output(grunt, options.force, options.outputDir);
+    if( options.type && options.type.match(/(tap|junit)/) ){
+      if( options.type == "junit" ){
+        file_formatter = new junit_output(grunt, options.force, options.outputDir);
+      }else{
+        file_formatter = new tap_output(grunt, options.force, options.outputDir);
+      }
+    }
 
     // Combine any specified URLs with src files.
     var urls = options.urls.concat(this.filesSrc);
@@ -133,6 +74,9 @@ module.exports = function(grunt) {
 
       // notify formatter
       formatter.urlStart(url);
+      if( file_formatter ){
+        file_formatter.urlStart(url);
+      }
       // Launch PhantomJS.
       grunt.event.emit('qunit.spawn', url);
 
@@ -143,6 +87,9 @@ module.exports = function(grunt) {
         done: function(err) {
           // notify formatter
           formatter.urlDone(err);
+          if( file_formatter ){
+            file_formatter.urlDone(err);
+          }
 
           if (err) {
             // If there was an error, abort the series.
@@ -157,10 +104,127 @@ module.exports = function(grunt) {
     // All tests have been run.
     function() {
       // All done!
-      formatter.finalize(done);
+      formatter.finalize();
+      if( file_formatter ){
+        file_formatter.finalize();
+      }
+      done();
       // reset the formatter
       formatter = null;
+      file_formatter = null;
     });
   });
 
+
+  // Register QUnit−>phantomjs->grunt hooks.
+  // -----------
+  // notify formatter for noticeable events
+  phantomjs.on('qunit.moduleStart', function(name) {
+    if(formatter){
+      formatter.moduleStart(name);
+    }
+    if(file_formatter){
+      file_formatter.moduleStart(name);
+    }
+  });
+
+  phantomjs.on('qunit.moduleDone', function(name, failed, passed, total) {
+    if(formatter){
+      formatter.moduleDone(name, failed, passed, total);
+    }
+    if(file_formatter){
+      file_formatter.moduleDone(name, failed, passed, total);
+    }
+  });
+
+  phantomjs.on('qunit.log', function(result, actual, expected, message, source) {
+    if(formatter){
+      formatter.assert(result, actual, expected, message, source);
+    }
+    if(file_formatter){
+      file_formatter.assert(result, actual, expected, message, source);
+    }
+  });
+
+  phantomjs.on('qunit.testStart', function(name) {
+    if(formatter){
+      formatter.testStart(name);
+    }
+    if(file_formatter){
+      file_formatter.testStart(name);
+    }
+  });
+
+  phantomjs.on('qunit.testDone', function(name, failed, passed, total) {
+    if(formatter){
+      formatter.testDone(name, failed, passed, total);
+    }
+    if(file_formatter){
+      file_formatter.testDone(name, failed, passed, total);
+    }
+  });
+
+  // occurs after an url has completed
+  phantomjs.on('qunit.done', function(failed, passed, total, duration) {
+    phantomjs.halt();
+    if(formatter){
+      formatter.done(failed, passed, total, duration);
+    }
+    if(file_formatter){
+      file_formatter.done(failed, passed, total, duration);
+    }
+  });
+
+  // Re-broadcast qunit events on grunt.event.
+  phantomjs.on('qunit.*', function() {
+    var args = [this.event].concat(grunt.util.toArray(arguments));
+    grunt.event.emit.apply(grunt.event, args);
+  });
+
+  // Built-in error handlers.
+  phantomjs.on('fail.load', function(url) {
+    phantomjs.halt();
+    grunt.event.emit('qunit.fail.load', url);
+    if(formatter){
+      formatter.fail("load", url);
+    }
+    if(file_formatter){
+      file_formatter.fail("load", url);
+    }
+  });
+
+  phantomjs.on('fail.timeout', function() {
+    phantomjs.halt();
+    grunt.event.emit('qunit.fail.timeout');
+    if(formatter){
+      formatter.fail("timeout");
+    }
+    if(file_formatter){
+      file_formatter.fail("timeout");
+    }
+  });
+
+  phantomjs.on('error.onError', function (msg, stackTrace) {
+    grunt.event.emit('qunit.error.onError', msg, stackTrace);
+  });
+
+  // catch junit event from qunit
+  phantomjs.on('qunit.junitreport', function(report) {
+    if(formatter){
+      formatter.append_report(report);
+    }
+    if(file_formatter){
+      file_formatter.append_report(report);
+    }
+  });
+
+  // catch tap event from qunit
+  phantomjs.on('qunit.tapreport', function(report) {
+    if(formatter){
+      formatter.append_report(report);
+    }
+    if(file_formatter){
+      file_formatter.append_report(report);
+    }
+  });
 };

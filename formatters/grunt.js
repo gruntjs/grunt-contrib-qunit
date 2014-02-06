@@ -12,7 +12,7 @@
 // ----------
 // formatter receive hooks notification
 // and adjust the data to present cool output
-module.exports = function(grunt, force, junitDir) {
+module.exports = function(grunt, force, outputDir) {
 
   var path = require("path");
 
@@ -20,7 +20,8 @@ module.exports = function(grunt, force, junitDir) {
   var currentUrl, currentModule, currentTest, status;
   // Keep track of the last-started test(s).
   var unfinished = {};
-  var junitReports = {};
+  var junitReports = null;
+  var tapReports = null;
 
   status = {failed: 0, passed: 0, total: 0, duration: 0};
   currentModule = null;
@@ -138,9 +139,7 @@ module.exports = function(grunt, force, junitDir) {
     currentUrl = null;
   };
 
-  this.junit = function(report){
-    junitReports[currentUrl] = report;
-  };
+  this.append_report = function(report){};
 
   this.finalize = function(done){
     // Log results.
@@ -153,21 +152,6 @@ module.exports = function(grunt, force, junitDir) {
       grunt.verbose.writeln();
       grunt.log.ok(status.total + ' assertions passed (' + status.duration + 'ms)');
     }
-
-    // write jUnit result files
-    if (junitDir && junitReports) {
-      grunt.log.ok("Writing Junit Report");
-      grunt.file.delete(junitDir);
-      for( var url in junitReports ){
-        var junitReport = junitReports[url];
-        var pathname = require('url').parse(url).pathname;
-        var filename = junitDir + '/' + pathname.replace(/[.][^.]+$/,'') + '.xml';
-        grunt.log.writeln('jUnit output to: ' + path.relative(process.cwd(),filename));
-        grunt.file.write(filename, junitReport.xml);
-      }
-      // reset junitReports
-      junitReports = {};
-    }
-    done();
+    if(done) done();
   };
 };
