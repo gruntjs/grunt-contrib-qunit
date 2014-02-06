@@ -21,9 +21,9 @@ module.exports = function(grunt) {
 
   // The output formatter,
   // is nullable, exists only during the execution of the tasks
-  var grunt_output = require(__dirname+"/../formatters/grunt.js");
-  var junit_output = require(__dirname+"/../formatters/junit.js");
-  var tap_output = require(__dirname+"/../formatters/tap.js");
+  var GruntOutput = require(__dirname+"/../formatters/grunt.js");
+  var JunitOutput = require(__dirname+"/../formatters/junit.js");
+  var TapOutput = require(__dirname+"/../formatters/tap.js");
   var formatter;
   var file_formatter;
 
@@ -49,12 +49,12 @@ module.exports = function(grunt) {
     });
 
     // assign the formatter, to listens the current execution
-    formatter = new grunt_output(grunt, options.force, options.outputDir);
+    formatter = new GruntOutput(grunt, options.force, options.outputDir);
     if( options.type && options.type.match(/(tap|junit)/) ){
-      if( options.type == "junit" ){
-        file_formatter = new junit_output(grunt, options.force, options.outputDir);
+      if( options.type === "junit" ){
+        file_formatter = new JunitOutput(grunt, options.force, options.outputDir);
       }else{
-        file_formatter = new tap_output(grunt, options.force, options.outputDir);
+        file_formatter = new TapOutput(grunt, options.force, options.outputDir);
       }
     }
 
