@@ -44,14 +44,14 @@ module.exports = function(grunt) {
       console: true,
       // path to save report result files
       outputDir: null,
-      // type of report : (tap|junit)
-      type: null
+      // format of report : (tap|junit)
+      format: null
     });
 
     // assign the formatter, to listens the current execution
     formatter = new GruntOutput(grunt, options.force, options.outputDir);
-    if( options.type && options.type.match(/(tap|junit)/) ){
-      if( options.type === "junit" ){
+    if( options.format && options.format.match(/(tap|junit)/) ){
+      if( options.format === "junit" ){
         file_formatter = new JunitOutput(grunt, options.force, options.outputDir);
       }else{
         file_formatter = new TapOutput(grunt, options.force, options.outputDir);
