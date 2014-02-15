@@ -1,4 +1,4 @@
-# grunt-contrib-qunit v0.5.0-pre [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-qunit.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit)
+# grunt-contrib-qunit v0.5.1-pre [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-qunit.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit)
 
 > Run QUnit unit tests in a headless PhantomJS instance.
 
@@ -59,6 +59,18 @@ Default: (built-in)
 
 Path to an alternate QUnit-PhantomJS bridge file to be injected. See [the built-in bridge](https://github.com/gruntjs/grunt-contrib-qunit/blob/master/phantomjs/bridge.js) for more information.
 
+######## outputDir
+Type: `String`
+Default: (none)
+
+The output directory for file reports. See more at **reporting** section.
+
+######## format
+Type: `String (junit|tap)`
+Default: (none)
+
+The formatter to use for file reporting.
+
 #### urls
 Type: `Array`  
 Default: `[]`
@@ -71,7 +83,7 @@ Default: `false`
 
 When true, the whole task will not fail when there are individual test failures, or when no assertions for a test have run. This can be set to true when you always want other tasks in the queue to be executed.
 
-#### console
+###### console
 Type: `boolean`
 Default: `true`
 
@@ -204,6 +216,47 @@ grunt.event.on('qunit.spawn', function (url) {
 });
 ```
 
+######## Reporting
+#### Provides Junit XML output format.
+
+Adjust ``options.inject``, ``options.outputDir``, ``options.format`` in following manner to enable junit reporting.
+
+```js
+// Project configuration.
+grunt.initConfig({
+  qunit: {
+    options: {
+      inject: require.resolve("grunt-contrib-qunit")+"/phantomjs/junit-bridge.js",
+      outputDir: "reporting/",
+      format: "junit",
+      timeout: 10000,
+      '--cookies-file': 'misc/cookies.txt'
+    },
+    all: ['test/**/*.html']
+  }
+});
+```
+
+#### Provides TAP output format.
+
+Adjust ``options.inject``, ``options.outputDir``, ``options.format`` in following manner to enable tap reporting.
+
+```js
+// Project configuration.
+grunt.initConfig({
+  qunit: {
+    options: {
+      inject: require.resolve("grunt-contrib-qunit")+"/phantomjs/tap-bridge.js",
+      outputDir: "reporting/",
+      format: "tap",
+      timeout: 10000,
+      '--cookies-file': 'misc/cookies.txt'
+    },
+    all: ['test/**/*.html']
+  }
+});
+```
+
 
 ## Release History
 
@@ -222,4 +275,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Mon Jan 27 2014 20:45:25.*
+*This file was generated on Thu Feb 06 2014 18:47:47.*

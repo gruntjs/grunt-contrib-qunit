@@ -12,6 +12,18 @@ Default: (built-in)
 
 Path to an alternate QUnit-PhantomJS bridge file to be injected. See [the built-in bridge](https://github.com/gruntjs/grunt-contrib-qunit/blob/master/phantomjs/bridge.js) for more information.
 
+###### outputDir
+Type: `String`
+Default: (none)
+
+The output directory for file reports. See more at **reporting** section.
+
+###### format
+Type: `String (junit|tap)`
+Default: (none)
+
+The formatter to use for file reporting.
+
 ## urls
 Type: `Array`  
 Default: `[]`
@@ -23,6 +35,12 @@ Type: `boolean`
 Default: `false`
 
 When true, the whole task will not fail when there are individual test failures, or when no assertions for a test have run. This can be set to true when you always want other tasks in the queue to be executed.
+
+#### console
+Type: `boolean`
+Default: `true`
+
+Set to false to hide PhantomJS console output.
 
 ## (-- PhantomJS arguments)
 Type: `String`  

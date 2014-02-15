@@ -10,6 +10,10 @@
 
 module.exports = function(grunt) {
 
+  var path = require("path");
+  // Get an asset file, local to the root of the project.
+  var asset = path.join.bind(null, __dirname, '');
+
   // Project configuration.
   grunt.initConfig({
     jshint: {
@@ -61,6 +65,24 @@ module.exports = function(grunt) {
         },
         src: 'test/*{1,2}.html',
       },
+      junit_report: {
+        options: {
+          outputDir:'tmp/junit_tests',
+          inject:asset('phantomjs/junit-bridge.js'),
+          urls: '<%= qunit.urls.options.urls %>',
+          format: 'junit',
+        },
+        src: 'test/*{1,2}.html',
+      },
+      tap_report: {
+        options: {
+          outputDir:'tmp/tap_tests',
+          inject:asset('phantomjs/tap-bridge.js'),
+          urls: '<%= qunit.urls.options.urls %>',
+          format: 'tap',
+        },
+        src: 'test/*{1,2}.html',
+      },
     }
 
   });
@@ -81,16 +103,50 @@ module.exports = function(grunt) {
     var difflet = require('difflet')({indent: 2, comment: true});
     var actual = successes;
     var expected = {
-      'test/qunit1.html': 3,
-      'test/qunit2.html': 3,
-      'http://localhost:9000/test/qunit1.html': 2,
-      'http://localhost:9001/qunit2.html': 2
+      'test/qunit1.html': 5,
+      'test/qunit2.html': 5,
+      'http://localhost:9000/test/qunit1.html': 4,
+      'http://localhost:9001/qunit2.html': 4
     };
     try {
       assert.deepEqual(actual, expected, 'Actual should match expected.');
     } catch (err) {
       grunt.log.subhead('Actual should match expected.');
       console.log(difflet.compare(expected, actual));
+      throw new Error(err.message);
+    }
+  });
+
+  grunt.registerTask('junit-test', 'Test junit report generation.', function() {
+    var assert = require('assert');
+    var reports = [
+      "tmp/junit_tests/test/qunit1.xml",
+      "tmp/junit_tests/qunit2.xml"
+    ];
+    try {
+      for( var n in reports ){
+        assert.deepEqual(grunt.file.exists(reports[n]), true, 'jUnit reports must exist '+reports[n]+'.');
+        assert.deepEqual(grunt.file.read(reports[n]).length>0, true, 'jUnit reports must not be empty '+reports[n]+'.');
+      }
+    } catch (err) {
+      grunt.log.subhead('Actual should match expected.');
+      throw new Error(err.message);
+    }
+  });
+
+  grunt.registerTask('tap-test', 'Test tap report generation.', function() {
+    var assert = require('assert');
+    var reports = [
+      "tmp/tap_tests/test/qunit1.tap",
+      "tmp/tap_tests/qunit2.tap"
+    ];
+    try {
+      for( var n in reports ){
+        assert.deepEqual(grunt.file.exists(reports[n]), true, 'tap reports must exist '+reports[n]+'.');
+        assert.deepEqual(grunt.file.read(reports[n]).length>0, true, 'tap reports must not be empty '+reports[n]+'.');
+      }
+    } catch (err) {
+      grunt.log.subhead('Actual should match expected.');
       throw new Error(err.message);
     }
   });
@@ -104,7 +160,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-internal');
 
   // Whenever the "test" task is run, run some basic tests.
-  grunt.registerTask('test', ['connect', 'qunit', 'really-test']);
+  grunt.registerTask('test', ['connect', 'qunit', 'really-test','junit-test', 'tap-test']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test', 'build-contrib']);
