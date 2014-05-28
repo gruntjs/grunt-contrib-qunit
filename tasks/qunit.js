@@ -160,6 +160,12 @@ module.exports = function(grunt) {
 
     // Combine any specified URLs with src files.
     var urls = options.urls.concat(this.filesSrc);
+    
+    if (this.httpBase) {
+      this.filesSrc.forEach(function(testFile) {
+        urls.push(this.httpBase + "/" + testFile);
+      });
+    }
 
     // This task is asynchronous.
     var done = this.async();
