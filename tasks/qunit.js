@@ -155,7 +155,7 @@ module.exports = function(grunt) {
       urls: [],
       force: false,
       // Connect phantomjs console output to grunt output
-      console: true
+      console: true,
       // Do not use an HTTP base by default
       httpBase: false
     });
