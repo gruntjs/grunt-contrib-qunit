@@ -1,7 +1,10 @@
 v0.5.0:
-  date: 2014-01-27
+  date: 2014-05-31
   changes:
     - Add ability to hide PhantomJS console output.
+    - Add option for binding phantomjs console to grunt output. Default is true (do bind).
+    - Add httpBase option.
+    - Only call jsDump.parse() if a test failed.
 v0.4.0:
   date: 2014-01-17
   changes:
