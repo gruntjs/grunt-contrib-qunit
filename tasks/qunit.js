@@ -155,11 +155,24 @@ module.exports = function(grunt) {
       urls: [],
       force: false,
       // Connect phantomjs console output to grunt output
-      console: true
+      console: true,
+      // Do not use an HTTP base by default
+      httpBase: false
     });
 
-    // Combine any specified URLs with src files.
-    var urls = options.urls.concat(this.filesSrc);
+    var urls;
+
+    if (options.httpBase) {
+      //If URLs are explicity referenced, use them still
+      urls = options.urls;
+      // Then create URLs for the src files
+      this.filesSrc.forEach(function(testFile) {
+        urls.push(options.httpBase + "/" + testFile);
+      });
+    } else {
+      // Combine any specified URLs with src files.
+      urls = options.urls.concat(this.filesSrc);
+    }
 
     // This task is asynchronous.
     var done = this.async();
