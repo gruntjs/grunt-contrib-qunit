@@ -1,4 +1,4 @@
-# grunt-contrib-qunit v0.5.0-pre [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-qunit.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit)
+# grunt-contrib-qunit v0.5.0-pre [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-qunit.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit)
 
 > Run QUnit unit tests in a headless PhantomJS instance.
 
@@ -59,6 +59,18 @@ Default: (built-in)
 
 Path to an alternate QUnit-PhantomJS bridge file to be injected. See [the built-in bridge](https://github.com/gruntjs/grunt-contrib-qunit/blob/master/phantomjs/bridge.js) for more information.
 
+#### httpBase
+Type: `String`
+Default: `false`
+
+Create URLs for the `src` files, all `src` files are prefixed with that base.
+
+#### console
+Type: `boolean`
+Default: `true`
+
+Set to false to hide PhantomJS console output.
+
 #### urls
 Type: `Array`  
 Default: `[]`
@@ -70,12 +82,6 @@ Type: `boolean`
 Default: `false`
 
 When true, the whole task will not fail when there are individual test failures, or when no assertions for a test have run. This can be set to true when you always want other tasks in the queue to be executed.
-
-#### console
-Type: `boolean`
-Default: `true`
-
-Set to false to hide PhantomJS console output.
 
 #### (-- PhantomJS arguments)
 Type: `String`  
@@ -222,4 +228,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Mon Jan 27 2014 20:45:25.*
+*This file was generated on Sat May 31 2014 20:38:06.*

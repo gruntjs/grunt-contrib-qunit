@@ -12,6 +12,18 @@ Default: (built-in)
 
 Path to an alternate QUnit-PhantomJS bridge file to be injected. See [the built-in bridge](https://github.com/gruntjs/grunt-contrib-qunit/blob/master/phantomjs/bridge.js) for more information.
 
+## httpBase
+Type: `String`
+Default: `false`
+
+Create URLs for the `src` files, all `src` files are prefixed with that base.
+
+## console
+Type: `boolean`
+Default: `true`
+
+Set to false to hide PhantomJS console output.
+
 ## urls
 Type: `Array`  
 Default: `[]`

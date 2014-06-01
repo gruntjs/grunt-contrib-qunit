@@ -104,7 +104,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-internal');
 
   // Whenever the "test" task is run, run some basic tests.
-  grunt.registerTask('test', ['connect', 'qunit', 'really-test']);
+  grunt.registerTask('test', ['jshint', 'connect', 'qunit', 'really-test']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test', 'build-contrib']);

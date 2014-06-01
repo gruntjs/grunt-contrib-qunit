@@ -163,11 +163,11 @@ module.exports = function(grunt) {
     var urls;
 
     if (options.httpBase) {
-      //If URLs are explicity referenced, use them still
+      //If URLs are explicitly referenced, use them still
       urls = options.urls;
       // Then create URLs for the src files
       this.filesSrc.forEach(function(testFile) {
-        urls.push(options.httpBase + "/" + testFile);
+        urls.push(options.httpBase + '/' + testFile);
       });
     } else {
       // Combine any specified URLs with src files.
