@@ -1,3 +1,7 @@
+v0.5.1:
+  date: 2014-05-31
+  changes:
+    - Updates grunt-lib-phantomjs.
 v0.5.0:
   date: 2014-05-31
   changes:
