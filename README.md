@@ -191,7 +191,7 @@ The events, with arguments, are as follows:
 * `qunit.moduleStart` `(name)`
 * `qunit.testStart` `(name)`
 * `qunit.log` `(result, actual, expected, message, source)`
-* `qunit.testDone` `(name, failed, passed, total)`
+* `qunit.testDone` `(name, failed, passed, total, duration)`
 * `qunit.moduleDone` `(name, failed, passed, total)`
 * `qunit.done` `(failed, passed, total, runtime)`
 

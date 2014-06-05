@@ -43,7 +43,7 @@
   });
 
   QUnit.testDone(function(obj) {
-    sendMessage('qunit.testDone', obj.name, obj.failed, obj.passed, obj.total);
+    sendMessage('qunit.testDone', obj.name, obj.failed, obj.passed, obj.total, obj.duration);
   });
 
   QUnit.moduleStart(function(obj) {
