@@ -1,4 +1,4 @@
-# grunt-contrib-qunit v0.5.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-qunit.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit) <a href="https://ci.appveyor.com/project/gruntjs/grunt-contrib-qunit"><img src="https://ci.appveyor.com/api/projects/status/3vd43779joyj6qji/branch/master" alt="Build Status: Windows" height="18" /></a>
+# grunt-contrib-qunit v0.5.2 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-qunit.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit) <a href="https://ci.appveyor.com/project/gruntjs/grunt-contrib-qunit"><img src="https://ci.appveyor.com/api/projects/status/3vd43779joyj6qji/branch/master" alt="Build Status: Windows" height="18" /></a>
 
 > Run QUnit unit tests in a headless PhantomJS instance.
 
@@ -213,6 +213,8 @@ grunt.event.on('qunit.spawn', function (url) {
 
 ## Release History
 
+ * 2014-07-09   v0.5.2   Added support for reporting the duration of testDone. Other minor fixes.
+ * 2014-05-31   v0.5.1   Updates grunt-lib-phantomjs.
  * 2014-05-31   v0.5.0   Add ability to hide PhantomJS console output. Add option for binding phantomjs console to grunt output. Default is true (do bind). Add httpBase option. Only call jsDump.parse() if a test failed.
  * 2014-01-17   v0.4.0   Update grunt-lib-phantomjs to v0.5.0. Explicitly set files to publish to npm. Ref gruntjs/gruntjs.com#65. Update qunit-overview.md, include CentOS dependencies. Closes gh-49.
  * 2013-09-29   v0.3.0   Update grunt-lib-phantomjs to v0.4.0. Add qunit.fail.load and qunit.fail.timeout events. Update QUnit to v1.12.0. Add force option. Propagate onError events from phantomjs through the qunit.error.onError event. Remove confusing error message.
@@ -228,4 +230,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Sat May 31 2014 20:44:40.*
+*This file was generated on Wed Jul 09 2014 08:27:15.*
