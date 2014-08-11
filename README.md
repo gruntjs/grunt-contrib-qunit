@@ -89,7 +89,7 @@ Default: (none)
 
 Additional `--` style arguments that need to be passed in to PhantomJS may be specified as options, like `{'--option': 'value'}`. This may be useful for specifying a cookies file, local storage file, or a proxy. See the [PhantomJS API Reference][] for a list of `--` options that PhantomJS supports.
 
-## noGlobals
+#### noGlobals
 Type: `boolean`
 Default: `false`
 
