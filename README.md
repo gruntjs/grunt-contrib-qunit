@@ -89,6 +89,12 @@ Default: (none)
 
 Additional `--` style arguments that need to be passed in to PhantomJS may be specified as options, like `{'--option': 'value'}`. This may be useful for specifying a cookies file, local storage file, or a proxy. See the [PhantomJS API Reference][] for a list of `--` options that PhantomJS supports.
 
+## noGlobals
+Type: `boolean`
+Default: `false`
+
+Fail a test when the global namespace is polluted. See the [QUnit cookbook](http://qunitjs.com/cookbook/#discussion-id170) for more information.
+
 ### Usage examples
 
 #### Wildcards
