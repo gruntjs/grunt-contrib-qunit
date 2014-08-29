@@ -12,6 +12,7 @@ module.exports = function(grunt) {
 
   // Nodejs libs.
   var path = require('path');
+  var url = require('url');
 
   // External lib.
   var phantomjs = require('grunt-lib-phantomjs').init(grunt);
@@ -172,6 +173,16 @@ module.exports = function(grunt) {
     } else {
       // Combine any specified URLs with src files.
       urls = options.urls.concat(this.filesSrc);
+    }
+
+    if (options.noGlobals) {
+      // Append a noglobal query string param to all urls
+      var parsed;
+      urls = urls.map(function(testUrl) {
+        parsed = url.parse(testUrl, true);
+        parsed.query.noglobals = "";
+        return url.format(parsed);
+      });
     }
 
     // This task is asynchronous.
