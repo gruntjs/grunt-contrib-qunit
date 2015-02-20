@@ -39,5 +39,6 @@
   "files": [
     "tasks",
     "phantomjs"
-  ]
+  ],
+  "appveyor_id": "3vd43779joyj6qji"
 }
