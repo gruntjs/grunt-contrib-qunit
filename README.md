@@ -1,4 +1,4 @@
-# grunt-contrib-qunit v0.5.2 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-qunit.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit) <a href="https://ci.appveyor.com/project/gruntjs/grunt-contrib-qunit"><img src="https://ci.appveyor.com/api/projects/status/3vd43779joyj6qji/branch/master" alt="Build Status: Windows" height="18" /></a>
+# grunt-contrib-qunit v0.5.2 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-qunit.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit)
 
 > Run QUnit unit tests in a headless PhantomJS instance.
 
@@ -173,7 +173,7 @@ grunt.registerTask('test', ['connect', 'qunit']);
 #### Custom timeouts and PhantomJS options
 In the following example, the default timeout value of `5000` is overridden with the value `10000` (timeout values are in milliseconds). Additionally, PhantomJS will read stored cookies from the specified file. See the [PhantomJS API Reference][] for a list of `--` options that PhantomJS supports.
 
-[PhantomJS API Reference]: http://phantomjs.org/api/
+[PhantomJS API Reference]: https://github.com/ariya/phantomjs/wiki/API-Reference
 
 ```js
 // Project configuration.
@@ -236,4 +236,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Wed Jul 09 2014 08:27:15.*
+*This file was generated on Wed Jan 14 2015 09:53:59.*

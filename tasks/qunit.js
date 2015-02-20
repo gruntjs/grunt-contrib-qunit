@@ -233,7 +233,7 @@ module.exports = function(grunt) {
         grunt.log.ok(status.total + ' assertions passed (' + status.duration + 'ms)');
       }
       // All done!
-      done();
+      done(status.failed === 0);
     });
   });
 
