@@ -1,11 +1,11 @@
-# grunt-contrib-qunit v0.5.2 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-qunit.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit)
+# grunt-contrib-qunit v0.5.2 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-qunit.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/3vd43779joyj6qji/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-qunit/branch/master)
 
-> Run QUnit unit tests in a headless PhantomJS instance.
+> Run QUnit unit tests in a headless PhantomJS instance
 
 
 
 ## Getting Started
-This plugin requires Grunt `~0.4.0`
+This plugin requires Grunt `>=0.4.0`
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
@@ -236,4 +236,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Wed Jan 14 2015 09:53:59.*
+*This file was generated on Fri Feb 20 2015 10:39:43.*
