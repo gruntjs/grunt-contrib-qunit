@@ -181,6 +181,7 @@ module.exports = function(grunt) {
       urls = urls.map(function(testUrl) {
         parsed = url.parse(testUrl, true);
         parsed.query.noglobals = "";
+        delete parsed.search;
         return url.format(parsed);
       });
     }
