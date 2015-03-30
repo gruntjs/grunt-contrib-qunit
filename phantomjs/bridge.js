@@ -7,7 +7,13 @@
  */
 
 /*global QUnit:true, alert:true*/
-(function () {
+(function (factory) {
+  if (typeof define === 'function' && define.amd) {
+    require(['qunit'], factory);
+  } else {
+    factory(QUnit);
+  }
+}(function(QUnit) {
   'use strict';
 
   // Don't re-order tests.
@@ -61,4 +67,4 @@
   QUnit.done(function(obj) {
     sendMessage('qunit.done', obj.failed, obj.passed, obj.total, obj.runtime);
   });
-}());
+}));
