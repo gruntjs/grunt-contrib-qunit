@@ -1,3 +1,9 @@
+v0.6.0:
+  date: 2015-03-31
+  changes:
+    - Add noGlobals option, forwarded to QUnit.
+    - Report proper exit code to grunt based on failures.
+    - Add support for AMD.
 v0.5.2:
   date: 2014-07-09
   changes:
@@ -31,13 +37,13 @@ v0.3.0:
     - Remove confusing error message.
 v0.2.2:
   date: 2013-06-06
-  changes: 
+  changes:
     - Warn if no assertions ran in a single test.
     - Spaces instead of newlines for clickable urls.
     - Wrap bridge.js in a IIFE.
 v0.2.1:
   date: 2013-04-05
-  changes: 
+  changes:
     - Update to use PhantomJS 1.9.0. Fixes PhantomJS not found errors.
 v0.2.0:
   date: 2013-02-28
