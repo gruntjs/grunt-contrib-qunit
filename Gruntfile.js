@@ -28,13 +28,7 @@ module.exports = function(grunt) {
         options: {
           port: 9000,
           base: '.',
-        },
-      },
-      test_server: {
-        options: {
-          port: 9001,
-          base: 'test',
-        },
+        }
       }
     },
 
@@ -43,28 +37,25 @@ module.exports = function(grunt) {
       all_tests: ['test/*{1,2}.html'],
       individual_tests: {
         files: [
-          {src: 'test/*1.html'},
-          {src: 'test/*{1,2}.html'},
+          {src: 'test/*{1,2}.html'}
         ]
       },
       urls: {
         options: {
           urls: [
-            'http://localhost:9000/test/qunit1.html',
-            'http://localhost:9001/qunit2.html',
+            'http://localhost:9000/test/qunit1.html'
           ]
-        },
+        }
       },
       urls_and_files: {
         options: {
-          urls: '<%= qunit.urls.options.urls %>',
+          urls: '<%= qunit.urls.options.urls %>'
         },
-        src: 'test/*{1,2}.html',
+        src: 'test/*{1,2}.html'
       },
       noglobals: {
         options: {
-          noGlobals: true,
-          force: true
+          noGlobals: true
         },
         src: 'test/qunit3.html'
       }
@@ -91,8 +82,7 @@ module.exports = function(grunt) {
       'test/qunit1.html': 3,
       'test/qunit2.html': 3,
       'http://localhost:9000/test/qunit1.html': 2,
-      'http://localhost:9001/qunit2.html': 2,
-      'test/qunit3.html?noglobals=': 0
+      'test/qunit3.html?noglobals=': 1
     };
     try {
       assert.deepEqual(actual, expected, 'Actual should match expected.');

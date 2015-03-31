@@ -1,10 +1,17 @@
 
-test('basic test', function() {
-  expect(1);
-  ok(true, 'this had better work.');
+var pushFailure = QUnit.pushFailure;
+var failures = [];
+
+test('global pollution', function(assert) {
+  window.pollute = true;
+  assert.ok(pollute, 'nasty pollution');
+  QUnit.pushFailure = function(message) {
+    failures.push(message);
+  };
 });
 
-test( "global pollution", function( assert ) {
-  window.pollute = true;
-  assert.ok( pollute, "nasty pollution" );
+test('actually check for global pollution', function() {
+  expect(1);
+  QUnit.pushFailure = pushFailure;
+  deepEqual(failures, ['Introduced global variable(s): pollute']);
 });
