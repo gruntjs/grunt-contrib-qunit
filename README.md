@@ -190,24 +190,7 @@ grunt.initConfig({
 
 #### Loading QUnit with AMD
 
-When loading QUnit and the associated test files via AMD, you can set the `inject` option to `null` and then load the `phantomjs/bridge.js` module. This module exports a single function which should be invoked after loading QUnit, but before any tests are loaded.
-
-For instance, you can create a module to load in place of the standard QUnit module (make sure to use a proper path to the bridge based on your config and directory structure):
-
-```js
-define(
-  ['qunit','node_modules/grunt-contrib-qunit/phantomjs/bridge'],
-  function(QUnit, bridge) {
-    // Only load the bridge if we're testing inside PhantomJS
-    if ( /PhantomJS/.test( navigator.userAgent ) ) {
-      bridge();
-    }
-
-    // Return QUnit so this module can be loaded in place of the standard QUnit module
-    return QUnit;
-  }
-);
-```
+When using AMD to load QUnit and your tests, make sure to have a path for the `qunit` module defined.
 
 #### Events and reporting
 [QUnit callback](http://api.qunitjs.com/category/callbacks/) methods and arguments are also emitted through grunt's event system so that you may build custom reporting tools. Please refer to to the QUnit documentation for more information.
