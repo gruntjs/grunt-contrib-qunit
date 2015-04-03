@@ -1,4 +1,4 @@
-# grunt-contrib-qunit v0.6.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-qunit.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/3vd43779joyj6qji/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-qunit/branch/master)
+# grunt-contrib-qunit v0.7.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-qunit.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/3vd43779joyj6qji/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-qunit/branch/master)
 
 > Run QUnit unit tests in a headless PhantomJS instance
 
@@ -223,6 +223,7 @@ grunt.event.on('qunit.spawn', function (url) {
 
 ## Release History
 
+ * 2015-04-03   v0.7.0   Log PhantomJS errors as warnings
  * 2015-03-31   v0.6.0   Add noGlobals option, forwarded to QUnit. Report proper exit code to grunt based on failures. Add support for AMD.
  * 2014-07-09   v0.5.2   Added support for reporting the duration of testDone. Other minor fixes.
  * 2014-05-31   v0.5.1   Updates grunt-lib-phantomjs.
@@ -241,4 +242,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Tue Mar 31 2015 18:39:50.*
+*This file was generated on Fri Apr 03 2015 11:53:16.*
