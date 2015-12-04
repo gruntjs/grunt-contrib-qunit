@@ -42,19 +42,21 @@ module.exports = function(grunt) {
   // Keep track of failed assertions for pretty-printing.
   var failedAssertions = [];
   var logFailedAssertions = function() {
-    var assertion;
-    // Print each assertion error.
-    while (assertion = failedAssertions.shift()) {
-      grunt.verbose.or.error(assertion.testName);
-      grunt.log.error('Message: ' + formatMessage(assertion.message));
-      if (assertion.actual !== assertion.expected) {
-        grunt.log.error('Actual: ' + formatMessage(assertion.actual));
-        grunt.log.error('Expected: ' + formatMessage(assertion.expected));
+    if (options && options.logFails) {
+      var assertion;
+      // Print each assertion error.
+      while (assertion = failedAssertions.shift()) {
+        grunt.verbose.or.error(assertion.testName);
+        grunt.log.error('Message: ' + formatMessage(assertion.message));
+        if (assertion.actual !== assertion.expected) {
+          grunt.log.error('Actual: ' + formatMessage(assertion.actual));
+          grunt.log.error('Expected: ' + formatMessage(assertion.expected));
+        }
+        if (assertion.source) {
+          grunt.log.error(assertion.source.replace(/ {4}(at)/g, '  $1'));
+        }
+        grunt.log.writeln();
       }
-      if (assertion.source) {
-        grunt.log.error(assertion.source.replace(/ {4}(at)/g, '  $1'));
-      }
-      grunt.log.writeln();
     }
   };
 
@@ -159,7 +161,9 @@ module.exports = function(grunt) {
       // Connect phantomjs console output to grunt output
       console: true,
       // Do not use an HTTP base by default
-      httpBase: false
+      httpBase: false,
+      // Log failed assertions by default
+      logFails: true
     });
 
     var urls;
