@@ -96,7 +96,7 @@ Default: `false`
 Fail a test when the global namespace is polluted. See the [QUnit cookbook](http://qunitjs.com/cookbook/#discussion-id170) for more information.
 
 #### logFails
-Type: `boolean`
+Type: `boolean`  
 Default: `true`
 
 When false, failed assertions messages will not be output (particularly useful for automated build systems).
