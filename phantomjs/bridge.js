@@ -33,12 +33,17 @@
     if (obj.message === '[object Object], undefined:undefined') { return; }
 
     // Parse some stuff before sending it.
-    var actual, expected;
+    var actual, expected, dump;
     if (!obj.result) {
+      // In order to maintain backwards compatibility with `QUnit <1.15.0`
+      // Older versions of QUnit (`<1.15.0`) use `QUnit.jsDump`, but this poperty was
+      // deprecated and moved to `QUnit.dump` and will be removed in `QUnit 2.0`.
+      dump = QUnit.dump || QUnit.jsDump;
+
       // Dumping large objects can be very slow, and the dump isn't used for
       // passing tests, so only dump if the test failed.
-      actual = QUnit.jsDump.parse(obj.actual);
-      expected = QUnit.jsDump.parse(obj.expected);
+      actual = dump.parse(obj.actual);
+      expected = dump.parse(obj.expected);
     }
     // Send it.
     sendMessage('qunit.log', obj.result, actual, expected, obj.message, obj.source);
