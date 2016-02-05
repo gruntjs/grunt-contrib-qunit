@@ -1,11 +1,10 @@
-# grunt-contrib-qunit v0.7.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-qunit.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/3vd43779joyj6qji/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-qunit/branch/master)
+# grunt-contrib-qunit v1.0.1 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-qunit.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/3vd43779joyj6qji/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-qunit/branch/master)
 
 > Run QUnit unit tests in a headless PhantomJS instance
 
 
 
 ## Getting Started
-This plugin requires Grunt `>=0.4.0`
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
@@ -29,7 +28,7 @@ Task targets, files and options may be specified according to the grunt [Configu
 
 When installed by npm, this plugin will automatically download and install [PhantomJS][] locally via the [grunt-lib-phantomjs][] library.
 
-[PhantomJS]: http://phantomjs.org/
+[PhantomJS]: http://www.phantomjs.org/
 [grunt-lib-phantomjs]: https://github.com/gruntjs/grunt-lib-phantomjs
 
 Also note that running grunt with the `--debug` flag will output a lot of PhantomJS-specific debugging information. This can be very helpful in seeing what actual URIs are being requested and received by PhantomJS.
@@ -223,7 +222,8 @@ grunt.event.on('qunit.spawn', function (url) {
 
 ## Release History
 
- * 2016-02-05   v1.0.0   Update grunt-lib-phantomjs to 1.0.0, effectively upgrading to phantomjs 2.x. Remove grunt as a peerDependency.
+ * 2016-02-05   v1.0.1   Change `QUnit.jsDump` to `QUnit.dump`.
+ * 2016-02-05   v1.0.0   Update grunt-lib-phantomjs to 1.0.0, effectively upgrading to phantomjs 2.x. Remove grunt as a peerDependency
  * 2015-04-03   v0.7.0   Log PhantomJS errors as warnings
  * 2015-03-31   v0.6.0   Add noGlobals option, forwarded to QUnit. Report proper exit code to grunt based on failures. Add support for AMD.
  * 2014-07-09   v0.5.2   Added support for reporting the duration of testDone. Other minor fixes.
@@ -243,4 +243,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Fri Apr 03 2015 11:53:16.*
+*This file was generated on Fri Feb 05 2016 12:19:05.*
