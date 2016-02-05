@@ -223,6 +223,7 @@ grunt.event.on('qunit.spawn', function (url) {
 
 ## Release History
 
+ * 2016-02-05   v1.0.0   Update grunt-lib-phantomjs to 1.0.0, effectively upgrading to phantomjs 2.x. Remove grunt as a peerDependency.
  * 2015-04-03   v0.7.0   Log PhantomJS errors as warnings
  * 2015-03-31   v0.6.0   Add noGlobals option, forwarded to QUnit. Report proper exit code to grunt based on failures. Add support for AMD.
  * 2014-07-09   v0.5.2   Added support for reporting the duration of testDone. Other minor fixes.
