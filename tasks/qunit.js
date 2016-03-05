@@ -244,7 +244,7 @@ module.exports = function(grunt) {
       }
       
       // All done!
-      done(returnCode);
+      done(success);
     });
   });
 
