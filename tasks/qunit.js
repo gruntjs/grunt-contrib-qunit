@@ -224,7 +224,7 @@ module.exports = function(grunt) {
     },
     // All tests have been run.
     function() {
-      var returnCode;
+      var success;
 
       // Log results.
       if (status.failed > 0) {
@@ -238,9 +238,9 @@ module.exports = function(grunt) {
       }
 
       if (options && options.force) {
-        returnCode = true;
+        success = true;
       } else {
-        returnCode = (status.failed === 0);
+        success = status.failed === 0;
       }
       
       // All done!
