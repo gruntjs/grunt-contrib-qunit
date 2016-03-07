@@ -224,6 +224,8 @@ module.exports = function(grunt) {
     },
     // All tests have been run.
     function() {
+      var success;
+
       // Log results.
       if (status.failed > 0) {
         warnUnlessForced(status.failed + '/' + status.total +
@@ -234,8 +236,15 @@ module.exports = function(grunt) {
         grunt.verbose.writeln();
         grunt.log.ok(status.total + ' assertions passed (' + status.duration + 'ms)');
       }
+
+      if (options && options.force) {
+        success = true;
+      } else {
+        success = status.failed === 0;
+      }
+      
       // All done!
-      done(status.failed === 0);
+      done(success);
     });
   });
 
