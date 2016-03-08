@@ -43,6 +43,11 @@ module.exports = function(grunt) {
   var failedAssertions = [];
   var logFailedAssertions = function() {
     var assertion;
+
+    if (options && options.summaryOnly) {
+      return;
+    }
+
     // Print each assertion error.
     while (assertion = failedAssertions.shift()) {
       grunt.verbose.or.error(assertion.testName);
@@ -161,7 +166,8 @@ module.exports = function(grunt) {
       // Connect phantomjs console output to grunt output
       console: true,
       // Do not use an HTTP base by default
-      httpBase: false
+      httpBase: false,
+      summaryOnly: false
     });
 
     var urls;

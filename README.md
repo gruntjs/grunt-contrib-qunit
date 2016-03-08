@@ -82,6 +82,12 @@ Default: `false`
 
 When true, the whole task will not fail when there are individual test failures, or when no assertions for a test have run. This can be set to true when you always want other tasks in the queue to be executed.
 
+#### summaryOnly
+Type: `boolean`  
+Default: `false`
+
+When true, this will suppress the default logging for individually failed tests. Customized logging can be performed by listening to and responding to `qunit.log` events.
+
 #### (-- PhantomJS arguments)
 Type: `String`  
 Default: (none)
@@ -243,4 +249,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Fri Feb 05 2016 12:19:05.*
+*This file was generated on Fri Mar 11 2016 19:10:31.*

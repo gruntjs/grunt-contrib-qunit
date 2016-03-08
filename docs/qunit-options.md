@@ -36,6 +36,12 @@ Default: `false`
 
 When true, the whole task will not fail when there are individual test failures, or when no assertions for a test have run. This can be set to true when you always want other tasks in the queue to be executed.
 
+## summaryOnly
+Type: `boolean`  
+Default: `false`
+
+When true, this will suppress the default logging for individually failed tests. Customized logging can be performed by listening to and responding to `qunit.log` events.
+
 ## (-- PhantomJS arguments)
 Type: `String`  
 Default: (none)
