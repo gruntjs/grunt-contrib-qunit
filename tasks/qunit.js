@@ -136,7 +136,9 @@ module.exports = function(grunt) {
     phantomjs.halt();
     grunt.log.writeln();
     grunt.event.emit('qunit.fail.timeout');
-    grunt.log.error('PhantomJS timed out, possibly due to a missing QUnit start() call.');
+    grunt.log.error('PhantomJS timed out, possibly due to:\n' +
+        '- QUnit is not loaded correctly.\n- A missing QUnit start() call.\n' +
+        '- Or, a misconfiguration of this task.');
     status.failed += 1;
     status.total += 1;
   });
