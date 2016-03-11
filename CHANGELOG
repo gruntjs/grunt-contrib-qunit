@@ -1,3 +1,10 @@
+v1.1.0:
+  date: 2016-03-11
+  changes:
+    - Adding support for 'summaryOnly'.
+    - Fix options.force.
+    - Fix query string for noGlobals.
+    - update docs.
 v1.0.1:
   date: 2016-02-05
   changes:

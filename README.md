@@ -1,4 +1,4 @@
-# grunt-contrib-qunit v1.0.1 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-qunit.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/3vd43779joyj6qji/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-qunit/branch/master)
+# grunt-contrib-qunit v1.1.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-qunit.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/3vd43779joyj6qji/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-qunit/branch/master)
 
 > Run QUnit unit tests in a headless PhantomJS instance
 
@@ -228,6 +228,7 @@ grunt.event.on('qunit.spawn', function (url) {
 
 ## Release History
 
+ * 2016-03-11   v1.1.0   Adding support for 'summaryOnly'. Fix options.force. Fix query string for noGlobals. update docs.
  * 2016-02-05   v1.0.1   Change `QUnit.jsDump` to `QUnit.dump`.
  * 2016-02-05   v1.0.0   Update grunt-lib-phantomjs to 1.0.0, effectively upgrading to phantomjs 2.x. Remove grunt as a peerDependency
  * 2015-04-03   v0.7.0   Log PhantomJS errors as warnings
@@ -249,4 +250,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Fri Mar 11 2016 19:10:31.*
+*This file was generated on Fri Mar 11 2016 16:01:19.*
