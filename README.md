@@ -228,26 +228,26 @@ grunt.event.on('qunit.spawn', function (url) {
 
 ## Release History
 
- * 2016-03-11   v1.1.0   Adding support for 'summaryOnly'. Fix options.force. Fix query string for noGlobals. update docs.
+ * 2016-03-11   v1.1.0   Adding support for 'summaryOnly'. Fix `options.force`. Fix query string for `noGlobals`. Update docs.
  * 2016-02-05   v1.0.1   Change `QUnit.jsDump` to `QUnit.dump`.
- * 2016-02-05   v1.0.0   Update grunt-lib-phantomjs to 1.0.0, effectively upgrading to phantomjs 2.x. Remove grunt as a peerDependency
- * 2015-04-03   v0.7.0   Log PhantomJS errors as warnings
+ * 2016-02-05   v1.0.0   Update grunt-lib-phantomjs to 1.0.0, effectively upgrading to phantomjs 2.x. Remove grunt as a peerDependency.
+ * 2015-04-03   v0.7.0   Log PhantomJS errors as warnings.
  * 2015-03-31   v0.6.0   Add noGlobals option, forwarded to QUnit. Report proper exit code to grunt based on failures. Add support for AMD.
- * 2014-07-09   v0.5.2   Added support for reporting the duration of testDone. Other minor fixes.
+ * 2014-07-09   v0.5.2   Added support for reporting the duration of `testDone`. Other minor fixes.
  * 2014-05-31   v0.5.1   Updates grunt-lib-phantomjs.
- * 2014-05-31   v0.5.0   Add ability to hide PhantomJS console output. Add option for binding phantomjs console to grunt output. Default is true (do bind). Add httpBase option. Only call jsDump.parse() if a test failed.
+ * 2014-05-31   v0.5.0   Add ability to hide PhantomJS console output. Add option for binding phantomjs console to grunt output. Default is `true` (do bind). Add `httpBase` option. Only call `jsDump.parse()` if a test failed.
  * 2014-01-17   v0.4.0   Update grunt-lib-phantomjs to v0.5.0. Explicitly set files to publish to npm. Ref gruntjs/gruntjs.com#65. Update qunit-overview.md, include CentOS dependencies. Closes gh-49.
- * 2013-09-29   v0.3.0   Update grunt-lib-phantomjs to v0.4.0. Add qunit.fail.load and qunit.fail.timeout events. Update QUnit to v1.12.0. Add force option. Propagate onError events from phantomjs through the qunit.error.onError event. Remove confusing error message.
- * 2013-06-06   v0.2.2   Warn if no assertions ran in a single test. Spaces instead of newlines for clickable urls. Wrap bridge.js in a IIFE.
+ * 2013-09-29   v0.3.0   Update grunt-lib-phantomjs to v0.4.0. Add `qunit.fail.load` and `qunit.fail.timeout` events. Update QUnit to v1.12.0. Add `force` option. Propagate `onError` events from phantomjs through the `qunit.error.onError` event. Remove confusing error message.
+ * 2013-06-06   v0.2.2   Warn if no assertions ran in a single test. Spaces instead of newlines for clickable URLs. Wrap bridge.js in a IIFE.
  * 2013-04-05   v0.2.1   Update to use PhantomJS 1.9.0. Fixes PhantomJS not found errors.
  * 2013-02-28   v0.2.0   Update to use PhantomJS 1.8.1.
  * 2013-02-15   v0.1.1   First official release for Grunt 0.4.0.
  * 2013-01-18   v0.1.1rc6   Updating grunt/gruntplugin dependencies to rc6. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions.
- * 2013-01-09   v0.1.1rc5   Updating to work with grunt v0.4.0rc5. Switching to this.filesSrc api. Adding "urls" option for specifying absolute test URLs.
+ * 2013-01-09   v0.1.1rc5   Updating to work with grunt v0.4.0rc5. Switching to `this.filesSrc` API. Adding `urls` option for specifying absolute test URLs.
  * 2012-10-05   v0.1.0   Work in progress, not yet officially released.
 
 ---
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Fri Mar 11 2016 16:01:19.*
+*This file was generated on Fri Mar 18 2016 19:06:37.*

@@ -2,9 +2,9 @@ v1.1.0:
   date: 2016-03-11
   changes:
     - Adding support for 'summaryOnly'.
-    - Fix options.force.
-    - Fix query string for noGlobals.
-    - update docs.
+    - Fix `options.force`.
+    - Fix query string for `noGlobals`.
+    - Update docs.
 v1.0.1:
   date: 2016-02-05
   changes:
@@ -13,11 +13,11 @@ v1.0.0:
   date: 2016-02-05
   changes:
     - Update grunt-lib-phantomjs to 1.0.0, effectively upgrading to phantomjs 2.x.
-    - Remove grunt as a peerDependency
+    - Remove grunt as a peerDependency.
 v0.7.0:
   date: 2015-04-03
   changes:
-    - Log PhantomJS errors as warnings
+    - Log PhantomJS errors as warnings.
 v0.6.0:
   date: 2015-03-31
   changes:
@@ -27,7 +27,7 @@ v0.6.0:
 v0.5.2:
   date: 2014-07-09
   changes:
-    - Added support for reporting the duration of testDone.
+    - Added support for reporting the duration of `testDone`.
     - Other minor fixes.
 v0.5.1:
   date: 2014-05-31
@@ -37,9 +37,9 @@ v0.5.0:
   date: 2014-05-31
   changes:
     - Add ability to hide PhantomJS console output.
-    - Add option for binding phantomjs console to grunt output. Default is true (do bind).
-    - Add httpBase option.
-    - Only call jsDump.parse() if a test failed.
+    - Add option for binding phantomjs console to grunt output. Default is `true` (do bind).
+    - Add `httpBase` option.
+    - Only call `jsDump.parse()` if a test failed.
 v0.4.0:
   date: 2014-01-17
   changes:
@@ -50,16 +50,16 @@ v0.3.0:
   date: 2013-09-29
   changes:
     - Update grunt-lib-phantomjs to v0.4.0.
-    - Add qunit.fail.load and qunit.fail.timeout events.
+    - Add `qunit.fail.load` and `qunit.fail.timeout` events.
     - Update QUnit to v1.12.0.
-    - Add force option.
-    - Propagate onError events from phantomjs through the qunit.error.onError event.
+    - Add `force` option.
+    - Propagate `onError` events from phantomjs through the `qunit.error.onError` event.
     - Remove confusing error message.
 v0.2.2:
   date: 2013-06-06
   changes:
     - Warn if no assertions ran in a single test.
-    - Spaces instead of newlines for clickable urls.
+    - Spaces instead of newlines for clickable URLs.
     - Wrap bridge.js in a IIFE.
 v0.2.1:
   date: 2013-04-05
@@ -82,8 +82,8 @@ v0.1.1rc5:
   date: 2013-01-09
   changes:
     - Updating to work with grunt v0.4.0rc5.
-    - Switching to this.filesSrc api.
-    - Adding "urls" option for specifying absolute test URLs.
+    - Switching to `this.filesSrc` API.
+    - Adding `urls` option for specifying absolute test URLs.
 v0.1.0:
   date: 2012-10-05
   changes:
