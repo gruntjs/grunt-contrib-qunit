@@ -119,6 +119,6 @@ You may listen for these events like so:
 
 ```js
 grunt.event.on('qunit.spawn', function (url) {
-  grunt.log.ok("Running test: " + url);
+  grunt.log.ok('Running test: ' + url);
 });
 ```
