@@ -26,6 +26,11 @@ build: off
 
 test_script:
   - node --version && npm --version
+  - ps: >-
+      if ($env:nodejs_version -eq "0.10") {
+        npm -g install npm@2
+        $env:PATH="$env:APPDATA\npm;$env:PATH"
+      }
   - npm test
 
 matrix:
