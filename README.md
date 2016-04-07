@@ -221,7 +221,7 @@ You may listen for these events like so:
 
 ```js
 grunt.event.on('qunit.spawn', function (url) {
-  grunt.log.ok("Running test: " + url);
+  grunt.log.ok('Running test: ' + url);
 });
 ```
 
@@ -250,4 +250,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Fri Mar 18 2016 19:06:37.*
+*This file was generated on Thu Apr 07 2016 15:24:47.*
