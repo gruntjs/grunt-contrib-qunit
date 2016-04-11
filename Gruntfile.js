@@ -60,6 +60,13 @@ module.exports = function(grunt) {
             'http://localhost:9000/test/qunit3.html?foo=bar'
           ]
         }
+      },
+      modules: {
+        options: {
+          urls: [
+            'http://localhost:9000/test/qunit4.html'
+          ]
+        }
       }
     }
 
@@ -84,7 +91,8 @@ module.exports = function(grunt) {
       'test/qunit1.html': 3,
       'test/qunit2.html': 3,
       'http://localhost:9000/test/qunit1.html': 2,
-      'http://localhost:9000/test/qunit3.html?foo=bar&noglobals=true': 1
+      'http://localhost:9000/test/qunit3.html?foo=bar&noglobals=true': 1,
+      'http://localhost:9000/test/qunit4.html' : 1
     };
     try {
       assert.deepEqual(actual, expected, 'Actual should match expected.');

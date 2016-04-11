@@ -13,7 +13,7 @@
   },
   "main": "tasks/qunit.js",
   "scripts": {
-    "test": "grunt test --stack"
+    "test": "grunt test --stack && grunt connect qunit:modules --modules=\"module1\""
   },
   "dependencies": {
     "grunt-lib-phantomjs": "^1.0.0"

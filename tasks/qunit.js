@@ -62,6 +62,29 @@ module.exports = function(grunt) {
       grunt.log.writeln();
     }
   };
+  // Copied from QUnit source code
+  var generateHash = function(module) {
+    var hex;
+    var i = 0;
+    var hash = 0;
+    var str = module + '\x1C' + undefined;
+    var len = str.length;
+
+    for (; i < len; i++) {
+      hash  = ((hash << 5) - hash) + str.charCodeAt(i);
+      hash |= 0;
+    }
+
+    // Convert the possibly negative integer hash code into an 8 character
+    // hex string, which isn't strictly necessary but increases user understanding
+    // that the id is a SHA-like hash
+    hex = (0x100000000 + hash).toString(16);
+    if (hex.length < 8) {
+      hex = '0000000' + hex;
+    }
+
+    return hex.slice(-8);
+  };
 
   // QUnit hooks.
   phantomjs.on('qunit.moduleStart', function(name) {
@@ -184,12 +207,25 @@ module.exports = function(grunt) {
       urls = options.urls.concat(this.filesSrc);
     }
 
+    var parsed;
     if (options.noGlobals) {
       // Append a noglobal query string param to all urls
-      var parsed;
       urls = urls.map(function(testUrl) {
         parsed = url.parse(testUrl, true);
-        parsed.query.noglobals = "true";
+        parsed.query.noglobals = 'true';
+        delete parsed.search;
+        return url.format(parsed);
+      });
+    }
+
+    if (grunt.option('modules')) {
+      var modules = grunt.option('modules').replace(/\s+/g, '').split(',');
+      // Append moduleId to all urls
+      urls = urls.map(function(testUrl) {
+        parsed = url.parse(testUrl, true);
+        parsed.query.moduleId = modules.map(function(module) {
+          return generateHash(module);
+        });
         delete parsed.search;
         return url.format(parsed);
       });
