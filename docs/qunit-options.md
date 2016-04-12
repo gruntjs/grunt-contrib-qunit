@@ -53,3 +53,9 @@ Type: `boolean`
 Default: `false`
 
 Fail a test when the global namespace is polluted. See the [QUnit cookbook](http://qunitjs.com/cookbook/#discussion-id170) for more information.
+
+# Filtering specs
+
+**Filtering by module name**:
+
+`grunt qunit --modules=foo` will run the module `foo`. You can specify one or multiple, comma-separated modules to run.

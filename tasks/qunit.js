@@ -219,12 +219,12 @@ module.exports = function(grunt) {
     }
 
     if (grunt.option('modules')) {
-      var modules = grunt.option('modules').replace(/\s+/g, '').split(',');
+      var modules = grunt.option('modules').split(',');
       // Append moduleId to all urls
       urls = urls.map(function(testUrl) {
         parsed = url.parse(testUrl, true);
         parsed.query.moduleId = modules.map(function(module) {
-          return generateHash(module);
+          return generateHash(module.trim());
         });
         delete parsed.search;
         return url.format(parsed);

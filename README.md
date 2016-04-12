@@ -100,6 +100,12 @@ Default: `false`
 
 Fail a test when the global namespace is polluted. See the [QUnit cookbook](http://qunitjs.com/cookbook/#discussion-id170) for more information.
 
+### Filtering specs
+
+**Filtering by module name**:
+
+`grunt qunit --modules=foo` will run the module `foo`. You can specify one or multiple, comma-separated modules to run.
+
 ### Usage examples
 
 #### Wildcards
@@ -250,4 +256,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Thu Apr 07 2016 15:24:47.*
+*This file was generated on Tue Apr 12 2016 16:34:44.*
