@@ -220,12 +220,13 @@ module.exports = function(grunt) {
 
     if (grunt.option('modules')) {
       var modules = grunt.option('modules').split(',');
+      var hashes = modules.map(function(module) {
+        return generateHash(module.trim());
+      });
       // Append moduleId to all urls
       urls = urls.map(function(testUrl) {
         parsed = url.parse(testUrl, true);
-        parsed.query.moduleId = modules.map(function(module) {
-          return generateHash(module.trim());
-        });
+        parsed.query.moduleId = hashes;
         delete parsed.search;
         return url.format(parsed);
       });
