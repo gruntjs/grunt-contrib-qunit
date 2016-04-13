@@ -173,7 +173,6 @@ module.exports = function(grunt) {
 
   phantomjs.on('error.onError', function (msg, stackTrace) {
     grunt.event.emit('qunit.error.onError', msg, stackTrace);
-    grunt.log.warn('PhantomJS error:\n', msg, '\n', stackTrace);
   });
 
   grunt.registerMultiTask('qunit', 'Run QUnit unit tests in a headless PhantomJS instance.', function() {
