@@ -1,7 +1,7 @@
 {
   "name": "grunt-contrib-qunit",
   "description": "Run QUnit unit tests in a headless PhantomJS instance",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": {
     "name": "Grunt Team",
     "url": "http://gruntjs.com/"

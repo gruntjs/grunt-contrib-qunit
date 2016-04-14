@@ -1,4 +1,4 @@
-# grunt-contrib-qunit v1.1.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-qunit.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/3vd43779joyj6qji/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-qunit/branch/master)
+# grunt-contrib-qunit v1.2.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-qunit.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/3vd43779joyj6qji/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-qunit/branch/master)
 
 > Run QUnit unit tests in a headless PhantomJS instance
 
@@ -221,7 +221,7 @@ In addition to QUnit callback-named events, the following events are emitted by 
 * `qunit.spawn` `(url)`: when [PhantomJS][] is spawned for a test
 * `qunit.fail.load` `(url)`: when [PhantomJS][] could not open the given url
 * `qunit.fail.timeout`: when a QUnit test times out, usually due to a missing `QUnit.start()` call
-* `qunit.error.onError` `(message, stackTrace)`
+* `qunit.error.onError` `(message, stackTrace)`: when a JavaScript execution error occurs
 
 You may listen for these events like so:
 
@@ -234,6 +234,7 @@ grunt.event.on('qunit.spawn', function (url) {
 
 ## Release History
 
+ * 2016-04-14   v1.2.0   Add support for filtering running modules using command line (--modules) Removed 'grunt.warn' output from `error.onError` handler, onus now on end user binding to event. Update docs.
  * 2016-03-11   v1.1.0   Adding support for 'summaryOnly'. Fix `options.force`. Fix query string for `noGlobals`. Update docs.
  * 2016-02-05   v1.0.1   Change `QUnit.jsDump` to `QUnit.dump`.
  * 2016-02-05   v1.0.0   Update grunt-lib-phantomjs to 1.0.0, effectively upgrading to phantomjs 2.x. Remove grunt as a peerDependency.
@@ -256,4 +257,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Tue Apr 12 2016 16:34:44.*
+*This file was generated on Thu Apr 14 2016 16:23:00.*

@@ -1,3 +1,9 @@
+v1.2.0:
+  date: 2016-04-14
+  changes:
+    - Add support for filtering running modules using command line (--modules)
+    - Removed 'grunt.warn' output from `error.onError` handler, onus now on end user binding to event.
+    - Update docs.
 v1.1.0:
   date: 2016-03-11
   changes:
