@@ -1,14 +1,14 @@
-module('module1');
+QUnit.module('module1');
 
-test('basic test', function() {
-  expect(1);
-  ok(true, 'this had better work.');
+QUnit.test('basic test', function(assert) {
+  assert.expect(1);
+  assert.ok(true, 'this had better work.');
 });
 
 
-module('module2');
+QUnit.module('module2');
 
-test('a second basic test', function() {
-  expect(1);
-  ok(true, 'this had better work.');
+QUnit.test('a second basic test', function(assert) {
+  assert.expect(1);
+  assert.ok(true, 'this had better work.');
 });

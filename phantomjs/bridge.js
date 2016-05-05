@@ -18,8 +18,6 @@
 
   // Don't re-order tests.
   QUnit.config.reorder = false;
-  // Run tests serially, not in parallel.
-  QUnit.config.autorun = false;
 
   // Send messages to the parent PhantomJS process via alert! Good times!!
   function sendMessage() {
