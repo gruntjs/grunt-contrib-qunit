@@ -100,11 +100,19 @@ Default: `false`
 
 Fail a test when the global namespace is polluted. See the [QUnit cookbook](http://qunitjs.com/cookbook/#discussion-id170) for more information.
 
-### Filtering specs
+### Command line options
 
-**Filtering by module name**:
+#### Filtering by module name: `--modules`
 
-`grunt qunit --modules=foo` will run the module `foo`. You can specify one or multiple, comma-separated modules to run.
+`grunt qunit --modules="foo"`
+
+Will run the module `foo`. You can specify one or multiple, comma-separated modules to run.
+
+#### Running tests in seeded-random order: `--seed`
+
+`grunt qunit --seed="a-string"`
+
+Specify the seed to pass to QUnit, to run tests in random, but deterministic order. See [`QUnit.config.seed`](https://api.qunitjs.com/QUnit.config/) docs for more information.
 
 ### Usage examples
 
@@ -257,4 +265,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Thu Apr 14 2016 16:23:00.*
+*This file was generated on Thu May 12 2016 15:02:39.*

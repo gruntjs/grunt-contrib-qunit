@@ -67,6 +67,32 @@ module.exports = function(grunt) {
             'http://localhost:9000/test/qunit4.html'
           ]
         }
+      },
+      seed: {
+        options: {
+          urls: [
+            'http://localhost:9000/test/qunit5.html'
+          ]
+        }
+      }
+    },
+    shell: {
+      options: {
+        callback: function(err, stdout, stderr, cb) {
+          if (/test\/qunit[45]\.html/.test(stdout) &&
+              /[12] assertions passed/.test(stdout)) {
+            cb();
+          } else {
+            cb(false);
+          }
+        },
+        preferLocal: true
+      },
+      modules: {
+        command: 'grunt qunit:modules --modules="module1"'
+      },
+      seed: {
+        command: 'grunt qunit:seed --seed="7x9"'
       }
     }
 
@@ -92,7 +118,8 @@ module.exports = function(grunt) {
       'test/qunit2.html': 3,
       'http://localhost:9000/test/qunit1.html': 2,
       'http://localhost:9000/test/qunit3.html?foo=bar&noglobals=true': 1,
-      'http://localhost:9000/test/qunit4.html' : 1
+      'http://localhost:9000/test/qunit4.html' : 1,
+      'http://localhost:9000/test/qunit5.html' : 1
     };
     try {
       assert.deepEqual(actual, expected, 'Actual should match expected.');
@@ -110,9 +137,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-internal');
+  grunt.loadNpmTasks('grunt-shell');
 
   // Whenever the "test" task is run, run some basic tests.
-  grunt.registerTask('test', ['jshint', 'connect', 'qunit', 'really-test']);
+  grunt.registerTask('test', ['jshint', 'connect', 'qunit', 'shell', 'really-test']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['test', 'build-contrib']);
