@@ -54,8 +54,20 @@ Default: `false`
 
 Fail a test when the global namespace is polluted. See the [QUnit cookbook](http://qunitjs.com/cookbook/#discussion-id170) for more information.
 
-# Filtering specs
+# Command line options
 
-**Filtering by module name**:
+## Filtering by module name: `--modules`
 
-`grunt qunit --modules=foo` will run the module `foo`. You can specify one or multiple, comma-separated modules to run.
+`grunt qunit --modules="foo"`
+
+Will run the module `foo`. You can specify one or multiple, comma-separated modules to run.
+
+## Running tests in seeded-random order: `--seed`
+
+`grunt qunit --seed="a-string"`
+
+Tells `QUnit` to run tests in a seeded-random order. The value provided will be used as the seed in a pseudo-random number generator to ensure that results are reproducible. The randomization will also respect the reorder option if enabled and re-run failed tests first without randomizing them.
+
+Randomly ordering your tests can help identify non-atomic tests which either depend on a previous test or are leaking state to following tests. This is particularly beneficial in a development CI or post-commit process.
+
+If seed is specified but no value is specified, then `QUnit` will generate a random value to use as the seed.
