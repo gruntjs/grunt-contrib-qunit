@@ -207,14 +207,19 @@ module.exports = function(grunt) {
     }
 
     var parsed;
-    if (options.noGlobals) {
-      // Append a noglobal query string param to all urls
+    var appendToUrls = function(queryParam, value) {
+      // Append the query param to all urls
       urls = urls.map(function(testUrl) {
         parsed = url.parse(testUrl, true);
-        parsed.query.noglobals = 'true';
+        parsed.query[queryParam] = value;
         delete parsed.search;
         return url.format(parsed);
       });
+    };
+
+    if (options.noGlobals) {
+      // Append a noglobal query string param to all urls
+      appendToUrls('noglobals', 'true');
     }
 
     if (grunt.option('modules')) {
@@ -223,12 +228,12 @@ module.exports = function(grunt) {
         return generateHash(module.trim());
       });
       // Append moduleId to all urls
-      urls = urls.map(function(testUrl) {
-        parsed = url.parse(testUrl, true);
-        parsed.query.moduleId = hashes;
-        delete parsed.search;
-        return url.format(parsed);
-      });
+      appendToUrls('moduleId', hashes);
+    }
+
+    if (grunt.option('seed')) {
+      // Append seed to all urls
+      appendToUrls('seed', grunt.option('seed'));
     }
 
     // This task is asynchronous.
