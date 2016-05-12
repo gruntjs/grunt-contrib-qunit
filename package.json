@@ -16,7 +16,7 @@
     "test": "grunt test --stack"
   },
   "dependencies": {
-    "grunt-lib-phantomjs": "^1.0.0"
+    "grunt-lib-phantomjs": "^1.1.0"
   },
   "devDependencies": {
     "difflet": "^1.0.1",
