@@ -191,7 +191,7 @@ module.exports = function(grunt) {
       status.total += 1;
     }
 
-    if (options && options.logResourcesEvents) {
+    if (options && options.printResourcesEvents) {
       grunt.log.writeln();
       grunt.event.emit('qunit.error.onError', resourceError);
       grunt.log.error('Unable to load resource: ' + resourceError.url);
@@ -206,7 +206,7 @@ module.exports = function(grunt) {
       status.total += 1;
     }
 
-    if (options && options.logResourcesEvents) {
+    if (options && options.printResourcesEvents) {
       grunt.log.writeln();
       grunt.event.emit('qunit.error.onError', resourceError);
       grunt.log.error('Timeout while loading resource: ' + resourceError.url);
@@ -234,7 +234,7 @@ module.exports = function(grunt) {
       // Stop if failed to load resource (scripts, etc.)
       failOnMissingResources: false,
       // Print resource is missing or load timed out messages
-      logResourcesEvents: false
+      printResourcesEvents: false
     });
 
     var urls;

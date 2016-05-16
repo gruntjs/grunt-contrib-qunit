@@ -55,19 +55,19 @@ Default: `false`
 Fail a test when the global namespace is polluted. See the [QUnit cookbook](http://qunitjs.com/cookbook/#discussion-id170) for more information.
 
 ## failOnScriptErrors
-Type: `boolean`
+Type: `boolean`  
 Default: `true`
 
 Fail a test if script error encountered.
 
 ## failOnMissingResources
-Type: `boolean`
+Type: `boolean`  
 Default: `false`
 
 Fail a test if PhantomJS failed to load a resource (scripts, etc.)
 
-## logResourcesEvents
-Type: `boolean`
+## printResourcesEvents
+Type: `boolean`  
 Default: `false`
 
 Print resource is missing or load timed out messages.
