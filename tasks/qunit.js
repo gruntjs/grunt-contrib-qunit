@@ -172,7 +172,17 @@ module.exports = function(grunt) {
   });
 
   phantomjs.on('error.onError', function (msg, stackTrace) {
+    grunt.log.writeln();
     grunt.event.emit('qunit.error.onError', msg, stackTrace);
+    grunt.log.error('Error on page: ' + msg);
+    grunt.verbose.error('Stack trace:' + stackTrace);
+  });
+
+  phantomjs.on('error.resourceError', function (resourceError) {
+    grunt.log.writeln();
+    grunt.event.emit('qunit.error.onError', resourceError);
+    grunt.log.error('Unable to load resource: ' + resourceError.url);
+    grunt.verbose.error('Error code: ' + resourceError.errorCode + "; Description: " + resourceError.errorString);
   });
 
   grunt.registerMultiTask('qunit', 'Run QUnit unit tests in a headless PhantomJS instance.', function() {
