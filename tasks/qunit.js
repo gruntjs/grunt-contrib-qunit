@@ -172,17 +172,46 @@ module.exports = function(grunt) {
   });
 
   phantomjs.on('error.onError', function (msg, stackTrace) {
+    if (options && options.failOnScriptErrors) {
+      phantomjs.halt();
+      status.failed += 1;
+      status.total += 1;
+    }
+
     grunt.log.writeln();
     grunt.event.emit('qunit.error.onError', msg, stackTrace);
     grunt.log.error('Error on page: ' + msg);
     grunt.verbose.error('Stack trace:' + stackTrace);
   });
 
-  phantomjs.on('error.resourceError', function (resourceError) {
-    grunt.log.writeln();
-    grunt.event.emit('qunit.error.onError', resourceError);
-    grunt.log.error('Unable to load resource: ' + resourceError.url);
-    grunt.verbose.error('Error code: ' + resourceError.errorCode + "; Description: " + resourceError.errorString);
+  phantomjs.on('error.onResourceError', function (resourceError) {
+    if (options && options.failOnMissingResources) {
+      phantomjs.halt();
+      status.failed += 1;
+      status.total += 1;
+    }
+
+    if (options && options.logResourcesEvents) {
+      grunt.log.writeln();
+      grunt.event.emit('qunit.error.onError', resourceError);
+      grunt.log.error('Unable to load resource: ' + resourceError.url);
+      grunt.verbose.error('Error code: ' + resourceError.errorCode + "; Description: " + resourceError.errorString);
+    }
+  });
+
+  phantomjs.on('error.onResourceTimeout', function (resourceError) {
+    if (options && options.failOnMissingResources) {
+      phantomjs.halt();
+      status.failed += 1;
+      status.total += 1;
+    }
+
+    if (options && options.logResourcesEvents) {
+      grunt.log.writeln();
+      grunt.event.emit('qunit.error.onError', resourceError);
+      grunt.log.error('Timeout while loading resource: ' + resourceError.url);
+      grunt.verbose.error('Error code: ' + resourceError.errorCode + "; Description: " + resourceError.errorString);
+    }
   });
 
   grunt.registerMultiTask('qunit', 'Run QUnit unit tests in a headless PhantomJS instance.', function() {
@@ -199,7 +228,13 @@ module.exports = function(grunt) {
       console: true,
       // Do not use an HTTP base by default
       httpBase: false,
-      summaryOnly: false
+      summaryOnly: false,
+      // Stop if script error encountered
+      failOnScriptErrors: true,
+      // Stop if failed to load resource (scripts, etc.)
+      failOnMissingResources: false,
+      // Print resource is missing or load timed out messages
+      logResourcesEvents: false
     });
 
     var urls;
