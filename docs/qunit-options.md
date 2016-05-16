@@ -70,7 +70,7 @@ Fail a test if PhantomJS failed to load a resource (scripts, etc.)
 Type: `boolean`  
 Default: `false`
 
-Print resource is missing or load timed out messages.
+Print resource is missing or load timed out messages. Use `--verbose` for more details (error code and description).
 
 
 # Command line options
