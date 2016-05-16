@@ -178,10 +178,13 @@ module.exports = function(grunt) {
       status.total += 1;
     }
 
-    grunt.log.writeln();
     grunt.event.emit('qunit.error.onError', msg, stackTrace);
-    grunt.log.error('Error on page: ' + msg);
-    grunt.verbose.error('Stack trace:' + stackTrace);
+
+    if (options && !options.summaryOnly) {
+      grunt.log.writeln();
+      grunt.log.error('Error on page: ' + msg);
+      grunt.verbose.error('Stack trace:' + stackTrace);
+    }
   });
 
   phantomjs.on('error.onResourceError', function (resourceError) {
@@ -191,7 +194,7 @@ module.exports = function(grunt) {
       status.total += 1;
     }
 
-    if (options && options.printResourcesEvents) {
+    if (options && options.printResourcesEvents && !options.summaryOnly) {
       grunt.log.writeln();
       grunt.event.emit('qunit.error.onError', resourceError);
       grunt.log.error('Unable to load resource: ' + resourceError.url);
@@ -206,7 +209,7 @@ module.exports = function(grunt) {
       status.total += 1;
     }
 
-    if (options && options.printResourcesEvents) {
+    if (options && options.printResourcesEvents && !options.summaryOnly) {
       grunt.log.writeln();
       grunt.event.emit('qunit.error.onError', resourceError);
       grunt.log.error('Timeout while loading resource: ' + resourceError.url);
