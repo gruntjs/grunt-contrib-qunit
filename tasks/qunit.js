@@ -206,11 +206,10 @@ module.exports = function(grunt) {
       urls = options.urls.concat(this.filesSrc);
     }
 
-    var parsed;
     var appendToUrls = function(queryParam, value) {
       // Append the query param to all urls
       urls = urls.map(function(testUrl) {
-        parsed = url.parse(testUrl, true);
+        var parsed = url.parse(testUrl, true);
         parsed.query[queryParam] = value;
         delete parsed.search;
         return url.format(parsed);
