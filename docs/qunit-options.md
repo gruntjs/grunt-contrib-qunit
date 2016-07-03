@@ -67,3 +67,5 @@ Will run the module `foo`. You can specify one or multiple, comma-separated modu
 `grunt qunit --seed="a-string"`
 
 Specify the seed to pass to QUnit, to run tests in random, but deterministic order. See [`QUnit.config.seed`](https://api.qunitjs.com/QUnit.config/) docs for more information.
+
+_Note: You must be using `QUnit` version `1.23.0` or greater for this features to work properly._
