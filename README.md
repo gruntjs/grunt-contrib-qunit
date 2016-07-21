@@ -194,7 +194,7 @@ grunt.registerTask('test', ['connect', 'qunit']);
 #### Custom timeouts and PhantomJS options
 In the following example, the default timeout value of `5000` is overridden with the value `10000` (timeout values are in milliseconds). Additionally, PhantomJS will read stored cookies from the specified file. See the [PhantomJS API Reference][] for a list of `--` options that PhantomJS supports.
 
-[PhantomJS API Reference]: https://github.com/ariya/phantomjs/wiki/API-Reference
+[PhantomJS API Reference]: http://phantomjs.org/api
 
 ```js
 // Project configuration.
@@ -267,4 +267,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Sun Jul 03 2016 01:02:07.*
+*This file was generated on Thu Jul 21 2016 10:39:19.*
