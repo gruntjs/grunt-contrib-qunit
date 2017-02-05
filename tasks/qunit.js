@@ -96,10 +96,13 @@ module.exports = function(grunt) {
     delete unfinished[name];
   });
 
-  phantomjs.on('qunit.log', function(result, actual, expected, message, source) {
-    if (!result) {
+  phantomjs.on('qunit.log', function(result, actual, expected, message, source, todo) {
+    if (!result && !todo) {
       failedAssertions.push({
-        actual: actual, expected: expected, message: message, source: source,
+        actual: actual,
+        expected: expected,
+        message: message,
+        source: source,
         testName: currentTest
       });
     }
@@ -110,13 +113,20 @@ module.exports = function(grunt) {
     grunt.verbose.write(currentTest + '...');
   });
 
-  phantomjs.on('qunit.testDone', function(name, failed/*, passed, total*/) {
+  phantomjs.on('qunit.testDone', function(name, failed, passed, total, duration, todo) {
     // Log errors if necessary, otherwise success.
-    if (failed > 0) {
+    if (failed > 0 && !todo) {
       // list assertions
       if (grunt.option('verbose')) {
         grunt.log.error();
         logFailedAssertions();
+      } else {
+        grunt.log.write('F'.red);
+      }
+    } else if (failed === 0 && todo) {
+      if (grunt.option('verbose')) {
+        grunt.log.error();
+        grunt.log.error('Expected at least one failing assertion in todo test:' + name);
       } else {
         grunt.log.write('F'.red);
       }
@@ -127,10 +137,12 @@ module.exports = function(grunt) {
 
   phantomjs.on('qunit.done', function(failed, passed, total, duration) {
     phantomjs.halt();
+
     status.failed += failed;
     status.passed += passed;
     status.total += total;
     status.duration += duration;
+
     // Print assertion errors here, if verbose mode is disabled.
     if (!grunt.option('verbose')) {
       if (failed > 0) {
