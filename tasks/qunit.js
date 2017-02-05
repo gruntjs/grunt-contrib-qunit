@@ -17,8 +17,10 @@ module.exports = function(grunt) {
   // External lib.
   var phantomjs = require('grunt-lib-phantomjs').init(grunt);
 
-  // Keep track of the last-started module, test and status.
-  var options, currentModule, currentTest, status;
+  // Keep track of the last-started module and test. Additionally, keep track
+  // of status for individual test files and the entire test suite.
+  var options, currentModule, currentTest, currentStatus, status;
+
   // Keep track of the last-started test(s).
   var unfinished = {};
 
@@ -62,6 +64,54 @@ module.exports = function(grunt) {
       grunt.log.writeln();
     }
   };
+
+  var createStatus = function() {
+    return {
+      passed: 0,
+      failed: 0,
+      skipped: 0,
+      todo: 0,
+      runtime: 0,
+      assertions: {
+        passed: 0,
+        failed: 0
+      }
+    };
+  };
+
+  var mergeStatus = function(statusA, statusB) {
+    statusA.passed += statusB.passed;
+    statusA.failed += statusB.failed;
+    statusA.skipped += statusB.skipped;
+    statusA.todo += statusB.todo;
+    statusA.runtime += statusB.runtime;
+    statusA.assertions.passed += statusB.assertions.passed;
+    statusA.assertions.failed += statusB.assertions.failed;
+  };
+
+  var generateMessage = function(status) {
+    var totalTests = status.passed + status.failed + status.skipped + status.todo;
+    var totalAssertions = status.assertions.passed + status.assertions.failed;
+
+    return [
+      totalTests,
+      " tests completed with ",
+      status.failed,
+      " failed, " +
+      status.skipped,
+      " skipped, and ",
+      status.todo,
+      " todo. \n" +
+      totalAssertions,
+      " assertions (in ",
+      status.runtime,
+      "ms), passed: " +
+      status.assertions.passed,
+      ", failed: ",
+      status.assertions.failed
+    ].join( "" );
+  };
+
   // Copied from QUnit source code
   var generateHash = function(module) {
     var hex;
@@ -87,6 +137,10 @@ module.exports = function(grunt) {
   };
 
   // QUnit hooks.
+  phantomjs.on('qunit.begin', function() {
+    currentStatus = createStatus();
+  });
+
   phantomjs.on('qunit.moduleStart', function(name) {
     unfinished[name] = true;
     currentModule = name;
@@ -113,20 +167,30 @@ module.exports = function(grunt) {
     grunt.verbose.write(currentTest + '...');
   });
 
-  phantomjs.on('qunit.testDone', function(name, failed, passed, total, duration, todo) {
+  phantomjs.on('qunit.testDone', function(name, failed, passed, total, runtime, skipped, todo) {
+    var testPassed = failed > 0 ? todo : !todo;
+
+    if (skipped) {
+      currentStatus.skipped++;
+    } else if (!testPassed) {
+      currentStatus.failed++;
+    } else if (todo) {
+      currentStatus.todo++;
+    } else {
+      currentStatus.passed++;
+    }
+
     // Log errors if necessary, otherwise success.
-    if (failed > 0 && !todo) {
-      // list assertions
+    if (!testPassed) {
+      // list assertions or message about todo failure
       if (grunt.option('verbose')) {
         grunt.log.error();
-        logFailedAssertions();
-      } else {
-        grunt.log.write('F'.red);
-      }
-    } else if (failed === 0 && todo) {
-      if (grunt.option('verbose')) {
-        grunt.log.error();
-        grunt.log.error('Expected at least one failing assertion in todo test:' + name);
+
+        if (todo) {
+          grunt.log.error('Expected at least one failing assertion in todo test:' + name);
+        } else {
+          logFailedAssertions();
+        }
       } else {
         grunt.log.write('F'.red);
       }
@@ -135,25 +199,24 @@ module.exports = function(grunt) {
     }
   });
 
-  phantomjs.on('qunit.done', function(failed, passed, total, duration) {
+  phantomjs.on('qunit.done', function(failed, passed, total, runtime) {
     phantomjs.halt();
 
-    status.failed += failed;
-    status.passed += passed;
-    status.total += total;
-    status.duration += duration;
+    currentStatus.runtime += runtime;
+    currentStatus.assertions.passed += passed;
+    currentStatus.assertions.failed += failed;
 
     // Print assertion errors here, if verbose mode is disabled.
     if (!grunt.option('verbose')) {
-      if (failed > 0) {
+      if (currentStatus.failed > 0) {
         grunt.log.writeln();
         logFailedAssertions();
-      } else if (total === 0) {
-        warnUnlessForced('0/0 assertions ran (' + duration + 'ms)');
       } else {
         grunt.log.ok();
       }
     }
+
+    mergeStatus(status, currentStatus);
   });
 
   // Re-broadcast qunit events on grunt.event.
@@ -168,8 +231,8 @@ module.exports = function(grunt) {
     grunt.verbose.write('...');
     grunt.event.emit('qunit.fail.load', url);
     grunt.log.error('PhantomJS unable to load "' + url + '" URI.');
+
     status.failed += 1;
-    status.total += 1;
   });
 
   phantomjs.on('fail.timeout', function() {
@@ -179,8 +242,8 @@ module.exports = function(grunt) {
     grunt.log.error('PhantomJS timed out, possibly due to:\n' +
         '- QUnit is not loaded correctly.\n- A missing QUnit start() call.\n' +
         '- Or, a misconfiguration of this task.');
+
     status.failed += 1;
-    status.total += 1;
   });
 
   phantomjs.on('error.onError', function (msg, stackTrace) {
@@ -251,7 +314,7 @@ module.exports = function(grunt) {
     var done = this.async();
 
     // Reset status.
-    status = {failed: 0, passed: 0, total: 0, duration: 0};
+    status = createStatus();
 
     // Pass-through console.log statements.
     if(options.console) {
@@ -284,17 +347,15 @@ module.exports = function(grunt) {
     },
     // All tests have been run.
     function() {
+      var message = generateMessage(status);
       var success;
 
       // Log results.
       if (status.failed > 0) {
-        warnUnlessForced(status.failed + '/' + status.total +
-            ' assertions failed (' + status.duration + 'ms)');
-      } else if (status.total === 0) {
-        warnUnlessForced('0/0 assertions ran (' + status.duration + 'ms)');
+        warnUnlessForced(message);
       } else {
         grunt.verbose.writeln();
-        grunt.log.ok(status.total + ' assertions passed (' + status.duration + 'ms)');
+        grunt.log.ok(message);
       }
 
       if (options && options.force) {
