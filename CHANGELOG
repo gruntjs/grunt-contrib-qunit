@@ -1,3 +1,9 @@
+v1.3.0:
+  date: 2017-02-07
+  changes:
+    - Add ability to run tests in seeded-random order through `--seed` flag
+    - Add note about min version of QUnit required to use the CLI flags
+    - Implement support for todo tests and revamp reporting logic (#137)
 v1.2.0:
   date: 2016-04-14
   changes:
