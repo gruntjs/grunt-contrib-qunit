@@ -1,4 +1,4 @@
-# grunt-contrib-qunit v1.2.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-qunit.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/3vd43779joyj6qji/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-qunit/branch/master)
+# grunt-contrib-qunit v1.3.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-qunit.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/3vd43779joyj6qji/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-qunit/branch/master)
 
 > Run QUnit unit tests in a headless PhantomJS instance
 
@@ -244,6 +244,7 @@ grunt.event.on('qunit.spawn', function (url) {
 
 ## Release History
 
+ * 2017-02-07   v1.3.0   Add ability to run tests in seeded-random order through `--seed` flag Add note about min version of QUnit required to use the CLI flags Implement support for todo tests and revamp reporting logic (#137)
  * 2016-04-14   v1.2.0   Add support for filtering running modules using command line (--modules) Removed 'grunt.warn' output from `error.onError` handler, onus now on end user binding to event. Update docs.
  * 2016-03-11   v1.1.0   Adding support for 'summaryOnly'. Fix `options.force`. Fix query string for `noGlobals`. Update docs.
  * 2016-02-05   v1.0.1   Change `QUnit.jsDump` to `QUnit.dump`.
@@ -267,4 +268,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Thu Jul 21 2016 10:39:19.*
+*This file was generated on Tue Feb 07 2017 10:51:07.*
