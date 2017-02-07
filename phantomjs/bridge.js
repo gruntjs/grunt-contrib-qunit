@@ -46,7 +46,7 @@
       expected = dump.parse(obj.expected);
     }
     // Send it.
-    sendMessage('qunit.log', obj.result, actual, expected, obj.message, obj.source);
+    sendMessage('qunit.log', obj.result, actual, expected, obj.message, obj.source, obj.todo);
   });
 
   QUnit.testStart(function(obj) {
@@ -54,7 +54,7 @@
   });
 
   QUnit.testDone(function(obj) {
-    sendMessage('qunit.testDone', obj.name, obj.failed, obj.passed, obj.total, obj.duration);
+    sendMessage('qunit.testDone', obj.name, obj.failed, obj.passed, obj.total, obj.runtime, obj.skipped, obj.todo);
   });
 
   QUnit.moduleStart(function(obj) {

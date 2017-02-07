@@ -80,7 +80,7 @@ module.exports = function(grunt) {
       options: {
         callback: function(err, stdout, stderr, cb) {
           if (/test\/qunit[45]\.html/.test(stdout) &&
-              /[12] assertions passed/.test(stdout)) {
+              /passed: [12]/.test(stdout)) {
             cb();
           } else {
             cb(false);
