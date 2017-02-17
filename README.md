@@ -19,14 +19,41 @@ grunt.loadNpmTasks('grunt-contrib-qunit');
 ```
 
 
+## Introduction
+
+You have chosen to write your unit tests using [QUnit][], you have written a
+html page which reports the summary and indivudual details of your unit
+tests, you are happy with this but realize you miss the ability to have your
+unit test suite run automatically each time you commit changes to your
+code.
+
+This is where the `grunt-contrib-qunit` plugin comes in the play:
+`grunt-contrib-qunit` lets you run your tests in the invisible [PhantomJS][]
+browser, thus converting your unit test suite into something you can run
+from a script, a script you can have automatically run on travis-ci (or the
+Continuous Integration service of your choice) which in turn can alert you
+of any rule-breaking commit to your code.
+
+You can still monitor the status of your unit tests suite through in your
+browser, but with `grunt-contrib-qunit` you can also run this from the
+command line interface.
+
+As extra, we will explain the way this software works, show how to expand
+its capabilities with the production with coverage reports, reports you can
+easily have automatically published on the [coveralls][] site.
+
+[QUnit]: http://qunitjs.com/
+[coveralls]: http://coveralls.io
 
 
-## Qunit task
-_Run this task with the `grunt qunit` command._
+## QUnit task
 
-Task targets, files and options may be specified according to the grunt [Configuring tasks](http://gruntjs.com/configuring-tasks) guide.
+This plugin defines one single task: `qunit`. Configure it in your `Gruntfile.js`, run it with the `grunt qunit` command.
+
+Please read about specifying task targets, files and options in the grunt [Configuring tasks](http://gruntjs.com/configuring-tasks) guide.
 
 When installed by npm, this plugin will automatically download and install [PhantomJS][] locally via the [grunt-lib-phantomjs][] library.
+If your system already provides the PhantomJS program, this plugin will use the globally installed program.
 
 [PhantomJS]: http://www.phantomjs.org/
 [grunt-lib-phantomjs]: https://github.com/gruntjs/grunt-lib-phantomjs
@@ -44,6 +71,7 @@ This plugin uses PhantomJS to run tests. PhantomJS requires these dependencies
 
 `yum install fontconfig freetype`
 
+
 ### Options
 
 #### timeout
@@ -53,19 +81,22 @@ Default: `5000`
 The amount of time (in milliseconds) that grunt will wait for a QUnit `start()` call before failing the task with an error.
 
 #### inject
-Type: `String`  
-Default: (built-in)
+Type: `String`|`Array`
+Default: `phantomjs/bridge.js`
 
-Path to an alternate QUnit-PhantomJS bridge file to be injected. See [the built-in bridge](https://github.com/gruntjs/grunt-contrib-qunit/blob/master/phantomjs/bridge.js) for more information.
+One or multiple (array) JavaScript file names to inject into the html test page.
+
+Path to the QUnit-PhantomJS bridge file(s) to be injected.
+You may want to inject something different than the provided QUnit-PhantomJS bridge, or to inject more than just the provided bridge. See [the built-in bridge](https://github.com/gruntjs/grunt-contrib-qunit/blob/master/phantomjs/bridge.js) for more information.
 
 #### httpBase
-Type: `String`
+Type: `Boolean`
 Default: `false`
 
 Create URLs for the `src` files, all `src` files are prefixed with that base.
 
 #### console
-Type: `boolean`
+Type: `Boolean`
 Default: `true`
 
 Set to false to hide PhantomJS console output.
@@ -77,13 +108,13 @@ Default: `[]`
 Absolute `http://` or `https://` urls to be passed to PhantomJS. Specified URLs will be merged with any specified `src` files first. Note that urls must be served by a web server, and since this task doesn't contain a web server, one will need to be configured separately. The [grunt-contrib-connect plugin](https://github.com/gruntjs/grunt-contrib-connect) provides a basic web server.
 
 #### force
-Type: `boolean`  
+Type: `Boolean`  
 Default: `false`
 
 When true, the whole task will not fail when there are individual test failures, or when no assertions for a test have run. This can be set to true when you always want other tasks in the queue to be executed.
 
 #### summaryOnly
-Type: `boolean`  
+Type: `Boolean`  
 Default: `false`
 
 When true, this will suppress the default logging for individually failed tests. Customized logging can be performed by listening to and responding to `qunit.log` events.
@@ -96,7 +127,7 @@ Additional `--` style arguments that need to be passed in to PhantomJS may be sp
 
 #### noGlobals
 Type: `boolean`  
-Default: `false`
+Default: `undefined`
 
 Fail a test when the global namespace is polluted. See the [QUnit cookbook](http://qunitjs.com/cookbook/#discussion-id170) for more information.
 
