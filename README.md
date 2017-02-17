@@ -34,12 +34,13 @@ from a script, a script you can have automatically run on travis-ci (or the
 Continuous Integration service of your choice) which in turn can alert you
 of any rule-breaking commit to your code.
 
-You can still monitor the status of your unit tests suite through in your
-browser, but with `grunt-contrib-qunit` you can also run this from the
-command line interface.
+You can still monitor the status of your unit tests suite visiting your html
+test page in your browser, but with `grunt-contrib-qunit` you can also run
+the same suite from the command line interface using the command `grunt
+qunit`.
 
 As extra, we will explain the way this software works, show how to expand
-its capabilities with the production with coverage reports, reports you can
+its capabilities with the production of coverage reports, reports you can
 easily have automatically published on the [coveralls][] site.
 
 [QUnit]: http://qunitjs.com/
