@@ -7,14 +7,17 @@ Default: `5000`
 The amount of time (in milliseconds) that grunt will wait for a QUnit `start()` call before failing the task with an error.
 
 ## inject
-Type: `String`  
-Default: (built-in)
+Type: `String`|`Array`  
+Default: `phantomjs/bridge.js`
 
-Path to an alternate QUnit-PhantomJS bridge file to be injected. See [the built-in bridge](https://github.com/gruntjs/grunt-contrib-qunit/blob/master/phantomjs/bridge.js) for more information.
+One or multiple (array) JavaScript file names to inject into the html test page. Defaults to the path of the QUnit-PhantomJS bridge file.
+
+You may want to inject something different than the provided QUnit-PhantomJS bridge, or to inject more than just the provided bridge.
+See [the built-in bridge](https://github.com/gruntjs/grunt-contrib-qunit/blob/master/phantomjs/bridge.js) for more information.
 
 ## httpBase
 Type: `String`
-Default: `false`
+Default: `""`
 
 Create URLs for the `src` files, all `src` files are prefixed with that base.
 
