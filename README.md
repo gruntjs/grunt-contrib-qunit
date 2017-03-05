@@ -24,9 +24,31 @@ grunt.loadNpmTasks('grunt-contrib-qunit');
 ## Qunit task
 _Run this task with the `grunt qunit` command._
 
-Task targets, files and options may be specified according to the grunt [Configuring tasks](http://gruntjs.com/configuring-tasks) guide.
+You have chosen to write your unit tests using [QUnit][], you have written a
+html page which reports the summary and indivudual details of your unit
+tests, you are happy with this but realize you miss the ability to have your
+unit test suite run automatically each time you commit changes to your
+code.
 
-When installed by npm, this plugin will automatically download and install [PhantomJS][] locally via the [grunt-lib-phantomjs][] library.
+This is where the `grunt-contrib-qunit` plugin comes in the play:
+`grunt-contrib-qunit` lets you run your tests in the invisible [PhantomJS][]
+browser, thus converting your unit test suite into something you can run
+from a script, a script you can have automatically run on travis-ci (or the
+Continuous Integration service of your choice) which in turn can alert you
+of any rule-breaking commit to your code.
+
+You can still monitor the status of your unit tests suite visiting your html
+test page in your browser, but with `grunt-contrib-qunit` you can also run
+the same suite from the command line interface.
+
+This plugin defines one single task: `qunit`. Configure it in your `Gruntfile.js`, run it with the `grunt qunit` command.
+
+Please read about specifying task targets, files and options in the grunt [Configuring tasks](http://gruntjs.com/configuring-tasks) guide.
+
+When installed by npm, this plugin will automatically download and install
+[PhantomJS][] locally via the [grunt-lib-phantomjs][] library.  If your
+system already provides the PhantomJS program, this plugin will use the
+globally installed program.
 
 [PhantomJS]: http://www.phantomjs.org/
 [grunt-lib-phantomjs]: https://github.com/gruntjs/grunt-lib-phantomjs
@@ -53,19 +75,22 @@ Default: `5000`
 The amount of time (in milliseconds) that grunt will wait for a QUnit `start()` call before failing the task with an error.
 
 #### inject
-Type: `String`  
-Default: (built-in)
+Type: `String`|`Array`  
+Default: `phantomjs/bridge.js`
 
-Path to an alternate QUnit-PhantomJS bridge file to be injected. See [the built-in bridge](https://github.com/gruntjs/grunt-contrib-qunit/blob/master/phantomjs/bridge.js) for more information.
+One or multiple (array) JavaScript file names to inject into the html test page. Defaults to the path of the QUnit-PhantomJS bridge file.
+
+You may want to inject something different than the provided QUnit-PhantomJS bridge, or to inject more than just the provided bridge.
+See [the built-in bridge](https://github.com/gruntjs/grunt-contrib-qunit/blob/master/phantomjs/bridge.js) for more information.
 
 #### httpBase
-Type: `String`
-Default: `false`
+Type: `String`  
+Default: `""`
 
 Create URLs for the `src` files, all `src` files are prefixed with that base.
 
 #### console
-Type: `boolean`
+Type: `boolean`  
 Default: `true`
 
 Set to false to hide PhantomJS console output.
@@ -268,4 +293,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Tue Feb 07 2017 10:51:07.*
+*This file was generated on Sun Mar 05 2017 19:21:50.*
