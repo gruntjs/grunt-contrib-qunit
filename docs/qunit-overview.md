@@ -1,7 +1,3 @@
-This plugin defines one single task: `qunit`. Configure it in your `Gruntfile.js`, run it with the `grunt qunit` command.
-
-## Introduction
- 
 You have chosen to write your unit tests using [QUnit][], you have written a
 html page which reports the summary and indivudual details of your unit
 tests, you are happy with this but realize you miss the ability to have your
@@ -17,13 +13,9 @@ of any rule-breaking commit to your code.
 
 You can still monitor the status of your unit tests suite visiting your html
 test page in your browser, but with `grunt-contrib-qunit` you can also run
-the same suite from the command line interface using the command `grunt
-qunit`.
+the same suite from the command line interface.
 
-Finally, we will explain how this software works, show how to use it in
-combination with [grunt-istanbul][] and [grunt-coveralls][], and
-step-by-step construct a configuration file that will run your tests,
-measure the code coverage, publish the metrics on the [coveralls][] site.
+This plugin defines one single task: `qunit`. Configure it in your `Gruntfile.js`, run it with the `grunt qunit` command.
 
 Please read about specifying task targets, files and options in the grunt [Configuring tasks](http://gruntjs.com/configuring-tasks) guide.
 
