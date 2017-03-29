@@ -105,8 +105,12 @@ module.exports = function(grunt) {
     currentUrl = url;
     if (!successes[currentUrl]) { successes[currentUrl] = 0; }
   });
-  grunt.event.on('qunit.done', function(failed, passed) {
-    if (failed === 0 && passed === 2) { successes[currentUrl]++; }
+  grunt.event.on('qunit.done', function(failed, passed, total) {
+    if (failed === 0 && passed === total) {
+      successes[currentUrl]++;
+    } else {
+      successes[currentUrl] -= 100;
+    }
   });
 
   grunt.registerTask('really-test', 'Test to see if qunit task actually worked.', function() {
@@ -117,7 +121,7 @@ module.exports = function(grunt) {
       'test/qunit1.html': 3,
       'test/qunit2.html': 3,
       'http://localhost:9000/test/qunit1.html': 2,
-      'http://localhost:9000/test/qunit3.html?foo=bar&noglobals=true': 1,
+      'http://localhost:9000/test/qunit3.html?foo=bar&noglobals=true': -100,
       'http://localhost:9000/test/qunit4.html' : 1,
       'http://localhost:9000/test/qunit5.html' : 1
     };
