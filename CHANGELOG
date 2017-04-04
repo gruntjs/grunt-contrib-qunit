@@ -1,3 +1,9 @@
+v2.0.0:
+  date: 2017-04-04
+  changes:
+    - Remove usage of `QUnit.jsDump`
+    - Upgrade qunitjs to 2.3.0 (#123)
+    - adding an Introduction to the README (#140)
 v1.3.0:
   date: 2017-02-07
   changes:
