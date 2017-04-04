@@ -8,18 +8,21 @@
 
 'use strict';
 
+// Nodejs libs.
+var path = require('path');
+var url = require('url');
+
 module.exports = function(grunt) {
-
-  // Nodejs libs.
-  var path = require('path');
-  var url = require('url');
-
   // External lib.
   var phantomjs = require('grunt-lib-phantomjs').init(grunt);
 
   // Keep track of the last-started module and test. Additionally, keep track
   // of status for individual test files and the entire test suite.
-  var options, currentModule, currentTest, currentStatus, status;
+  var options;
+  var currentModule;
+  var currentTest;
+  var currentStatus;
+  var status;
 
   // Keep track of the last-started test(s).
   var unfinished = {};
@@ -28,22 +31,26 @@ module.exports = function(grunt) {
   var asset = path.join.bind(null, __dirname, '..');
 
   // Allow an error message to retain its color when split across multiple lines.
-  var formatMessage = function(str) {
-    return String(str).split('\n').map(function(s) { return s.magenta; }).join('\n');
-  };
+  function formatMessage (str) {
+    return String(str).split('\n')
+      .map(function(s) {
+        return s.magenta;
+      })
+      .join('\n');
+  }
 
   // If options.force then log an error, otherwise exit with a warning
-  var warnUnlessForced = function (message) {
+  function warnUnlessForced (message) {
     if (options && options.force) {
       grunt.log.error(message);
     } else {
       grunt.warn(message);
     }
-  };
+  }
 
   // Keep track of failed assertions for pretty-printing.
   var failedAssertions = [];
-  var logFailedAssertions = function() {
+  function logFailedAssertions () {
     var assertion;
 
     if (options && options.summaryOnly) {
@@ -63,9 +70,9 @@ module.exports = function(grunt) {
       }
       grunt.log.writeln();
     }
-  };
+  }
 
-  var createStatus = function() {
+  function createStatus () {
     return {
       passed: 0,
       failed: 0,
@@ -77,9 +84,9 @@ module.exports = function(grunt) {
         failed: 0
       }
     };
-  };
+  }
 
-  var mergeStatus = function(statusA, statusB) {
+  function mergeStatus(statusA, statusB) {
     statusA.passed += statusB.passed;
     statusA.failed += statusB.failed;
     statusA.skipped += statusB.skipped;
@@ -87,33 +94,33 @@ module.exports = function(grunt) {
     statusA.runtime += statusB.runtime;
     statusA.assertions.passed += statusB.assertions.passed;
     statusA.assertions.failed += statusB.assertions.failed;
-  };
+  }
 
-  var generateMessage = function(status) {
+  function generateMessage(status) {
     var totalTests = status.passed + status.failed + status.skipped + status.todo;
     var totalAssertions = status.assertions.passed + status.assertions.failed;
 
     return [
       totalTests,
-      " tests completed with ",
+      ' tests completed with ',
       status.failed,
-      " failed, " +
+      ' failed, ' +
       status.skipped,
-      " skipped, and ",
+      ' skipped, and ',
       status.todo,
-      " todo. \n" +
+      ' todo. \n' +
       totalAssertions,
-      " assertions (in ",
+      ' assertions (in ',
       status.runtime,
-      "ms), passed: " +
+      'ms), passed: ' +
       status.assertions.passed,
-      ", failed: ",
+      ', failed: ',
       status.assertions.failed
-    ].join( "" );
-  };
+    ].join('');
+  }
 
   // Copied from QUnit source code
-  var generateHash = function(module) {
+  function generateHash (module) {
     var hex;
     var i = 0;
     var hash = 0;
@@ -121,7 +128,7 @@ module.exports = function(grunt) {
     var len = str.length;
 
     for (; i < len; i++) {
-      hash  = ((hash << 5) - hash) + str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + str.charCodeAt(i);
       hash |= 0;
     }
 
@@ -134,7 +141,7 @@ module.exports = function(grunt) {
     }
 
     return hex.slice(-8);
-  };
+  }
 
   // QUnit hooks.
   phantomjs.on('qunit.begin', function() {
@@ -146,7 +153,7 @@ module.exports = function(grunt) {
     currentModule = name;
   });
 
-  phantomjs.on('qunit.moduleDone', function(name/*, failed, passed, total*/) {
+  phantomjs.on('qunit.moduleDone', function(name) {
     delete unfinished[name];
   });
 
@@ -181,21 +188,19 @@ module.exports = function(grunt) {
     }
 
     // Log errors if necessary, otherwise success.
-    if (!testPassed) {
+    if (testPassed) {
+      grunt.verbose.ok().or.write('.');
       // list assertions or message about todo failure
-      if (grunt.option('verbose')) {
-        grunt.log.error();
+    } else if (grunt.option('verbose')) {
+      grunt.log.error();
 
-        if (todo) {
-          grunt.log.error('Expected at least one failing assertion in todo test:' + name);
-        } else {
-          logFailedAssertions();
-        }
+      if (todo) {
+        grunt.log.error('Expected at least one failing assertion in todo test:' + name);
       } else {
-        grunt.log.write('F'.red);
+        logFailedAssertions();
       }
     } else {
-      grunt.verbose.ok().or.write('.');
+      grunt.log.write('F'.red);
     }
   });
 
@@ -230,7 +235,7 @@ module.exports = function(grunt) {
     phantomjs.halt();
     grunt.verbose.write('...');
     grunt.event.emit('qunit.fail.load', url);
-    grunt.log.error('PhantomJS unable to load "' + url + '" URI.');
+    grunt.log.error('PhantomJS unable to load \'' + url + '\' URI.');
 
     status.failed += 1;
   });
@@ -270,7 +275,7 @@ module.exports = function(grunt) {
     var urls;
 
     if (options.httpBase) {
-      //If URLs are explicitly referenced, use them still
+      // If URLs are explicitly referenced, use them still
       urls = options.urls;
       // Then create URLs for the src files
       this.filesSrc.forEach(function(testFile) {
@@ -281,7 +286,7 @@ module.exports = function(grunt) {
       urls = options.urls.concat(this.filesSrc);
     }
 
-    var appendToUrls = function(queryParam, value) {
+    function appendToUrls (queryParam, value) {
       // Append the query param to all urls
       urls = urls.map(function(testUrl) {
         var parsed = url.parse(testUrl, true);
@@ -289,7 +294,7 @@ module.exports = function(grunt) {
         delete parsed.search;
         return url.format(parsed);
       });
-    };
+    }
 
     if (options.noGlobals) {
       // Append a noglobal query string param to all urls
@@ -317,7 +322,7 @@ module.exports = function(grunt) {
     status = createStatus();
 
     // Pass-through console.log statements.
-    if(options.console) {
+    if (options.console) {
       phantomjs.on('console', console.log.bind(console));
     }
 
@@ -342,7 +347,7 @@ module.exports = function(grunt) {
             // Otherwise, process next url.
             next();
           }
-        },
+        }
       });
     },
     // All tests have been run.

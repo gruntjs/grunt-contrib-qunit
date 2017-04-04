@@ -15,7 +15,7 @@ module.exports = function(grunt) {
     jshint: {
       all: [
         'Gruntfile.js',
-        'tasks/**/*.js',
+        'tasks/**/*.js'
       ],
       options: {
         jshintrc: '.jshintrc'
@@ -24,21 +24,21 @@ module.exports = function(grunt) {
 
     // Create a local web server for testing http:// URIs.
     connect: {
-      root_server: {
+      rootServer: {
         options: {
           port: 9000,
-          base: '.',
+          base: '.'
         }
       }
     },
 
     // Unit tests.
     qunit: {
-      all_tests: ['test/*{1,2}.html'],
-      individual_tests: {
-        files: [
-          {src: 'test/*{1,2}.html'}
-        ]
+      allTests: ['test/*{1,2}.html'],
+      individualTests: {
+        files: [{
+          src: 'test/*{1,2}.html'
+        }]
       },
       urls: {
         options: {
@@ -47,7 +47,7 @@ module.exports = function(grunt) {
           ]
         }
       },
-      urls_and_files: {
+      urlsAndFiles: {
         options: {
           urls: '<%= qunit.urls.options.urls %>'
         },
@@ -103,7 +103,9 @@ module.exports = function(grunt) {
   var currentUrl;
   grunt.event.on('qunit.spawn', function(url) {
     currentUrl = url;
-    if (!successes[currentUrl]) { successes[currentUrl] = 0; }
+    if (!successes[currentUrl]) {
+      successes[currentUrl] = 0;
+    }
   });
   grunt.event.on('qunit.done', function(failed, passed, total) {
     if (failed === 0 && passed === total) {
@@ -122,8 +124,8 @@ module.exports = function(grunt) {
       'test/qunit2.html': 3,
       'http://localhost:9000/test/qunit1.html': 2,
       'http://localhost:9000/test/qunit3.html?foo=bar&noglobals=true': -100,
-      'http://localhost:9000/test/qunit4.html' : 1,
-      'http://localhost:9000/test/qunit5.html' : 1
+      'http://localhost:9000/test/qunit4.html': 1,
+      'http://localhost:9000/test/qunit5.html': 1
     };
     try {
       assert.deepEqual(actual, expected, 'Actual should match expected.');

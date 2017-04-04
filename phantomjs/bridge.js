@@ -6,7 +6,8 @@
  * Licensed under the MIT license.
  */
 
-/*global QUnit:true, alert:true*/
+/* global QUnit:true, alert:true */
+
 (function (factory) {
   if (typeof define === 'function' && define.amd) {
     require(['qunit'], factory);
@@ -28,10 +29,14 @@
   // These methods connect QUnit to PhantomJS.
   QUnit.log(function(obj) {
     // What is this I don’t even
-    if (obj.message === '[object Object], undefined:undefined') { return; }
+    if (obj.message === '[object Object], undefined:undefined') {
+      return;
+    }
 
     // Parse some stuff before sending it.
-    var actual, expected;
+    var actual;
+    var expected;
+
     if (!obj.result) {
       // Dumping large objects can be very slow, and the dump isn't used for
       // passing tests, so only dump if the test failed.

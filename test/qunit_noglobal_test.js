@@ -1,7 +1,8 @@
 var failures = [];
-QUnit.log(function( details ) {
-  if (details.result === false)
+QUnit.log(function(details) {
+  if (details.result === false) {
     failures.push(details.message);
+  }
 });
 
 QUnit.todo('global pollution', function(assert) {
