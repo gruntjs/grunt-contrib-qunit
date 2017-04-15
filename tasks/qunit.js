@@ -250,6 +250,11 @@ module.exports = function(grunt) {
 
     status.failed += 1;
   });
+  
+  phantomjs.on('error.onError', function (msg, stackTrace) {
+    grunt.event.emit('qunit.error.onError', msg, stackTrace);
+  });
+
 
   phantomjs.on('error.onError', function (msg, stackTrace) {
     grunt.event.emit('qunit.error.onError', msg, stackTrace);
