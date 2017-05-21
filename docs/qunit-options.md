@@ -43,7 +43,7 @@ When true, the whole task will not fail when there are individual test failures,
 Type: `boolean`  
 Default: `false`
 
-When true, this will suppress the default logging for individually failed tests. Customized logging can be performed by listening to and responding to `qunit.log` events.
+When true, this will suppress the default logging for individually failed tests. Customized logging can be performed by listening to and responding to `qunit.log` events. Also suppresses unhandled exceptions messages and JS erros and when `true` overrides `printResourcesEvents`.
 
 ## (-- PhantomJS arguments)
 Type: `String`  
@@ -56,6 +56,25 @@ Type: `boolean`
 Default: `false`
 
 Fail a test when the global namespace is polluted. See the [QUnit cookbook](http://qunitjs.com/cookbook/#discussion-id170) for more information.
+
+## failOnScriptErrors
+Type: `boolean`  
+Default: `true`
+
+Fail a test if script error encountered.
+
+## failOnMissingResources
+Type: `boolean`  
+Default: `false`
+
+Fail a test if PhantomJS failed to load a resource (scripts, etc.)
+
+## printResourcesEvents
+Type: `boolean`  
+Default: `false`
+
+Print resource is missing or load timed out messages. Use `--verbose` for more details (error code and description). `summaryOnly = true` suppresses these messages.
+
 
 # Command line options
 

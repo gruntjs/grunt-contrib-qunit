@@ -10,7 +10,7 @@
 
 (function (factory) {
   if (typeof define === 'function' && define.amd) {
-    require(['qunit'], factory);
+    define('phantom-bridge', ['qunit'], factory);
   } else {
     factory(QUnit);
   }
