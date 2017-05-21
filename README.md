@@ -24,7 +24,7 @@ grunt.loadNpmTasks('grunt-contrib-qunit');
 ## Qunit task
 _Run this task with the `grunt qunit` command._
 
-You have chosen to write your unit tests using [QUnit][], you have written a
+You have chosen to write your unit tests using [QUnit](http://qunitjs.com/), you have written a
 html page which reports the summary and indivudual details of your unit
 tests, you are happy with this but realize you miss the ability to have your
 unit test suite run automatically each time you commit changes to your
@@ -294,4 +294,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Sun May 21 2017 16:18:26.*
+*This file was generated on Sun May 21 2017 18:39:47.*
