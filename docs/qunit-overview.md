@@ -5,7 +5,7 @@ unit test suite run automatically each time you commit changes to your
 code.
 
 This is where the `grunt-contrib-qunit` plugin comes in the play:
-`grunt-contrib-qunit` lets you run your tests in the invisible [PhantomJS][]
+`grunt-contrib-qunit` lets you run your tests in the invisible [Chrome][]
 browser, thus converting your unit test suite into something you can run
 from a script, a script you can have automatically run on travis-ci (or the
 Continuous Integration service of your choice) which in turn can alert you
@@ -19,23 +19,17 @@ This plugin defines one single task: `qunit`. Configure it in your `Gruntfile.js
 
 Please read about specifying task targets, files and options in the grunt [Configuring tasks](http://gruntjs.com/configuring-tasks) guide.
 
-When installed by npm, this plugin will automatically download and install
-[PhantomJS][] locally via the [grunt-lib-phantomjs][] library.  If your
-system already provides the PhantomJS program, this plugin will use the
-globally installed program.
+When installed by npm, this plugin will automatically download and install a local
+[Chrome][] binary within the `node_modules` directory of the [puppeteer][] library,
+which is used for launching a Chrome process.  If your system already provides an
+installation of Chrome, you can configure this plugin to use the globally installed
+executable by specifying a custom `executablePath` in the puppeteer launch options.  
+This will almost certainly be needed in order to run Chrome in a CI environment
 
-[PhantomJS]: http://www.phantomjs.org/
-[grunt-lib-phantomjs]: https://github.com/gruntjs/grunt-lib-phantomjs
-
-Also note that running grunt with the `--debug` flag will output a lot of PhantomJS-specific debugging information. This can be very helpful in seeing what actual URIs are being requested and received by PhantomJS.
+[Puppeteer]: https://pptr.dev/
 
 ## OS Dependencies
-This plugin uses PhantomJS to run tests. PhantomJS requires these dependencies
+This plugin uses Puppeteer to run tests in a Chrome process. Chrome requires a number of dependencies that must be installed, depending on your OS.  
+Please see Puppeteer's docs to see the latest docs for what dependencies you need for your OS:
 
-**On Ubuntu/Debian**
-
-`apt-get install libfontconfig1 fontconfig libfontconfig1-dev libfreetype6-dev`
-
-**On CentOS**
-
-`yum install fontconfig freetype`
+https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md
