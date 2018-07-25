@@ -10,6 +10,21 @@
 
 module.exports = function(grunt) {
 
+  // If we are running in CI, we need some puppeteer arguments
+  // to be set on every task.
+  function getGlobalOptions() {
+    if (process.env.CI) {
+      // Running in 
+      return {
+        puppeteer: {
+          args: [
+            "--no-sandbox"
+          ]
+        }
+      };
+    }
+  }
+
   // Project configuration.
   grunt.initConfig({
     jshint: {
@@ -34,6 +49,7 @@ module.exports = function(grunt) {
 
     // Unit tests.
     qunit: {
+      options: getGlobalOptions(),
       allTests: ['test/*{1,2}.html'],
       individualTests: {
         files: [{

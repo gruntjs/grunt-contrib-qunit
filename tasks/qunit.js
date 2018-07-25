@@ -452,7 +452,8 @@ module.exports = function(grunt) {
       })
       .catch(function(err) {
         // If anything goes wrong, terminate the grunt task
-        grunt.fail.fatal("There was an error with headless chrome", err);
+        grunt.log.error("There was an error with headless chrome");
+        grunt.fail.fatal(err);
         finishTask(false);
       });
   });
