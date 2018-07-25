@@ -9,8 +9,10 @@ environment:
       platform: x86
     - nodejs_version: "8"
       platform: x86
+      NODE_NO_HTTP2: 1
     - nodejs_version: "9"
       platform: x86
+      NODE_NO_HTTP2: 1
 
 install:
   - ps: Install-Product node $env:nodejs_version $env:platform
