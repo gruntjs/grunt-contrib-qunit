@@ -34,7 +34,7 @@
   ],
   "files": [
     "tasks",
-    "phantomjs"
+    "chrome"
   ],
   "appveyor_id": "3vd43779joyj6qji"
 }
