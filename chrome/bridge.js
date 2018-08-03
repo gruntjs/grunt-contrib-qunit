@@ -6,8 +6,7 @@
  * Licensed under the MIT license.
  */
 
-/* global QUnit:true, alert:true */
-
+/* global QUnit:true */
 (function (factory) {
   if (typeof define === 'function' && define.amd) {
     require(['qunit'], factory);
@@ -20,10 +19,9 @@
   // Don't re-order tests.
   QUnit.config.reorder = false;
 
-  // Send messages to the parent PhantomJS process via alert! Good times!!
+  // Send messages to the Node process
   function sendMessage() {
-    var args = [].slice.call(arguments);
-    alert(JSON.stringify(args));
+    self.__grunt_contrib_qunit__.apply(self, [].slice.call(arguments));
   }
 
   // These methods connect QUnit to PhantomJS.

@@ -1,7 +1,7 @@
 # Usage examples
 
 ## Wildcards
-In this example, `grunt qunit:all` will test all `.html` files in the test directory _and all subdirectories_. First, the wildcard is expanded to match each individual file. Then, each matched filename is passed to [PhantomJS][] (one at a time).
+In this example, `grunt qunit:all` will test all `.html` files in the test directory _and all subdirectories_. First, the wildcard is expanded to match each individual file. Then, each matched filename is passed to [Chrome][] (one at a time).
 
 ```js
 // Project configuration.
@@ -13,7 +13,7 @@ grunt.initConfig({
 ```
 
 ## Testing via http:// or https://
-In circumstances where running unit tests from local files is inadequate, you can specify `http://` or `https://` URLs via the `urls` option. Each URL is passed to [PhantomJS][] (one at a time).
+In circumstances where running unit tests from local files is inadequate, you can specify `http://` or `https://` URLs via the `urls` option. Each URL is passed to [Chrome][] (one at a time).
 
 In this example, `grunt qunit` will test two files, served from the server running at `localhost:8000`.
 
@@ -73,10 +73,10 @@ grunt.loadNpmTasks('grunt-contrib-connect');
 grunt.registerTask('test', ['connect', 'qunit']);
 ```
 
-## Custom timeouts and PhantomJS options
-In the following example, the default timeout value of `5000` is overridden with the value `10000` (timeout values are in milliseconds). Additionally, PhantomJS will read stored cookies from the specified file. See the [PhantomJS API Reference][] for a list of `--` options that PhantomJS supports.
+## Custom timeouts and Puppeteer options
+In the following example, the default timeout value of `5000` is overridden with the value `10000` (timeout values are in milliseconds). Custom options to use when launching Puppeteer can be specified using `options.puppeteer`, with all property names corresponding directly to options supported by [`puppeteer.launch()`](https://pptr.dev/#?product=Puppeteer&version=v1.3.0&show=api-puppeteerlaunchoptions). For example, the following configuration sets the TZ environment variable and invokes a custom Chrome executable at "/usr/bin/chromium"
 
-[PhantomJS API Reference]: http://phantomjs.org/api
+[Puppeteer API Reference]: https://pptr.dev/
 
 ```js
 // Project configuration.
@@ -84,7 +84,12 @@ grunt.initConfig({
   qunit: {
     options: {
       timeout: 10000,
-      '--cookies-file': 'misc/cookies.txt'
+      puppeteer: {
+        env: {
+          TZ: "UTC"
+        },
+        executablePath: "/usr/bin/chromium"
+      }
     },
     all: ['test/**/*.html']
   }
@@ -110,8 +115,8 @@ The events, with arguments, are as follows:
 
 In addition to QUnit callback-named events, the following events are emitted by Grunt:
 
-* `qunit.spawn` `(url)`: when [PhantomJS][] is spawned for a test
-* `qunit.fail.load` `(url)`: when [PhantomJS][] could not open the given url
+* `qunit.spawn` `(url)`: when [Chrome][] is spawned for a test
+* `qunit.fail.load` `(url)`: when [Chrome][] could not open the given url
 * `qunit.fail.timeout`: when a QUnit test times out, usually due to a missing `QUnit.start()` call
 * `qunit.error.onError` `(message, stackTrace)`: when a JavaScript execution error occurs
 

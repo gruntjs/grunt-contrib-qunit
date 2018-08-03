@@ -1,3 +1,7 @@
+v3.0.0:
+  date: 2018-07-24
+  changes:
+    - Switch to using headless chrome / puppeteer instead of phantomjs
 v2.0.0:
   date: 2017-04-04
   changes:

@@ -8,12 +8,12 @@ The amount of time (in milliseconds) that grunt will wait for a QUnit `start()` 
 
 ## inject
 Type: `String`|`Array`  
-Default: `phantomjs/bridge.js`
+Default: `chrome/bridge.js`
 
-One or multiple (array) JavaScript file names to inject into the html test page. Defaults to the path of the QUnit-PhantomJS bridge file.
+One or multiple (array) JavaScript file names to inject into the html test page. Defaults to the path of the QUnit-Chrome bridge file.
 
-You may want to inject something different than the provided QUnit-PhantomJS bridge, or to inject more than just the provided bridge.
-See [the built-in bridge](https://github.com/gruntjs/grunt-contrib-qunit/blob/master/phantomjs/bridge.js) for more information.
+You may want to inject something different than the provided QUnit-Chrome bridge, or to inject more than just the provided bridge.
+See [the built-in bridge](https://github.com/gruntjs/grunt-contrib-qunit/blob/master/chrome/bridge.js) for more information.
 
 ## httpBase
 Type: `String`  
@@ -25,13 +25,13 @@ Create URLs for the `src` files, all `src` files are prefixed with that base.
 Type: `boolean`  
 Default: `true`
 
-Set to false to hide PhantomJS console output.
+By default, `console.[log|warn|error]` output from the Chrome browser will be piped into QUnit console. Set to `false` to disable this behavior.
 
 ## urls
 Type: `Array`  
 Default: `[]`
 
-Absolute `http://` or `https://` urls to be passed to PhantomJS. Specified URLs will be merged with any specified `src` files first. Note that urls must be served by a web server, and since this task doesn't contain a web server, one will need to be configured separately. The [grunt-contrib-connect plugin](https://github.com/gruntjs/grunt-contrib-connect) provides a basic web server.
+Absolute `http://` or `https://` urls to be passed to Chrome. Specified URLs will be merged with any specified `src` files first. Note that urls must be served by a web server, and since this task doesn't contain a web server, one will need to be configured separately. The [grunt-contrib-connect plugin](https://github.com/gruntjs/grunt-contrib-connect) provides a basic web server.
 
 ## force
 Type: `boolean`  
@@ -45,11 +45,11 @@ Default: `false`
 
 When true, this will suppress the default logging for individually failed tests. Customized logging can be performed by listening to and responding to `qunit.log` events.
 
-## (-- PhantomJS arguments)
-Type: `String`  
-Default: (none)
+## puppeteer
+Type: `Object`  
+Default: `{ headless: true }`
 
-Additional `--` style arguments that need to be passed in to PhantomJS may be specified as options, like `{'--option': 'value'}`. This may be useful for specifying a cookies file, local storage file, or a proxy. See the [PhantomJS API Reference][] for a list of `--` options that PhantomJS supports.
+Arguments to be used when `puppeteer.launch()` is invoked. This may be useful for specifying a custom Chrome executable path, running in non-headless mode, specifying environment variables to use when launching Chrome, etc. See the [Puppeteer API Reference][https://pptr.dev/#?product=Puppeteer&version=v1.3.0] for a list of launch options that are available.
 
 ## noGlobals
 Type: `boolean`  

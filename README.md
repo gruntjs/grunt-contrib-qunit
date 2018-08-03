@@ -1,6 +1,6 @@
-# grunt-contrib-qunit v2.0.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-qunit.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/3vd43779joyj6qji/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-qunit/branch/master)
+# grunt-contrib-qunit v3.0.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-qunit.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/3vd43779joyj6qji/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-qunit/branch/master)
 
-> Run QUnit unit tests in a headless PhantomJS instance
+> Run QUnit unit tests in a headless Chrome instance
 
 
 
@@ -31,7 +31,7 @@ unit test suite run automatically each time you commit changes to your
 code.
 
 This is where the `grunt-contrib-qunit` plugin comes in the play:
-`grunt-contrib-qunit` lets you run your tests in the invisible [PhantomJS][]
+`grunt-contrib-qunit` lets you run your tests in the invisible [Chrome][]
 browser, thus converting your unit test suite into something you can run
 from a script, a script you can have automatically run on travis-ci (or the
 Continuous Integration service of your choice) which in turn can alert you
@@ -45,27 +45,20 @@ This plugin defines one single task: `qunit`. Configure it in your `Gruntfile.js
 
 Please read about specifying task targets, files and options in the grunt [Configuring tasks](http://gruntjs.com/configuring-tasks) guide.
 
-When installed by npm, this plugin will automatically download and install
-[PhantomJS][] locally via the [grunt-lib-phantomjs][] library.  If your
-system already provides the PhantomJS program, this plugin will use the
-globally installed program.
+When installed by npm, this plugin will automatically download and install a local
+[Chrome][] binary within the `node_modules` directory of the [puppeteer][] library,
+which is used for launching a Chrome process.  If your system already provides an
+installation of Chrome, you can configure this plugin to use the globally installed
+executable by specifying a custom `executablePath` in the puppeteer launch options.  
+This will almost certainly be needed in order to run Chrome in a CI environment
 
-[PhantomJS]: http://www.phantomjs.org/
-[grunt-lib-phantomjs]: https://github.com/gruntjs/grunt-lib-phantomjs
-
-Also note that running grunt with the `--debug` flag will output a lot of PhantomJS-specific debugging information. This can be very helpful in seeing what actual URIs are being requested and received by PhantomJS.
+[Puppeteer]: https://pptr.dev/
 
 #### OS Dependencies
-This plugin uses PhantomJS to run tests. PhantomJS requires these dependencies
+This plugin uses Puppeteer to run tests in a Chrome process. Chrome requires a number of dependencies that must be installed, depending on your OS.  
+Please see Puppeteer's docs to see the latest docs for what dependencies you need for your OS:
 
-**On Ubuntu/Debian**
-
-`apt-get install libfontconfig1 fontconfig libfontconfig1-dev libfreetype6-dev`
-
-**On CentOS**
-
-`yum install fontconfig freetype`
-
+https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md
 ### Options
 
 #### timeout
@@ -76,12 +69,12 @@ The amount of time (in milliseconds) that grunt will wait for a QUnit `start()` 
 
 #### inject
 Type: `String`|`Array`  
-Default: `phantomjs/bridge.js`
+Default: `chrome/bridge.js`
 
-One or multiple (array) JavaScript file names to inject into the html test page. Defaults to the path of the QUnit-PhantomJS bridge file.
+One or multiple (array) JavaScript file names to inject into the html test page. Defaults to the path of the QUnit-Chrome bridge file.
 
-You may want to inject something different than the provided QUnit-PhantomJS bridge, or to inject more than just the provided bridge.
-See [the built-in bridge](https://github.com/gruntjs/grunt-contrib-qunit/blob/master/phantomjs/bridge.js) for more information.
+You may want to inject something different than the provided QUnit-Chrome bridge, or to inject more than just the provided bridge.
+See [the built-in bridge](https://github.com/gruntjs/grunt-contrib-qunit/blob/master/chrome/bridge.js) for more information.
 
 #### httpBase
 Type: `String`  
@@ -93,13 +86,13 @@ Create URLs for the `src` files, all `src` files are prefixed with that base.
 Type: `boolean`  
 Default: `true`
 
-Set to false to hide PhantomJS console output.
+By default, `console.[log|warn|error]` output from the Chrome browser will be piped into QUnit console. Set to `false` to disable this behavior.
 
 #### urls
 Type: `Array`  
 Default: `[]`
 
-Absolute `http://` or `https://` urls to be passed to PhantomJS. Specified URLs will be merged with any specified `src` files first. Note that urls must be served by a web server, and since this task doesn't contain a web server, one will need to be configured separately. The [grunt-contrib-connect plugin](https://github.com/gruntjs/grunt-contrib-connect) provides a basic web server.
+Absolute `http://` or `https://` urls to be passed to Chrome. Specified URLs will be merged with any specified `src` files first. Note that urls must be served by a web server, and since this task doesn't contain a web server, one will need to be configured separately. The [grunt-contrib-connect plugin](https://github.com/gruntjs/grunt-contrib-connect) provides a basic web server.
 
 #### force
 Type: `boolean`  
@@ -113,11 +106,11 @@ Default: `false`
 
 When true, this will suppress the default logging for individually failed tests. Customized logging can be performed by listening to and responding to `qunit.log` events.
 
-#### (-- PhantomJS arguments)
-Type: `String`  
-Default: (none)
+#### puppeteer
+Type: `Object`  
+Default: `{ headless: true }`
 
-Additional `--` style arguments that need to be passed in to PhantomJS may be specified as options, like `{'--option': 'value'}`. This may be useful for specifying a cookies file, local storage file, or a proxy. See the [PhantomJS API Reference][] for a list of `--` options that PhantomJS supports.
+Arguments to be used when `puppeteer.launch()` is invoked. This may be useful for specifying a custom Chrome executable path, running in non-headless mode, specifying environment variables to use when launching Chrome, etc. See the [Puppeteer API Reference][https://pptr.dev/#?product=Puppeteer&version=v1.3.0] for a list of launch options that are available.
 
 #### noGlobals
 Type: `boolean`  
@@ -144,7 +137,7 @@ _Note: You must be using `QUnit` version `1.23.0` or greater for these features 
 ### Usage examples
 
 #### Wildcards
-In this example, `grunt qunit:all` will test all `.html` files in the test directory _and all subdirectories_. First, the wildcard is expanded to match each individual file. Then, each matched filename is passed to [PhantomJS][] (one at a time).
+In this example, `grunt qunit:all` will test all `.html` files in the test directory _and all subdirectories_. First, the wildcard is expanded to match each individual file. Then, each matched filename is passed to [Chrome][] (one at a time).
 
 ```js
 // Project configuration.
@@ -156,7 +149,7 @@ grunt.initConfig({
 ```
 
 #### Testing via http:// or https://
-In circumstances where running unit tests from local files is inadequate, you can specify `http://` or `https://` URLs via the `urls` option. Each URL is passed to [PhantomJS][] (one at a time).
+In circumstances where running unit tests from local files is inadequate, you can specify `http://` or `https://` URLs via the `urls` option. Each URL is passed to [Chrome][] (one at a time).
 
 In this example, `grunt qunit` will test two files, served from the server running at `localhost:8000`.
 
@@ -216,10 +209,10 @@ grunt.loadNpmTasks('grunt-contrib-connect');
 grunt.registerTask('test', ['connect', 'qunit']);
 ```
 
-#### Custom timeouts and PhantomJS options
-In the following example, the default timeout value of `5000` is overridden with the value `10000` (timeout values are in milliseconds). Additionally, PhantomJS will read stored cookies from the specified file. See the [PhantomJS API Reference][] for a list of `--` options that PhantomJS supports.
+#### Custom timeouts and Puppeteer options
+In the following example, the default timeout value of `5000` is overridden with the value `10000` (timeout values are in milliseconds). Custom options to use when launching Puppeteer can be specified using `options.puppeteer`, with all property names corresponding directly to options supported by [`puppeteer.launch()`](https://pptr.dev/#?product=Puppeteer&version=v1.3.0&show=api-puppeteerlaunchoptions). For example, the following configuration sets the TZ environment variable and invokes a custom Chrome executable at "/usr/bin/chromium"
 
-[PhantomJS API Reference]: http://phantomjs.org/api
+[Puppeteer API Reference]: https://pptr.dev/
 
 ```js
 // Project configuration.
@@ -227,7 +220,12 @@ grunt.initConfig({
   qunit: {
     options: {
       timeout: 10000,
-      '--cookies-file': 'misc/cookies.txt'
+      puppeteer: {
+        env: {
+          TZ: "UTC"
+        },
+        executablePath: "/usr/bin/chromium"
+      }
     },
     all: ['test/**/*.html']
   }
@@ -253,8 +251,8 @@ The events, with arguments, are as follows:
 
 In addition to QUnit callback-named events, the following events are emitted by Grunt:
 
-* `qunit.spawn` `(url)`: when [PhantomJS][] is spawned for a test
-* `qunit.fail.load` `(url)`: when [PhantomJS][] could not open the given url
+* `qunit.spawn` `(url)`: when [Chrome][] is spawned for a test
+* `qunit.fail.load` `(url)`: when [Chrome][] could not open the given url
 * `qunit.fail.timeout`: when a QUnit test times out, usually due to a missing `QUnit.start()` call
 * `qunit.error.onError` `(message, stackTrace)`: when a JavaScript execution error occurs
 
@@ -269,6 +267,7 @@ grunt.event.on('qunit.spawn', function (url) {
 
 ## Release History
 
+ * 2018-07-24   v3.0.0   Switch to using headless chrome / puppeteer instead of phantomjs
  * 2017-04-04   v2.0.0   Remove usage of `QUnit.jsDump` Upgrade qunitjs to 2.3.0 (#123) adding an Introduction to the README (#140)
  * 2017-02-07   v1.3.0   Add ability to run tests in seeded-random order through `--seed` flag Add note about min version of QUnit required to use the CLI flags Implement support for todo tests and revamp reporting logic (#137)
  * 2016-04-14   v1.2.0   Add support for filtering running modules using command line (--modules) Removed 'grunt.warn' output from `error.onError` handler, onus now on end user binding to event. Update docs.
@@ -294,4 +293,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Sun May 21 2017 18:39:47.*
+*This file was generated on Tue Jul 24 2018 17:47:21.*

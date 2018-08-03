@@ -5,16 +5,11 @@ version: "{build}"
 # What combinations to test
 environment:
   matrix:
-    - nodejs_version: "0.10"
-      platform: x86
-    - nodejs_version: "4"
-      platform: x64
-    - nodejs_version: "4"
-      platform: x86
     - nodejs_version: "6"
       platform: x86
-    - nodejs_version: "7"
+    - nodejs_version: "8"
       platform: x86
+      NODE_NO_HTTP2: 1
 
 install:
   - ps: Install-Product node $env:nodejs_version $env:platform
