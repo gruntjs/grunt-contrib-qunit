@@ -306,9 +306,22 @@ module.exports = function(grunt) {
     if (options.httpBase) {
       // If URLs are explicitly referenced, use them still
       urls = options.urls;
+      var httpBase = options.httpBase;
+      // check if httpBase is an object, then do
+      // object handling
+      var doUrlRewrite = false;
+      if(options.httpBase instanceof Object) {
+        // if there is no callback or no host throw error
+        if(!options.httpBase.host || !options.httpBase.doRewrite) {
+            grunt.log.error("If you define httpBase as an object you need to define httpBase.host and callback function httpBase.rewrite");
+        }
+        httpBase = options.httpBase.host;
+        doUrlRewrite = options.httpBase.doRewrite;
+      }
+
       // Then create URLs for the src files
       this.filesSrc.forEach(function(testFile) {
-        urls.push(options.httpBase + '/' + testFile);
+		urls.push(httpBase + '/' + ((doUrlRewrite instanceof Object) ? doUrlRewrite.call(this, testFile) : testFile));
       });
     } else {
       // Combine any specified URLs with src files.

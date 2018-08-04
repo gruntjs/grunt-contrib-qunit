@@ -82,6 +82,17 @@ Default: `""`
 
 Create URLs for the `src` files, all `src` files are prefixed with that base.
 
+#### httpBase
+Type: `Object`
+Default: `false`
+
+httpBase.host 
+Type: `String`
+
+httpBase.doRewrite
+Type: `Function`
+Create URLs for the `src` files, all `src` files are prefixed with httpBase.host and rewritten by the callback defined in `doRewrite`.
+
 #### console
 Type: `boolean`  
 Default: `true`
@@ -170,6 +181,31 @@ grunt.initConfig({
 ```
 
 Wildcards and URLs may be combined by specifying both.
+
+#### Testing via http:// or https:// using httpBase Object and Wildcards
+You might want to do a Wildcard test for all `.html` files on a custom server but the server is mapping the
+url's differently.
+
+In this example, the test files are located in `src/main/resources/META-INF/ui/tests`, but will be served
+from `http://localhost:8000/ui/tests`
+
+```js
+// Project configuration.
+grunt.initConfig({
+  qunit: {
+      options: {
+          httpBase: {
+              host: "http://localhost:8000",
+              doRewrite: function (file) {
+                  return file.replace("src/main/resources/META-INF/", "");
+              }
+          }
+      },	
+    all: ['src/main/resources/META-INF/ui/test/**/*.html']
+  }
+});
+```
+
 
 #### Using the grunt-contrib-connect plugin
 It's important to note that grunt does not automatically start a `localhost` web server. That being said, the [grunt-contrib-connect plugin][] `connect` task can be run before the `qunit` task to serve files via a simple [connect][] web server.
