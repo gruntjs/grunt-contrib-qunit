@@ -1,3 +1,7 @@
+v3.0.1:
+  date: 2018-08-12
+  changes:
+    - Fixed regressions.
 v3.0.0:
   date: 2018-07-24
   changes:

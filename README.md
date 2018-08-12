@@ -1,4 +1,4 @@
-# grunt-contrib-qunit v3.0.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-qunit.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/3vd43779joyj6qji/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-qunit/branch/master)
+# grunt-contrib-qunit v3.0.1 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-qunit.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/3vd43779joyj6qji/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-qunit/branch/master)
 
 > Run QUnit unit tests in a headless Chrome instance
 
@@ -267,6 +267,7 @@ grunt.event.on('qunit.spawn', function (url) {
 
 ## Release History
 
+ * 2018-08-12   v3.0.1   Fixed regressions.
  * 2018-07-24   v3.0.0   Switch to using headless chrome / puppeteer instead of phantomjs
  * 2017-04-04   v2.0.0   Remove usage of `QUnit.jsDump` Upgrade qunitjs to 2.3.0 (#123) adding an Introduction to the README (#140)
  * 2017-02-07   v1.3.0   Add ability to run tests in seeded-random order through `--seed` flag Add note about min version of QUnit required to use the CLI flags Implement support for todo tests and revamp reporting logic (#137)
@@ -293,4 +294,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Tue Jul 24 2018 17:47:21.*
+*This file was generated on Sun Aug 12 2018 23:44:39.*
