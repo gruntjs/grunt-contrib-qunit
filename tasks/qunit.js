@@ -12,10 +12,12 @@
 var fs = require('fs');
 var path = require('path');
 var url = require('url');
-var EventEmitter2 = require('eventemitter2');
+var EventEmitter = require('eventemitter2');
 // NPM libs.
-var Promise = require('bluebird');
+var pEachSeries = require('p-each-series');
 var puppeteer = require('puppeteer');
+
+var Promise = global.Promise;
 
 // Shared functions
 
@@ -100,22 +102,21 @@ function generateHash (module) {
   return hex.slice(-8);
 }
 
-function getFullUrl(url) {
-  if ((url.length < 4) || (url.substring(0,4) !== 'http')) {
-    return 'file://' + path.resolve(__dirname, '..', url);
-  } else {
+function getPath(url) {
+  if (url.substr( 0, 7 ) === 'http://' || url.substr( 0, 8 ) === 'https://') {
     return url;
   }
+
+  return 'file://' + path.resolve(process.cwd(), url);
 }
 
 module.exports = function(grunt) {
 
-  var eventBus = new EventEmitter2({wildcard: true, maxListeners: 0});
+  var eventBus = new EventEmitter({wildcard: true, maxListeners: 0});
 
   // Keep track of the last-started module and test. Additionally, keep track
   // of status for individual test files and the entire test suite.
   var options;
-  var puppeteerLaunchOptions;
   var currentModule;
   var currentTest;
   var currentStatus;
@@ -161,7 +162,6 @@ module.exports = function(grunt) {
       grunt.log.writeln();
     }
   }
-
 
   // QUnit hooks.
   eventBus.on('qunit.begin', function() {
@@ -225,7 +225,6 @@ module.exports = function(grunt) {
   });
 
   eventBus.on('qunit.done', function(failed, passed, total, runtime) {
-
     currentStatus.runtime += runtime;
     currentStatus.assertions.passed += passed;
     currentStatus.assertions.failed += failed;
@@ -242,8 +241,6 @@ module.exports = function(grunt) {
 
     mergeStatus(status, currentStatus);
   });
-
-
 
   // Re-broadcast qunit events on grunt.event.
   eventBus.on('qunit.*', function() {
@@ -290,17 +287,22 @@ module.exports = function(grunt) {
       httpBase: false,
       summaryOnly: false
     });
-    puppeteerLaunchOptions = options.puppeteer || {};
+    var puppeteerLaunchOptions = Object.assign({headless: true}, options.puppeteer);
 
     // This task is asynchronous.
     var done = this.async();
     var urls;
-    var bridgeFile = fs.readFileSync(options.inject, 'utf8');
 
-    if (!bridgeFile) {
-      grunt.fail.fatal('Could not load the specified Chrome/QUnit bridge file.');
-      done(false);
-      return;
+    // Read the content of the specified bridge files
+    var bridgeFiles = Array.isArray(options.inject) ? options.inject : [options.inject];
+    var bridgContents = [];
+
+    for (var i = 0; i < bridgeFiles.length; i++) {
+      try {
+        bridgContents.push(fs.readFileSync(bridgeFiles[i], 'utf8'));
+      } catch (err) {
+        grunt.fail.fatal('Could not load the specified Chrome/QUnit bridge file: ' + bridgeFiles[i]);
+      }
     }
 
     if (options.httpBase) {
@@ -358,9 +360,7 @@ module.exports = function(grunt) {
     status = createStatus();
 
     // Instantiate headless browser
-    puppeteer.launch(Object.assign({
-      headless: true,
-    }, puppeteerLaunchOptions))
+    puppeteer.launch(puppeteerLaunchOptions)
       .then(function(b) {
         browser = b;
         return b.newPage();
@@ -385,7 +385,7 @@ module.exports = function(grunt) {
             for (var i = 0; i < args.length; ++i) {
               var txt = args[i].text();
               var color = colors[args[i].type()];
-              grunt.log.writeln(color ? txt[color] : txt);  
+              grunt.log.writeln(color ? txt[color] : txt);
             }
           });
         }
@@ -402,9 +402,9 @@ module.exports = function(grunt) {
         // Tell the client that when DOMContentLoaded fires, it needs to tell this
         // script to inject the bridge. This should ensure that the bridge gets
         // injected before any other DOMContentLoaded or window.load event handler.
-        page.evaluateOnNewDocument('if (window.QUnit) {\n' + bridgeFile + '\n} else {\n' + 'document.addEventListener("DOMContentLoaded", function() {\n' + bridgeFile + '\n});\n}\n');
+        page.evaluateOnNewDocument('if (window.QUnit) {\n' + bridgContents.join(";") + '\n} else {\n' + 'document.addEventListener("DOMContentLoaded", function() {\n' + bridgContents.join(";") + '\n});\n}\n');
 
-        return Promise.mapSeries(urls, function(url) {
+        return pEachSeries(urls, function(url) {
           // Reset current module.
           currentModule = null;
           grunt.event.emit('qunit.spawn', url);
@@ -413,19 +413,12 @@ module.exports = function(grunt) {
           return Promise.all([
             // Setup listeners for qunit.done / fail events
             new Promise(function(resolve, reject) {
-              eventBus.once('qunit.done', function() {
-                setTimeout(resolve, 1);
-              });
-              eventBus.once('fail.*', function() {
-                setTimeout(function() {
-                  reject(url);
-                }, 1);
-              });
+              eventBus.once('qunit.done', function() { resolve(); });
+              eventBus.once('fail.*', function() { reject(url); });
             }),
+
             // Navigate to the url to be tested
-            page.goto(getFullUrl(url), {
-              timeout: options.timeout
-            })
+            page.goto(getPath(url), { timeout: options.timeout })
           ]);
         });
       })

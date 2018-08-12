@@ -14,7 +14,6 @@ module.exports = function(grunt) {
   // to be set on every task.
   function getGlobalOptions() {
     if (process.env.CI) {
-      // Running in 
       return {
         puppeteer: {
           args: [
