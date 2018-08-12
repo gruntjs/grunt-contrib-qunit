@@ -24,7 +24,7 @@
     self.__grunt_contrib_qunit__.apply(self, [].slice.call(arguments));
   }
 
-  // These methods connect QUnit to PhantomJS.
+  // These methods connect QUnit to Headless Chrome.
   QUnit.log(function(obj) {
     // What is this I don’t even
     if (obj.message === '[object Object], undefined:undefined') {
