@@ -6,7 +6,7 @@
 
 ## Getting Started
 
-If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
+If you haven't used [Grunt](https://gruntjs.com/) before, be sure to check out the [Getting Started](https://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](https://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
 npm install grunt-contrib-qunit --save-dev
@@ -24,7 +24,7 @@ grunt.loadNpmTasks('grunt-contrib-qunit');
 ## Qunit task
 _Run this task with the `grunt qunit` command._
 
-You have chosen to write your unit tests using [QUnit](http://qunitjs.com/), you have written a
+You have chosen to write your unit tests using [QUnit](https://qunitjs.com/), you have written a
 html page which reports the summary and indivudual details of your unit
 tests, you are happy with this but realize you miss the ability to have your
 unit test suite run automatically each time you commit changes to your
@@ -43,7 +43,7 @@ the same suite from the command line interface.
 
 This plugin defines one single task: `qunit`. Configure it in your `Gruntfile.js`, run it with the `grunt qunit` command.
 
-Please read about specifying task targets, files and options in the grunt [Configuring tasks](http://gruntjs.com/configuring-tasks) guide.
+Please read about specifying task targets, files and options in the grunt [Configuring tasks](https://gruntjs.com/configuring-tasks) guide.
 
 When installed by npm, this plugin will automatically download and install a local
 [Chrome][] binary within the `node_modules` directory of the [puppeteer][] library,
@@ -116,7 +116,7 @@ Arguments to be used when `puppeteer.launch()` is invoked. This may be useful fo
 Type: `boolean`  
 Default: `false`
 
-Fail a test when the global namespace is polluted. See the [QUnit cookbook](http://qunitjs.com/cookbook/#discussion-id170) for more information.
+Fail a test when the global namespace is polluted. See the [QUnit cookbook](https://qunitjs.com/cookbook/#discussion-id170) for more information.
 
 ### Command line options
 
@@ -294,4 +294,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Sun Aug 12 2018 23:44:39.*
+*This file was generated on Sat Sep 08 2018 11:37:49.*

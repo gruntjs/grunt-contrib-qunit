@@ -1,6 +1,6 @@
 /*
  * grunt-contrib-qunit
- * http://gruntjs.com/
+ * https://gruntjs.com/
  *
  * Copyright (c) 2016 "Cowboy" Ben Alman, contributors
  * Licensed under the MIT license.
@@ -164,6 +164,6 @@ module.exports = function(grunt) {
   grunt.registerTask('test', ['jshint', 'connect', 'qunit', 'shell', 'really-test']);
 
   // By default, lint and run all tests.
-  grunt.registerTask('default', ['test', 'build-contrib']);
+  grunt.registerTask('default', ['test', 'contrib-ci:skipIfExists', 'contrib-core']);
 
 };
