@@ -1,4 +1,4 @@
-You have chosen to write your unit tests using [QUnit](http://qunitjs.com/), you have written a
+You have chosen to write your unit tests using [QUnit](https://qunitjs.com/), you have written a
 html page which reports the summary and indivudual details of your unit
 tests, you are happy with this but realize you miss the ability to have your
 unit test suite run automatically each time you commit changes to your
@@ -17,7 +17,7 @@ the same suite from the command line interface.
 
 This plugin defines one single task: `qunit`. Configure it in your `Gruntfile.js`, run it with the `grunt qunit` command.
 
-Please read about specifying task targets, files and options in the grunt [Configuring tasks](http://gruntjs.com/configuring-tasks) guide.
+Please read about specifying task targets, files and options in the grunt [Configuring tasks](https://gruntjs.com/configuring-tasks) guide.
 
 When installed by npm, this plugin will automatically download and install a local
 [Chrome][] binary within the `node_modules` directory of the [puppeteer][] library,

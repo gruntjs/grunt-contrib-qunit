@@ -55,7 +55,7 @@ Arguments to be used when `puppeteer.launch()` is invoked. This may be useful fo
 Type: `boolean`  
 Default: `false`
 
-Fail a test when the global namespace is polluted. See the [QUnit cookbook](http://qunitjs.com/cookbook/#discussion-id170) for more information.
+Fail a test when the global namespace is polluted. See the [QUnit cookbook](https://qunitjs.com/cookbook/#discussion-id170) for more information.
 
 # Command line options
 
