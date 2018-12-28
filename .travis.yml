@@ -1,4 +1,6 @@
-sudo: false
+os:
+  - linux
+  - windows
 
 addons:
   chrome: stable
@@ -6,12 +8,14 @@ addons:
 language: node_js
 
 node_js:
-  - "6"
-  - "8"
   - "10"
+  - "8"
+  - "6"
 
 matrix:
   fast_finish: true
+  allow_failures:
+    - os: windows
 
 cache:
   directories:
