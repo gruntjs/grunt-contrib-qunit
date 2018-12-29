@@ -1,3 +1,7 @@
+v3.1.0:
+  date: 2018-12-29
+  changes:
+    - Updated to puppeteer ^1.11.0.
 v3.0.1:
   date: 2018-08-12
   changes:
