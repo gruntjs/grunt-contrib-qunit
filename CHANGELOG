@@ -1,3 +1,9 @@
+v4.0.0:
+  date: 2020-06-17
+  changes:
+    - Puppeteer version to v4.0.0.
+    - Dependency updates and typo fixes.
+    - Minimum node version is now version 10.
 v3.1.0:
   date: 2018-12-29
   changes:

@@ -1,4 +1,4 @@
-# grunt-contrib-qunit v3.1.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-qunit.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/3vd43779joyj6qji/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-qunit/branch/master)
+# grunt-contrib-qunit v4.0.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-qunit.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-qunit) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/3vd43779joyj6qji/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-qunit/branch/master)
 
 > Run QUnit unit tests in a headless Chrome instance
 
@@ -267,6 +267,7 @@ grunt.event.on('qunit.spawn', function (url) {
 
 ## Release History
 
+ * 2020-06-17   v4.0.0   Puppeteer version to v4.0.0. Dependency updates and typo fixes. Minimum node version is now version 10.
  * 2018-12-29   v3.1.0   Updated to puppeteer ^1.11.0.
  * 2018-08-12   v3.0.1   Fixed regressions.
  * 2018-07-24   v3.0.0   Switch to using headless chrome / puppeteer instead of phantomjs
@@ -295,4 +296,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Sat Dec 29 2018 17:19:16.*
+*This file was generated on Wed Jun 17 2020 10:57:15.*
