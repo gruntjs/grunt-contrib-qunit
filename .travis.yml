@@ -8,9 +8,9 @@ addons:
 language: node_js
 
 node_js:
+  - "14"
+  - "12"
   - "10"
-  - "8"
-  - "6"
 
 matrix:
   fast_finish: true
