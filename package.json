@@ -16,18 +16,18 @@
     "test": "grunt test --stack"
   },
   "dependencies": {
-    "eventemitter2": "^5.0.1",
-    "p-each-series": "^1.0.0",
+    "eventemitter2": "^6.4.2",
+    "p-each-series": "^2.1.0",
     "puppeteer": "^4.0.0"
   },
   "devDependencies": {
     "difflet": "^1.0.1",
-    "grunt": "^1.0.3",
-    "grunt-contrib-connect": "^2.0.0",
-    "grunt-contrib-internal": "^3.1.0",
-    "grunt-contrib-jshint": "^1.1.0",
-    "grunt-shell": "^2.1.0",
-    "qunit": "^2.6.2"
+    "grunt": "^1.1.0",
+    "grunt-contrib-connect": "^2.1.0",
+    "grunt-contrib-internal": "^4.0.1",
+    "grunt-contrib-jshint": "^2.1.0",
+    "grunt-shell": "^3.0.1",
+    "qunit": "^2.10.0"
   },
   "keywords": [
     "gruntplugin"
