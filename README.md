@@ -1,4 +1,4 @@
-# grunt-contrib-qunit v4.0.0 [![Build Status](https://github.com/gruntjs/grunt-contrib-qunit/workflows/Tests/badge.svg)](https://github.com/gruntjs/grunt-contrib-qunit/actions?workflow=Tests)
+# grunt-contrib-qunit v5.0.0 [![Build Status](https://github.com/gruntjs/grunt-contrib-qunit/workflows/Tests/badge.svg)](https://github.com/gruntjs/grunt-contrib-qunit/actions?workflow=Tests)
 
 > Run QUnit unit tests in a headless Chrome instance
 
@@ -267,6 +267,7 @@ grunt.event.on('qunit.spawn', function (url) {
 
 ## Release History
 
+ * 2021-04-18   v5.0.0   Puppeteer version to ^5.0.0. Dependency updates.
  * 2020-06-17   v4.0.0   Puppeteer version to v4.0.0. Dependency updates and typo fixes. Minimum node version is now version 10.
  * 2018-12-29   v3.1.0   Updated to puppeteer ^1.11.0.
  * 2018-08-12   v3.0.1   Fixed regressions.
@@ -296,4 +297,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Sun Apr 18 2021 22:06:12.*
+*This file was generated on Sun Apr 18 2021 22:15:01.*
