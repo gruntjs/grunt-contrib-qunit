@@ -1,3 +1,8 @@
+v5.0.0:
+  date: 2021-04-18
+  changes:
+    - Puppeteer version to ^5.0.0.
+    - Dependency updates.
 v4.0.0:
   date: 2020-06-17
   changes:

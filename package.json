@@ -1,7 +1,7 @@
 {
   "name": "grunt-contrib-qunit",
   "description": "Run QUnit unit tests in a headless Chrome instance",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "author": {
     "name": "Grunt Team",
     "url": "https://gruntjs.com/"
@@ -24,7 +24,7 @@
     "difflet": "^1.0.1",
     "grunt": "^1.1.0",
     "grunt-contrib-connect": "^2.1.0",
-    "grunt-contrib-internal": "^4.0.1",
+    "grunt-contrib-internal": "^6.0.1",
     "grunt-contrib-jshint": "^2.1.0",
     "grunt-shell": "^3.0.1",
     "qunit": "^2.10.0"
