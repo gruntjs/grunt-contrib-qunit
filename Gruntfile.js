@@ -97,6 +97,9 @@ module.exports = function(grunt) {
           if (/test\/qunit[45]\.html/.test(stdout) &&
               /passed: [12]/.test(stdout)) {
             cb();
+          } else if (/test\/qunit_page_timeout\.html/.test(stdout) &&
+              /Chrome timed out/.test(stdout)) {
+            cb();
           } else {
             cb(false);
           }
@@ -108,10 +111,24 @@ module.exports = function(grunt) {
       },
       seed: {
         command: 'grunt qunit:seed --seed="7x9"'
+      },
+      pageTimeout: {
+        command: 'grunt qunit:failPageTimeout --with-failpagetimeout'
       }
     }
 
   });
+
+  // Only register this failing task for the shell task that expects the failure
+  if (grunt.option('with-failpagetimeout')) {
+    grunt.config.set('qunit.failPageTimeout', {
+      options: {
+        urls: [
+          'http://localhost:9000/test/qunit_page_timeout.html'
+        ]
+      }
+    });
+  }
 
   // Build a mapping of url success counters.
   var successes = {};

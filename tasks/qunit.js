@@ -295,7 +295,9 @@ module.exports = function(grunt) {
 
     // Read the content of the specified bridge files
     var bridgeFiles = Array.isArray(options.inject) ? options.inject : [options.inject];
-    var bridgContents = [];
+    var bridgContents = [
+      "__grunt_contrib_qunit_timeout__ = " + JSON.stringify( options.timeout ) + ";"
+    ];
 
     for (var i = 0; i < bridgeFiles.length; i++) {
       try {

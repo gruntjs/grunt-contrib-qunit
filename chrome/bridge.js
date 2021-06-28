@@ -16,12 +16,26 @@
 }(function(QUnit) {
   'use strict';
 
+  var lastMessage = performance.now();
+
   // Don't re-order tests.
   QUnit.config.reorder = false;
 
   // Send messages to the Node process
   function sendMessage() {
     self.__grunt_contrib_qunit__.apply(self, [].slice.call(arguments));
+    lastMessage = performance.now();
+  }
+
+  if (self.__grunt_contrib_qunit_timeout__) {
+    setTimeout(function checkTimeout() {
+      if ((performance.now() - lastMessage) > self.__grunt_contrib_qunit_timeout__) {
+        sendMessage('fail.timeout');
+      } else {
+        // Keep checking
+        setTimeout(checkTimeout, 1000);
+      }
+    }, 1000);
   }
 
   // These methods connect QUnit to Headless Chrome.
