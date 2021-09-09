@@ -267,8 +267,8 @@ module.exports = function(grunt) {
     status.failed += 1;
   });
 
-  eventBus.on('error.onError', function (msg, stackTrace) {
-    grunt.event.emit('qunit.error.onError', msg, stackTrace);
+  eventBus.on('error.onError', function (msg) {
+    grunt.event.emit('qunit.error.onError', msg);
   });
 
   grunt.registerMultiTask('qunit', 'Run QUnit unit tests in a headless Chrome instance.', function() {
@@ -378,26 +378,37 @@ module.exports = function(grunt) {
       .then(function() {
         // Pass through the console logs if instructed
         if (options.console) {
-          page.on('console', function() {
-            var args = [].slice.apply(arguments);
+          page.on('console', function(msg) {
+            // The `msg` is a puppeteer.ConsoleMessage, which represents the console call
+            // including multple arguments passed to it.
+            //
+            // msg.text() formats the arguments into a naive newline-joined string, and
+            // includes error objects as a useless "JSHandle@error".
+            //
+            // msg.args() returns a JSHandle object for each argument, but all its
+            // evaluation features happen asynchronously via the browser, and in this
+            // event handler we can't await those easily as the grunt output will have
+            // moved on to other tests. If we want to print these, we'd have to refactor
+            // this so pEachSeries() below is aware of async code here. For now, we just
+            // let the useless "JSHandle" through and rely on developers to stringify any
+            // useful information ahead of time, e.g. `console.warn(String(err))`.
+            //
+            // Ref https://pptr.dev/#?product=Puppeteer&version=v5.0.0&show=api-class-consolemessage
             var colors = {
               'error': 'red',
               'warning': 'yellow'
             };
-            for (var i = 0; i < args.length; ++i) {
-              var txt = args[i].text();
-              var color = colors[args[i].type()];
-              grunt.log.writeln(color ? txt[color] : txt);
-            }
+            var txt = msg.text();
+            var color = colors[msg.type()];
+            grunt.log.writeln(color ? txt[color] : txt);
+            // grunt.log.writeln(`${msg.location().url}:${msg.location().lineNumber}`.gray); // debug
           });
         }
 
         // Surface uncaught exceptions
-        page.on('pageerror', function() {
-          var args = [].slice.apply(arguments);
-          for (var i = 0; i < args.length; i++) {
-            eventBus.emit('error.onError', args[i]);
-          }
+        // Ref https://pptr.dev/#?product=Puppeteer&version=v5.0.0&show=api-event-pageerror
+        page.on('pageerror', function(err) {
+          eventBus.emit('error.onError', err);
         });
 
         // Whenever a page is loaded with a new document, before scripts execute, inject the bridge file.
