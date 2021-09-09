@@ -118,7 +118,7 @@ In addition to QUnit callback-named events, the following events are emitted by 
 * `qunit.spawn` `(url)`: when [Chrome][] is spawned for a test
 * `qunit.fail.load` `(url)`: when [Chrome][] could not open the given url
 * `qunit.fail.timeout`: when a QUnit test times out, usually due to a missing `QUnit.start()` call
-* `qunit.error.onError` `(message, stackTrace)`: when a JavaScript execution error occurs
+* `qunit.error.onError` `(err)`: when a JavaScript execution error occurs
 
 You may listen for these events like so:
 
