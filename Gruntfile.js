@@ -97,17 +97,17 @@ module.exports = function(grunt) {
           if (/test\/qunit[45]\.html/.test(stdout) &&
               /passed: [12]/.test(stdout)) {
             // qunit:modules, qunit:seed
-            cb();
+            cb(err === null);
 
           } else if (/test\/qunit_page_timeout\.html/.test(stdout) &&
               /Chrome timed out/.test(stdout)) {
             // qunit:failPageTimeout
-            cb();
+            cb(err !== null);
 
           } else if (/test\/qunit_page_error\.html/.test(stdout) &&
               /ReferenceError: boom is not defined/.test(stdout)) {
             // qunit:failPageError
-            cb();
+            cb(err !== null);
           } else {
             cb(false);
           }
