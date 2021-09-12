@@ -96,10 +96,18 @@ module.exports = function(grunt) {
         callback: function(err, stdout, stderr, cb) {
           if (/test\/qunit[45]\.html/.test(stdout) &&
               /passed: [12]/.test(stdout)) {
-            cb();
+            // qunit:modules, qunit:seed
+            cb(err === null);
+
           } else if (/test\/qunit_page_timeout\.html/.test(stdout) &&
               /Chrome timed out/.test(stdout)) {
-            cb();
+            // qunit:failPageTimeout
+            cb(err !== null);
+
+          } else if (/test\/qunit_page_error\.html/.test(stdout) &&
+              /ReferenceError: boom is not defined/.test(stdout)) {
+            // qunit:failPageError
+            cb(err !== null);
           } else {
             cb(false);
           }
@@ -112,15 +120,25 @@ module.exports = function(grunt) {
       seed: {
         command: 'grunt qunit:seed --seed="7x9"'
       },
-      pageTimeout: {
-        command: 'grunt qunit:failPageTimeout --with-failpagetimeout'
+      failPageError: {
+        command: 'grunt qunit:failPageError --with-failpage'
+      },
+      failPageTimeout: {
+        command: 'grunt qunit:failPageTimeout --with-failpage'
       }
     }
 
   });
 
-  // Only register this failing task for the shell task that expects the failure
-  if (grunt.option('with-failpagetimeout')) {
+  // Only register these tasks for the shell task that expects the failure
+  if (grunt.option('with-failpage')) {
+    grunt.config.set('qunit.failPageError', {
+      options: {
+        urls: [
+          'http://localhost:9000/test/qunit_page_error.html'
+        ]
+      }
+    });
     grunt.config.set('qunit.failPageTimeout', {
       options: {
         urls: [
