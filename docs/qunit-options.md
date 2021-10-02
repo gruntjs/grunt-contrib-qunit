@@ -49,13 +49,13 @@ When true, this will suppress the default logging for individually failed tests.
 Type: `Object`  
 Default: `{ headless: true }`
 
-Arguments to be used when `puppeteer.launch()` is invoked. This may be useful for specifying a custom Chrome executable path, running in non-headless mode, specifying environment variables to use when launching Chrome, etc. See the [Puppeteer API Reference][https://pptr.dev/#?product=Puppeteer&version=v1.3.0] for a list of launch options that are available.
+Arguments to be used when `puppeteer.launch()` is invoked. This may be useful for specifying a custom Chrome executable path, running in non-headless mode, specifying environment variables to use when launching Chrome, etc. See the [Puppeteer API Reference](https://pptr.dev/#?product=Puppeteer&version=v5.1.0) for a list of launch options that are available.
 
 ## noGlobals
 Type: `boolean`  
 Default: `false`
 
-Fail a test when the global namespace is polluted. See the [QUnit cookbook](https://qunitjs.com/cookbook/#discussion-id170) for more information.
+Fail a test when the global namespace is polluted. See the [`QUnit.config.noglobals`](https://api.qunitjs.com/config/noglobals/) for more information.
 
 # Command line options
 
@@ -69,6 +69,6 @@ Will run the module `foo`. You can specify one or multiple, comma-separated modu
 
 `grunt qunit --seed="a-string"`
 
-Specify the seed to pass to QUnit, to run tests in random, but deterministic order. See [`QUnit.config.seed`](https://api.qunitjs.com/QUnit.config/) docs for more information.
+Specify the seed to pass to QUnit, to run tests in random, but deterministic order. See [`QUnit.config.seed`](https://api.qunitjs.com/config/seed/) docs for more information.
 
 _Note: You must be using `QUnit` version `1.23.0` or greater for these features to work properly._
