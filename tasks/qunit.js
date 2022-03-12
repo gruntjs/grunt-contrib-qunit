@@ -393,7 +393,7 @@ module.exports = function(grunt) {
             // let the useless "JSHandle" through and rely on developers to stringify any
             // useful information ahead of time, e.g. `console.warn(String(err))`.
             //
-            // Ref https://pptr.dev/#?product=Puppeteer&version=v5.0.0&show=api-class-consolemessage
+            // Ref https://pptr.dev/#?product=Puppeteer&version=v9.0.0&show=api-class-consolemessage
             var colors = {
               'error': 'red',
               'warning': 'yellow'
@@ -406,7 +406,7 @@ module.exports = function(grunt) {
         }
 
         // Surface uncaught exceptions
-        // Ref https://pptr.dev/#?product=Puppeteer&version=v5.0.0&show=api-event-pageerror
+        // Ref https://pptr.dev/#?product=Puppeteer&version=v9.0.0&show=api-event-pageerror
         page.on('pageerror', function(err) {
           eventBus.emit('error.onError', err);
         });
