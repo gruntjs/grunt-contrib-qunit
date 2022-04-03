@@ -267,7 +267,7 @@ grunt.event.on('qunit.spawn', function (url) {
 
 ## Release History
 
- * 2022-03-12   v6.0.0   Puppeteer version to ^9.0.0.
+ * 2022-04-03   v6.0.0   Puppeteer version to ^9.0.0. Updated dependencies. Minimum node version is now version 12.
  * 2021-04-18   v5.0.0   Puppeteer version to ^5.0.0. Dependency updates.
  * 2020-06-17   v4.0.0   Puppeteer version to v4.0.0. Dependency updates and typo fixes. Minimum node version is now version 10.
  * 2018-12-29   v3.1.0   Updated to puppeteer ^1.11.0.
@@ -298,4 +298,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Sat Mar 12 2022 14:56:43.*
+*This file was generated on Sun Apr 03 2022 07:52:19.*
