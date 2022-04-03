@@ -9,7 +9,7 @@
   "repository": "gruntjs/grunt-contrib-qunit",
   "license": "MIT",
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   },
   "main": "tasks/qunit.js",
   "scripts": {
@@ -22,11 +22,11 @@
   },
   "devDependencies": {
     "difflet": "^1.0.1",
-    "grunt": "^1.1.0",
-    "grunt-contrib-connect": "^2.1.0",
-    "grunt-contrib-internal": "^6.0.1",
+    "grunt": "^1.4.1",
+    "grunt-contrib-connect": "^3.0.0",
+    "grunt-contrib-internal": "^7.0.0",
     "grunt-contrib-jshint": "^2.1.0",
-    "grunt-shell": "^3.0.1",
+    "grunt-shell": "^4.0.0",
     "qunit": "^2.10.0"
   },
   "keywords": [
