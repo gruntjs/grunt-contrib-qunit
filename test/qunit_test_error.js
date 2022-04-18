@@ -1,9 +1,7 @@
-
 QUnit.test('basic test', function(assert) {
   assert.expect(1);
   assert.ok(0, 'this had better work.');
 });
-
 
 QUnit.test('can access the DOM', function(assert) {
   assert.expect(1);

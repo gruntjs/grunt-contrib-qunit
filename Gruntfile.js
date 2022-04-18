@@ -52,13 +52,13 @@ module.exports = function(grunt) {
       allTests: ['test/*{1,2}.html'],
       individualTests: {
         files: [{
-          src: 'test/*{1,2}.html'
+          src: 'test/*basic{1,2}.html'
         }]
       },
       urls: {
         options: {
           urls: [
-            'http://localhost:9000/test/qunit1.html'
+            'http://localhost:9000/test/qunit_basic1.html'
           ]
         }
       },
@@ -66,27 +66,27 @@ module.exports = function(grunt) {
         options: {
           urls: '<%= qunit.urls.options.urls %>'
         },
-        src: 'test/*{1,2}.html'
+        src: 'test/*basic{1,2}.html'
       },
       noglobals: {
         options: {
           noGlobals: true,
           urls: [
-            'http://localhost:9000/test/qunit3.html?foo=bar'
+            'http://localhost:9000/test/qunit_noglobals.html?foo=bar'
           ]
         }
       },
       modules: {
         options: {
           urls: [
-            'http://localhost:9000/test/qunit4.html'
+            'http://localhost:9000/test/qunit_modules.html'
           ]
         }
       },
       seed: {
         options: {
           urls: [
-            'http://localhost:9000/test/qunit5.html'
+            'http://localhost:9000/test/qunit_seed.html'
           ]
         }
       }
@@ -94,19 +94,19 @@ module.exports = function(grunt) {
     shell: {
       options: {
         callback: function(err, stdout, stderr, cb) {
-          if (/test\/qunit[45]\.html/.test(stdout) &&
+          // qunit:modules, qunit:seed
+          if (/test\/(qunit_modules|qunit_seed)\.html/.test(stdout) &&
               /passed: [12]/.test(stdout)) {
-            // qunit:modules, qunit:seed
             cb(err === null);
 
+          // qunit:failPageTimeout
           } else if (/test\/qunit_page_timeout\.html/.test(stdout) &&
               /Chrome timed out/.test(stdout)) {
-            // qunit:failPageTimeout
             cb(err !== null);
 
+          // qunit:failPageError
           } else if (/test\/qunit_page_error\.html/.test(stdout) &&
               /ReferenceError: boom is not defined/.test(stdout)) {
-            // qunit:failPageError
             cb(err !== null);
           } else {
             cb(false);
@@ -170,12 +170,12 @@ module.exports = function(grunt) {
     var difflet = require('difflet')({indent: 2, comment: true});
     var actual = successes;
     var expected = {
-      'test/qunit1.html': 3,
-      'test/qunit2.html': 3,
-      'http://localhost:9000/test/qunit1.html': 2,
-      'http://localhost:9000/test/qunit3.html?foo=bar&noglobals=true': -100,
-      'http://localhost:9000/test/qunit4.html': 1,
-      'http://localhost:9000/test/qunit5.html': 1
+      'test/qunit_basic1.html': 3,
+      'test/qunit_basic2.html': 3,
+      'http://localhost:9000/test/qunit_basic1.html': 2,
+      'http://localhost:9000/test/qunit_noglobals.html?foo=bar&noglobals=true': -100,
+      'http://localhost:9000/test/qunit_modules.html': 1,
+      'http://localhost:9000/test/qunit_seed.html': 1
     };
     try {
       assert.deepEqual(actual, expected, 'Actual should match expected.');
