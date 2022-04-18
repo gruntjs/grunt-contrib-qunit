@@ -99,6 +99,14 @@ module.exports = function(grunt) {
               /passed: [12]/.test(stdout)) {
             cb(err === null);
 
+          // qunit:failAssert
+          } else if (/test\/qunit_fail_assert\.html/.test(stdout) &&
+            stdout.includes(`>> example
+>> Message: some message
+>> Actual: false
+>> Expected: true`)) {
+            cb(err !== null);
+
           // qunit:failPageTimeout
           } else if (/test\/qunit_page_timeout\.html/.test(stdout) &&
               /Chrome timed out/.test(stdout)) {
@@ -120,18 +128,28 @@ module.exports = function(grunt) {
       seed: {
         command: 'grunt qunit:seed --seed="7x9"'
       },
+      failAssert: {
+        command: 'grunt qunit:failAssert --with-failing'
+      },
       failPageError: {
-        command: 'grunt qunit:failPageError --with-failpage'
+        command: 'grunt qunit:failPageError --with-failing'
       },
       failPageTimeout: {
-        command: 'grunt qunit:failPageTimeout --with-failpage'
+        command: 'grunt qunit:failPageTimeout --with-failing'
       }
     }
 
   });
 
   // Only register these tasks for the shell task that expects the failure
-  if (grunt.option('with-failpage')) {
+  if (grunt.option('with-failing')) {
+    grunt.config.set('qunit.failAssert', {
+      options: {
+        urls: [
+          'http://localhost:9000/test/qunit_fail_assert.html'
+        ]
+      }
+    });
     grunt.config.set('qunit.failPageError', {
       options: {
         urls: [
