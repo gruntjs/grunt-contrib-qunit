@@ -38,7 +38,34 @@
     }, 1000);
   }
 
-  // These methods connect QUnit to Headless Chrome.
+  // QUnit reporter events
+  // https://api.qunitjs.com/callbacks/QUnit.on/
+
+  QUnit.on('testStart', function(obj) {
+    sendMessage('qunit.on.testStart', obj);
+  });
+
+  QUnit.on('testEnd', function(obj) {
+    sendMessage('qunit.on.testEnd', obj);
+  });
+
+  QUnit.on('runEnd', function(obj) {
+    // Re-create object to strip out large 'tests' field (deprecated).
+    sendMessage('qunit.on.runEnd', {
+      testCounts: obj.testCounts,
+      runtime: obj.runtime,
+      status: obj.status
+    });
+  });
+
+  // QUnit plugin callbacks (for back-compat)
+  // https://api.qunitjs.com/callbacks/
+  //
+  // TODO: Remove the below in a future major version of grunt-contrib-qunit,
+  // after updating docs for grunt.event.on() and announcing their deprecation,
+  // to give developers time to migrate any event consumers to their
+  // newer equivalents.
+
   QUnit.log(function(obj) {
     // What is this I don’t even
     if (obj.message === '[object Object], undefined:undefined') {
