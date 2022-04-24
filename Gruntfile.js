@@ -96,7 +96,7 @@ module.exports = function(grunt) {
         callback: function(err, stdout, stderr, cb) {
           // qunit:modules, qunit:seed
           if (/test\/(qunit_modules|qunit_seed)\.html/.test(stdout) &&
-              /passed: [12]/.test(stdout)) {
+              /[12] tests completed.*, with 0 failed/.test(stdout)) {
             cb(err === null);
 
           // qunit:failAssert
@@ -175,8 +175,8 @@ module.exports = function(grunt) {
       successes[currentUrl] = 0;
     }
   });
-  grunt.event.on('qunit.done', function(failed, passed, total) {
-    if (failed === 0 && passed === total) {
+  grunt.event.on('qunit.on.runEnd', function(runEnd) {
+    if (runEnd.status === 'passed') {
       successes[currentUrl]++;
     } else {
       successes[currentUrl] -= 100;
@@ -191,7 +191,7 @@ module.exports = function(grunt) {
       'test/qunit_basic1.html': 3,
       'test/qunit_basic2.html': 3,
       'http://localhost:9000/test/qunit_basic1.html': 2,
-      'http://localhost:9000/test/qunit_noglobals.html?foo=bar&noglobals=true': -100,
+      'http://localhost:9000/test/qunit_noglobals.html?foo=bar&noglobals=true': 1,
       'http://localhost:9000/test/qunit_modules.html': 1,
       'http://localhost:9000/test/qunit_seed.html': 1
     };

@@ -31,50 +31,44 @@ function formatMessage (str) {
 }
 
 
-function createStatus () {
+function createRunEnd () {
   return {
-    passed: 0,
-    failed: 0,
-    skipped: 0,
-    todo: 0,
-    runtime: 0,
-    assertions: {
+    status: 'passed',
+    testCounts: {
       passed: 0,
-      failed: 0
-    }
+      failed: 0,
+      skipped: 0,
+      todo: 0,
+      total: 0
+    },
+    runtime: 0
   };
 }
 
-function mergeStatus(statusA, statusB) {
-  statusA.passed += statusB.passed;
-  statusA.failed += statusB.failed;
-  statusA.skipped += statusB.skipped;
-  statusA.todo += statusB.todo;
-  statusA.runtime += statusB.runtime;
-  statusA.assertions.passed += statusB.assertions.passed;
-  statusA.assertions.failed += statusB.assertions.failed;
+function combineRunEnd(combined, runEnd) {
+  if (runEnd.status === 'failed') {
+    combined.status = runEnd.status;
+  }
+  combined.testCounts.passed += runEnd.testCounts.passed;
+  combined.testCounts.failed += runEnd.testCounts.failed;
+  combined.testCounts.skipped += runEnd.testCounts.skipped;
+  combined.testCounts.todo += runEnd.testCounts.todo;
+  combined.testCounts.total += runEnd.testCounts.total;
+  combined.runtime += runEnd.runtime;
 }
 
-function generateMessage(status) {
-  var totalTests = status.passed + status.failed + status.skipped + status.todo;
-  var totalAssertions = status.assertions.passed + status.assertions.failed;
-
+function generateMessage(combined) {
   return [
-    totalTests,
-    ' tests completed with ',
-    status.failed,
+    combined.testCounts.total,
+    ' tests completed in ',
+    combined.runtime,
+    'ms, with ',
+    combined.testCounts.failed,
     ' failed, ' +
-    status.skipped,
+    combined.testCounts.skipped,
     ' skipped, and ',
-    status.todo,
-    ' todo. \n' +
-    totalAssertions,
-    ' assertions (in ',
-    status.runtime,
-    'ms), passed: ' +
-    status.assertions.passed,
-    ', failed: ',
-    status.assertions.failed
+    combined.testCounts.todo,
+    ' todo.'
   ].join('');
 }
 
@@ -117,15 +111,10 @@ module.exports = function(grunt) {
   // Keep track of the last-started module and test. Additionally, keep track
   // of status for individual test files and the entire test suite.
   var options;
-  var currentModule;
-  var currentTest;
-  var currentStatus;
-  var status;
+  var combinedRunEnd;
+  var failureBuffer = [];
   var browser;
   var page;
-
-  // Keep track of the last-started test(s).
-  var unfinished = {};
 
   // Get an asset file, local to the root of the project.
   var asset = path.join.bind(null, __dirname, '..');
@@ -139,111 +128,73 @@ module.exports = function(grunt) {
     }
   }
 
-  // Keep track of failed assertions for pretty-printing.
-  var failedAssertions = [];
-  function logFailedAssertions () {
-    var assertion;
+  function formatFailedAssertion(error) {
+    var failure = '' +
+      'Message: ' + formatMessage(error.message) + '\n' +
+      'Actual: ' + formatMessage(error.actual) + '\n' +
+      'Expected: ' + formatMessage(error.expected);
+    if (error.stack) {
+      failure += '\n' + error.stack.replace(/^\s+(at) /g, '  $1 ');
+    }
+    return failure;
+  }
 
+
+  // QUnit hooks.
+  eventBus.on('qunit.on.testStart', function(testStart) {
+    var name = testStart.fullName.join(' > ');
+    grunt.verbose.write(name + '...');
+  });
+
+  eventBus.on('qunit.on.testEnd', function(testEnd) {
+    var testPassed = (testEnd.status !== 'failed');
+    if (testPassed) {
+      // plainly "passed", or "skipped", or expected-failing "todo".
+      //
+      // Either complete the verbose testStart line, or continue dot progress.
+      grunt.verbose.ok().or.write('.');
+      return;
+    }
     if (options && options.summaryOnly) {
       return;
     }
 
-    // Print each assertion error.
-    while (assertion = failedAssertions.shift()) {
-      grunt.verbose.or.error(assertion.testName);
-      grunt.log.error('Message: ' + formatMessage(assertion.message));
-      if (assertion.actual !== assertion.expected) {
-        grunt.log.error('Actual: ' + formatMessage(assertion.actual));
-        grunt.log.error('Expected: ' + formatMessage(assertion.expected));
-      }
-      if (assertion.source) {
-        grunt.log.error(assertion.source.replace(/ {4}(at)/g, '  $1'));
-      }
-      grunt.log.writeln();
-    }
-  }
-
-  // QUnit hooks.
-  eventBus.on('qunit.begin', function() {
-    currentStatus = createStatus();
-  });
-
-  eventBus.on('qunit.moduleStart', function(name) {
-    unfinished[name] = true;
-    currentModule = name;
-  });
-
-  eventBus.on('qunit.moduleDone', function(name) {
-    delete unfinished[name];
-  });
-
-  eventBus.on('qunit.log', function(result, actual, expected, message, source, todo) {
-    if (!result && !todo) {
-      failedAssertions.push({
-        actual: actual,
-        expected: expected,
-        message: message,
-        source: source,
-        testName: currentTest
-      });
-    }
-  });
-
-  eventBus.on('qunit.testStart', function(name) {
-    currentTest = (currentModule ? currentModule + ' - ' : '') + name;
-    grunt.verbose.write(currentTest + '...');
-  });
-
-  eventBus.on('qunit.testDone', function(name, failed, passed, total, runtime, skipped, todo) {
-    var testPassed = failed > 0 ? todo : !todo;
-
-    if (skipped) {
-      currentStatus.skipped++;
-    } else if (!testPassed) {
-      currentStatus.failed++;
-    } else if (todo) {
-      currentStatus.todo++;
+    var failure;
+    if (testEnd.status === 'todo') {
+      failure = 'Expected at least one failing assertion in todo test';
     } else {
-      currentStatus.passed++;
+      failure = testEnd.errors.map(formatFailedAssertion).join('\n');
     }
 
-    // Log errors if necessary, otherwise success.
-    if (testPassed) {
-      grunt.verbose.ok().or.write('.');
-      // list assertions or message about todo failure
-    } else if (grunt.option('verbose')) {
+    if (grunt.option('verbose')) {
       grunt.log.error();
-
-      if (todo) {
-        grunt.log.error('Expected at least one failing assertion in todo test:' + name);
-      } else {
-        logFailedAssertions();
-      }
+      grunt.log.error(failure);
     } else {
+      var name = testEnd.fullName.join(' > ');
+      failureBuffer.push(name + '\n' + failure);
       grunt.log.write('F'.red);
     }
   });
 
-  eventBus.on('qunit.done', function(failed, passed, total, runtime) {
-    currentStatus.runtime += runtime;
-    currentStatus.assertions.passed += passed;
-    currentStatus.assertions.failed += failed;
-
-    // Print assertion errors here, if verbose mode is disabled.
+  eventBus.on('qunit.on.runEnd', function(runEnd) {
     if (!grunt.option('verbose')) {
-      if (currentStatus.failed > 0) {
+      // End the non-verbose dot progress line
+      if (runEnd.status === 'failed') {
         grunt.log.writeln();
-        logFailedAssertions();
       } else {
         grunt.log.ok();
       }
     }
+    if (failureBuffer.length) {
+      grunt.log.error(failureBuffer.join('\n'));
+      failureBuffer.length = 0;
+    }
 
-    mergeStatus(status, currentStatus);
+    combineRunEnd(combinedRunEnd, runEnd);
   });
 
   // Re-broadcast qunit events on grunt.event.
-  eventBus.on('qunit.*', function() {
+  eventBus.on('qunit.**', function() {
     var args = [this.event].concat(grunt.util.toArray(arguments));
     grunt.event.emit.apply(grunt.event, args);
   });
@@ -254,7 +205,7 @@ module.exports = function(grunt) {
     grunt.event.emit('qunit.fail.load', url);
     grunt.log.error('Chrome unable to load \'' + url + '\' URI.');
 
-    status.failed += 1;
+    combinedRunEnd.status = 'failed';
   });
 
   eventBus.on('fail.timeout', function() {
@@ -264,10 +215,18 @@ module.exports = function(grunt) {
         '- QUnit is not loaded correctly.\n- A missing QUnit start() call.\n' +
         '- Or, a misconfiguration of this task.');
 
-    status.failed += 1;
+    combinedRunEnd.status = 'failed';
   });
 
   eventBus.on('error.onError', function (msg) {
+    // It is the responsibility of QUnit to ensure a run is marked as failure
+    // if there are (unexpected) messages received from window.onerror.
+    //
+    // Prior to QUnit 2.17, details of global failures were printed by
+    // creating a fake test with "testEnd" event. Now, it is our responsiblity
+    // to print these, via browser-level pageerror or `QUnit.on('error')`.
+    grunt.log.writeln();
+    grunt.log.error(msg);
     grunt.event.emit('qunit.error.onError', msg);
   });
 
@@ -358,8 +317,8 @@ module.exports = function(grunt) {
       appendToUrls('seed', grunt.option('seed'));
     }
 
-    // Reset status.
-    status = createStatus();
+    // Reset combined data.
+    combinedRunEnd = createRunEnd();
 
     // Instantiate headless browser
     puppeteer.launch(puppeteerLaunchOptions)
@@ -419,14 +378,13 @@ module.exports = function(grunt) {
 
         return pEachSeries(urls, function(url) {
           // Reset current module.
-          currentModule = null;
           grunt.event.emit('qunit.spawn', url);
           grunt.verbose.subhead('Testing ' + url + ' ').or.write('Testing ' + url + ' ');
 
           return Promise.all([
             // Setup listeners for qunit.done / fail events
             new Promise(function(resolve, reject) {
-              eventBus.once('qunit.done', function() { resolve(); });
+              eventBus.once('qunit.on.runEnd', function() { resolve(); });
               eventBus.once('fail.*', function() { reject(url); });
             }),
 
@@ -437,22 +395,21 @@ module.exports = function(grunt) {
       })
       .then(function() {
         // All tests have been run.
-        var message = generateMessage(status);
-        var success;
+        var message = generateMessage(combinedRunEnd);
+        var success = (combinedRunEnd.status === 'passed');
 
         // Log results.
-        if (status.failed > 0) {
+        if (!success) {
           warnUnlessForced(message);
         } else {
           grunt.verbose.writeln();
           grunt.log.ok(message);
         }
 
-        if (options && options.force) {
+        if (!success && options && options.force) {
           success = true;
-        } else {
-          success = status.failed === 0;
         }
+
         // All done!
         finishTask(success);
       })
