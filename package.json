@@ -27,7 +27,7 @@
     "grunt-contrib-internal": "^7.0.0",
     "grunt-contrib-jshint": "^2.1.0",
     "grunt-shell": "^4.0.0",
-    "qunit": "^2.10.0"
+    "qunit": "^2.19.0"
   },
   "keywords": [
     "gruntplugin"
