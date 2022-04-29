@@ -13,7 +13,7 @@ Default: `chrome/bridge.js`
 One or multiple (array) JavaScript file names to inject into the html test page. Defaults to the path of the QUnit-Chrome bridge file.
 
 You may want to inject something different than the provided QUnit-Chrome bridge, or to inject more than just the provided bridge.
-See [the built-in bridge](https://github.com/gruntjs/grunt-contrib-qunit/blob/master/chrome/bridge.js) for more information.
+See [the built-in bridge](https://github.com/gruntjs/grunt-contrib-qunit/blob/main/chrome/bridge.js) for more information.
 
 ## httpBase
 Type: `String`  
@@ -49,7 +49,7 @@ When true, this will suppress the default logging for individually failed tests.
 Type: `Object`  
 Default: `{ headless: true }`
 
-Arguments to be used when `puppeteer.launch()` is invoked. This may be useful for specifying a custom Chrome executable path, running in non-headless mode, specifying environment variables to use when launching Chrome, etc. See the [Puppeteer API Reference](https://pptr.dev/#?product=Puppeteer&version=v5.1.0) for a list of launch options that are available.
+Arguments to be used when `puppeteer.launch()` is invoked. This may be useful for specifying a custom Chrome executable path, running in non-headless mode, specifying environment variables to use when launching Chrome, etc. See the [Puppeteer API Reference](https://pptr.dev/) for a list of launch options that are available.
 
 ## noGlobals
 Type: `boolean`  

@@ -20,7 +20,7 @@ This plugin defines one single task: `qunit`. Configure it in your `Gruntfile.js
 Please read about specifying task targets, files and options in the grunt [Configuring tasks](https://gruntjs.com/configuring-tasks) guide.
 
 When installed by npm, this plugin will automatically download and install a local
-[Chrome][] binary within the `node_modules` directory of the [puppeteer][] library,
+[Chrome][] binary within the `node_modules` directory of the [Puppeteer][] library,
 which is used for launching a Chrome process.  If your system already provides an
 installation of Chrome, you can configure this plugin to use the globally installed
 executable by specifying a custom `executablePath` in the puppeteer launch options.  
