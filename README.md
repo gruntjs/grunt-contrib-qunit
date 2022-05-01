@@ -31,7 +31,7 @@ unit test suite run automatically each time you commit changes to your
 code.
 
 This is where the `grunt-contrib-qunit` plugin comes in the play:
-`grunt-contrib-qunit` lets you run your tests in the invisible [Chrome][]
+`grunt-contrib-qunit` lets you run your tests in the invisible Chrome
 browser, thus converting your unit test suite into something you can run
 from a script, a script you can have automatically run on travis-ci (or the
 Continuous Integration service of your choice) which in turn can alert you
@@ -46,7 +46,7 @@ This plugin defines one single task: `qunit`. Configure it in your `Gruntfile.js
 Please read about specifying task targets, files and options in the grunt [Configuring tasks](https://gruntjs.com/configuring-tasks) guide.
 
 When installed by npm, this plugin will automatically download and install a local
-[Chrome][] binary within the `node_modules` directory of the [Puppeteer][] library,
+Chrome binary within the `node_modules` directory of the [Puppeteer][] library,
 which is used for launching a Chrome process.  If your system already provides an
 installation of Chrome, you can configure this plugin to use the globally installed
 executable by specifying a custom `executablePath` in the puppeteer launch options.  
@@ -59,6 +59,10 @@ This plugin uses Puppeteer to run tests in a Chrome process. Chrome requires a n
 Please see Puppeteer's docs to see the latest docs for what dependencies you need for your OS:
 
 https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md
+
+#### QUnit version
+
+The plugin supports QUnit 2.2.0 and later. To test with QUnit 1.x, use grunt-contrib-qunit 5.
 
 ### Options
 
@@ -132,8 +136,6 @@ Will run the module `foo`. You can specify one or multiple, comma-separated modu
 `grunt qunit --seed="a-string"`
 
 Specify the seed to pass to QUnit, to run tests in random, but deterministic order. See [`QUnit.config.seed`](https://api.qunitjs.com/config/seed/) docs for more information.
-
-_Note: You must be using `QUnit` version `1.23.0` or greater for these features to work properly._
 
 ### Usage examples
 
@@ -253,8 +255,8 @@ The events, with arguments, are as follows:
 
 In addition to forwarding QUnit's events, the following events are also emitted by the Grunt plugin:
 
-* `qunit.spawn` `(url)`: when [Chrome][] is spawned for a test
-* `qunit.fail.load` `(url)`: when [Chrome][] could not open the given url
+* `qunit.spawn` `(url)`: when Chrome is spawned for a test
+* `qunit.fail.load` `(url)`: when Chrome could not open the given url
 * `qunit.fail.timeout`: when a QUnit test times out, usually due to a missing `QUnit.start()` call
 * `qunit.error.onError` `(err)`: when a JavaScript execution error occurs
 
@@ -269,8 +271,8 @@ grunt.event.on('qunit.spawn', function (url) {
 
 ## Release History
 
- * 2022-04-29   v6.1.0   Fix reporting of error details when used with QUnit 2.17 and later. Add.
- * 2022-04-03   v6.0.0   Puppeteer version to ^9.0.0. Updated dependencies. Minimum node version is now version 12.
+ * 2022-04-29   v6.1.0   Fix reporting of error details when used with QUnit 2.17 and later. Add Grunt events `qunit.on.*`, as forwarded from `QUnit.on()`.
+ * 2022-04-03   v6.0.0   Puppeteer version to ^9.0.0. Updated dependencies. Minimum Node.js version is now 12. Minimum QUnit version is now 2.2.0.
  * 2021-04-18   v5.0.0   Puppeteer version to ^5.0.0. Dependency updates.
  * 2020-06-17   v4.0.0   Puppeteer version to v4.0.0. Dependency updates and typo fixes. Minimum node version is now version 10.
  * 2018-12-29   v3.1.0   Updated to puppeteer ^1.11.0.
@@ -301,4 +303,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Fri Apr 29 2022 12:25:33.*
+*This file was generated on Sun May 01 2022 13:41:55.*

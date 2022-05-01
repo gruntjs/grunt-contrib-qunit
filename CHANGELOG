@@ -8,7 +8,8 @@ v6.0.0:
   changes:
     - Puppeteer version to ^9.0.0.
     - Updated dependencies.
-    - Minimum node version is now version 12.
+    - Minimum Node.js version is now 12.
+    - Minimum QUnit version is now 2.2.0.
 v5.0.0:
   date: 2021-04-18
   changes:

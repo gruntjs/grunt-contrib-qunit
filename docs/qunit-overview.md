@@ -33,3 +33,7 @@ This plugin uses Puppeteer to run tests in a Chrome process. Chrome requires a n
 Please see Puppeteer's docs to see the latest docs for what dependencies you need for your OS:
 
 https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md
+
+## QUnit version
+
+The plugin supports QUnit 2.2.0 and later. To test with QUnit 1.x, use grunt-contrib-qunit 5.
