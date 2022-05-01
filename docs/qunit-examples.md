@@ -116,8 +116,8 @@ The events, with arguments, are as follows:
 
 In addition to forwarding QUnit's events, the following events are also emitted by the Grunt plugin:
 
-* `qunit.spawn` `(url)`: when [Chrome][] is spawned for a test
-* `qunit.fail.load` `(url)`: when [Chrome][] could not open the given url
+* `qunit.spawn` `(url)`: when Chrome is spawned for a test
+* `qunit.fail.load` `(url)`: when Chrome could not open the given url
 * `qunit.fail.timeout`: when a QUnit test times out, usually due to a missing `QUnit.start()` call
 * `qunit.error.onError` `(err)`: when a JavaScript execution error occurs
 
