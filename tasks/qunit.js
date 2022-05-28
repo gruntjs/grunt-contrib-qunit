@@ -230,7 +230,12 @@ module.exports = function(grunt) {
     grunt.event.emit('qunit.error.onError', msg);
   });
 
-  grunt.registerMultiTask('qunit', 'Run QUnit unit tests in a headless Chrome instance.', function() {
+  grunt.registerMultiTask('qunit', 'Run QUnit tests in Headless Chrome.', function() {
+    // Chrome sandbox is incompatible with Docker and most CI environments
+    var defaultChromiumArgs = (
+      process.env.CHROMIUM_FLAGS || (process.env.CI ? '--no-sandbox' : '')
+    ).split(' ');
+
     // Merge task-specific and/or target-specific options with these defaults.
     options = this.options({
       // Default Chrome timeout.
@@ -246,7 +251,13 @@ module.exports = function(grunt) {
       httpBase: false,
       summaryOnly: false
     });
-    var puppeteerLaunchOptions = Object.assign({headless: true}, options.puppeteer);
+    var puppeteerLaunchOptions = Object.assign(
+      {
+        headless: true,
+        args: defaultChromiumArgs
+      },
+      options.puppeteer
+    );
 
     // This task is asynchronous.
     var done = this.async();

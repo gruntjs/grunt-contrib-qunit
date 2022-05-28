@@ -47,9 +47,11 @@ When true, this will suppress the default logging for individually failed tests.
 
 ## puppeteer
 Type: `Object`  
-Default: `{ headless: true }`
+Default: `{ headless: true, args: [] }`
 
-Arguments to be used when `puppeteer.launch()` is invoked. This may be useful for specifying a custom Chrome executable path, running in non-headless mode, specifying environment variables to use when launching Chrome, etc. See the [Puppeteer API Reference](https://pptr.dev/) for a list of launch options that are available.
+Options passed to `puppeteer.launch()`. This can used to specify a custom Chrome executable path, run in non-headless mode, specify environment variables for the Chrome process, etc. See the [Puppeteer API Reference](https://pptr.dev/#?product=Puppeteer&version=v9.0.0&show=api-puppeteerlaunchoptions) for a list of launch options.
+
+The default value for `args` is set from the `CHROMIUM_FLAGS` environment variable, which in turn defaults to `--no-sandbox` if the `CI` environment variable is set.
 
 ## noGlobals
 Type: `boolean`  
