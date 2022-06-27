@@ -1,4 +1,4 @@
-# grunt-contrib-qunit v6.1.0 [![Build Status](https://github.com/gruntjs/grunt-contrib-qunit/workflows/Tests/badge.svg)](https://github.com/gruntjs/grunt-contrib-qunit/actions?workflow=Tests)
+# grunt-contrib-qunit v6.2.0 [![Build Status](https://github.com/gruntjs/grunt-contrib-qunit/workflows/Tests/badge.svg)](https://github.com/gruntjs/grunt-contrib-qunit/actions?workflow=Tests)
 
 > Run QUnit unit tests in a headless Chrome instance
 
@@ -113,9 +113,11 @@ When true, this will suppress the default logging for individually failed tests.
 
 #### puppeteer
 Type: `Object`  
-Default: `{ headless: true }`
+Default: `{ headless: true, args: [] }`
 
-Arguments to be used when `puppeteer.launch()` is invoked. This may be useful for specifying a custom Chrome executable path, running in non-headless mode, specifying environment variables to use when launching Chrome, etc. See the [Puppeteer API Reference](https://pptr.dev/) for a list of launch options that are available.
+Options passed to `puppeteer.launch()`. This can used to specify a custom Chrome executable path, run in non-headless mode, specify environment variables for the Chrome process, etc. See the [Puppeteer API Reference](https://pptr.dev/#?product=Puppeteer&version=v9.0.0&show=api-puppeteerlaunchoptions) for a list of launch options.
+
+The default value for `args` is set from the `CHROMIUM_FLAGS` environment variable, which in turn defaults to `--no-sandbox` if the `CI` environment variable is set.
 
 #### noGlobals
 Type: `boolean`  
@@ -271,6 +273,7 @@ grunt.event.on('qunit.spawn', function (url) {
 
 ## Release History
 
+ * 2022-06-26   v6.2.0   Enable `--no-sandbox` by default for `CI` environments. Add support for `CHROMIUM_FLAGS` environment variable.
  * 2022-04-29   v6.1.0   Fix reporting of error details when used with QUnit 2.17 and later. Add Grunt events `qunit.on.*`, as forwarded from `QUnit.on()`.
  * 2022-04-03   v6.0.0   Puppeteer version to ^9.0.0. Updated dependencies. Minimum Node.js version is now 12. Minimum QUnit version is now 2.2.0.
  * 2021-04-18   v5.0.0   Puppeteer version to ^5.0.0. Dependency updates.
@@ -303,4 +306,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Sun May 01 2022 13:41:55.*
+*This file was generated on Sun Jun 26 2022 22:41:55.*
