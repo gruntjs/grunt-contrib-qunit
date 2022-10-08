@@ -74,13 +74,20 @@ module.exports = function(grunt) {
             'http://localhost:9000/test/qunit_seed.html'
           ]
         }
+      },
+      circularObject: {
+        options: {
+          urls: [
+            'http://localhost:9000/test/qunit_circular_object.html'
+          ]
+        }
       }
     },
     shell: {
       options: {
         callback: function(err, stdout, stderr, cb) {
-          // qunit:modules, qunit:seed
-          if (/test\/(qunit_modules|qunit_seed)\.html/.test(stdout) &&
+          // qunit:modules, qunit:seed, qunit:circularObject
+          if (/test\/(qunit_modules|qunit_seed|qunit_circular_object)\.html/.test(stdout) &&
               /[12] tests completed.*, with 0 failed/.test(stdout)) {
             cb(err === null);
 
@@ -112,6 +119,9 @@ module.exports = function(grunt) {
       },
       seed: {
         command: 'grunt qunit:seed --seed="7x9"'
+      },
+      circularObject: {
+        command: 'grunt qunit:circularObject'
       },
       failAssert: {
         command: 'grunt qunit:failAssert --with-failing'
@@ -178,7 +188,8 @@ module.exports = function(grunt) {
       'http://localhost:9000/test/qunit_basic1.html': 2,
       'http://localhost:9000/test/qunit_noglobals.html?foo=bar&noglobals=true': 1,
       'http://localhost:9000/test/qunit_modules.html': 1,
-      'http://localhost:9000/test/qunit_seed.html': 1
+      'http://localhost:9000/test/qunit_seed.html': 1,
+      'http://localhost:9000/test/qunit_circular_object.html': 1
     };
     try {
       assert.deepEqual(actual, expected, 'Actual should match expected.');
