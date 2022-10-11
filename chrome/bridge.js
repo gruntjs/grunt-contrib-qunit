@@ -46,7 +46,15 @@
   });
 
   QUnit.on('testEnd', function(obj) {
-    sendMessage('qunit.on.testEnd', obj);
+    // Re-create object to strip out 'assertions' field
+    sendMessage('qunit.on.testEnd', {
+      name: obj.name,
+      moduleName: obj.moduleName,
+      fullName: obj.fullName,
+      status: obj.status,
+      runtime: obj.runtime,
+      errors: obj.errors,
+    });
   });
 
   QUnit.on('runEnd', function(obj) {
