@@ -47,15 +47,44 @@
 
   QUnit.on('testEnd', function(obj) {
     // Re-create object to strip out 'assertions' field
+
+    // expected and actual may contain circular objects, which would fail in puppeteer as it uses JSON.stringify to serialize its messages
+    // In that case, replace actual and expected
+    var errors = obj.errors;
+    if (!canBeJSONStringified(errors)) {
+      errors = obj.errors.map(function (error) {
+        return {
+          passed: error.passed,
+          message: error.message,
+          stack: error.stack,
+          actual: replaceIfCannotBeJSONStringified(error.actual),
+          expected: replaceIfCannotBeJSONStringified(error.expected)
+        }
+      });
+    }
+
     sendMessage('qunit.on.testEnd', {
       name: obj.name,
       moduleName: obj.moduleName,
       fullName: obj.fullName,
       status: obj.status,
       runtime: obj.runtime,
-      errors: obj.errors,
+      errors: errors,
     });
   });
+
+  function replaceIfCannotBeJSONStringified(obj) {
+    return canBeJSONStringified(obj) ? obj : obj.toString();
+  }
+
+  function canBeJSONStringified(obj) {
+    try {
+      JSON.stringify(obj);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 
   QUnit.on('runEnd', function(obj) {
     // Re-create object to strip out large 'tests' field (deprecated).
