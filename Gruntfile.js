@@ -109,7 +109,7 @@ module.exports = function(grunt) {
               /ReferenceError: boom is not defined/.test(stdout)) {
             cb(err !== null);
 
-          // qunit:circularObjectFail
+          // qunit:failCircularObject
           } else if (/test\/qunit_circular_object_fail\.html/.test(stdout) &&
               /Message: fail with circular actual\.\n>> Actual: \[object Object\]\n>> Expected: \[object Object\]/.test(stdout) &&
               /Message: fail with circular expected\.\n>> Actual: \[object Object\]\n>> Expected: \[object Object\]/.test(stdout)) {
@@ -130,12 +130,12 @@ module.exports = function(grunt) {
       circularObject: {
         command: 'grunt qunit:circularObject'
       },
-      circularObjectFail: {
-        command: 'grunt qunit:circularObjectFail --with-failing',
-        maxBuffer: 1000 * 1000 *1000
-      },
       failAssert: {
         command: 'grunt qunit:failAssert --with-failing'
+      },
+      failCircularObject: {
+        command: 'grunt qunit:failCircularObject --with-failing',
+        maxBuffer: 1000 * 1000 * 1000
       },
       failPageError: {
         command: 'grunt qunit:failPageError --with-failing'
@@ -156,6 +156,13 @@ module.exports = function(grunt) {
         ]
       }
     });
+    grunt.config.set('qunit.failCircularObject', {
+      options: {
+        urls: [
+          'http://localhost:9000/test/qunit_circular_object_fail.html'
+        ]
+      }
+    });
     grunt.config.set('qunit.failPageError', {
       options: {
         urls: [
@@ -167,13 +174,6 @@ module.exports = function(grunt) {
       options: {
         urls: [
           'http://localhost:9000/test/qunit_page_timeout.html'
-        ]
-      }
-    });
-    grunt.config.set('qunit.circularObjectFail', {
-      options: {
-        urls: [
-          'http://localhost:9000/test/qunit_circular_object_fail.html'
         ]
       }
     });
