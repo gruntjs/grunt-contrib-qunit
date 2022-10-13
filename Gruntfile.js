@@ -134,8 +134,7 @@ module.exports = function(grunt) {
         command: 'grunt qunit:failAssert --with-failing'
       },
       failCircularObject: {
-        command: 'grunt qunit:failCircularObject --with-failing',
-        maxBuffer: 1000 * 1000 * 1000
+        command: 'grunt qunit:failCircularObject --with-failing'
       },
       failPageError: {
         command: 'grunt qunit:failPageError --with-failing'
