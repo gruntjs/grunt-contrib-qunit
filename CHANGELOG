@@ -1,3 +1,7 @@
+v6.2.1:
+  date: 2022-10-18
+  changes:
+    - Fix serialization of assertions on circular objects.
 v6.2.0:
   date: 2022-06-26
   changes:
