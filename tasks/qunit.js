@@ -22,7 +22,15 @@ var Promise = global.Promise;
 // Shared functions
 
 // Allow an error message to retain its color when split across multiple lines.
-function formatMessage (str) {
+function formatMessage (message) {
+  var str = String(message);
+  if (typeof message === 'object' && /^\[object .*\]$/.test(str)) {
+    // try to use the JSON as a better string representation
+    try {
+      str = JSON.stringify(message, null, 2);
+    } catch ( _ ) {
+    }
+  }
   return String(str).split('\n')
     .map(function(s) {
       return s.magenta;
