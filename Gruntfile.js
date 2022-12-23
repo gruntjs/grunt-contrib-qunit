@@ -111,8 +111,8 @@ module.exports = function(grunt) {
 
           // qunit:failCircularObject
           } else if (/test\/qunit_circular_object_fail\.html/.test(stdout) &&
-              /Message: fail with circular actual\.\n>> Actual: \[object Object\]\n>> Expected: \[object Object\]/.test(stdout) &&
-              /Message: fail with circular expected\.\n>> Actual: \[object Object\]\n>> Expected: \[object Object\]/.test(stdout)) {
+              /Message: fail with circular actual\.\n>> Actual: \[object Object\]\n>> Expected: \{\}/.test(stdout) &&
+              /Message: fail with circular expected\.\n>> Actual: \{\}\n>> Expected: \[object Object\]/.test(stdout)) {
             cb(err !== null);
 
           } else {
