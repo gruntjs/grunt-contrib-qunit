@@ -1,3 +1,8 @@
+v7.0.0:
+  date: 2023-02-14
+  changes:
+    - Puppeteer version update.
+    - CI changes testing changes.
 v6.2.1:
   date: 2022-10-18
   changes:
