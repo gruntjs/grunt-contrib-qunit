@@ -18,7 +18,7 @@
   "dependencies": {
     "eventemitter2": "^6.4.9",
     "p-each-series": "^2.2.0",
-    "puppeteer": "^19.5.1"
+    "puppeteer": "^19.7.0"
   },
   "devDependencies": {
     "difflet": "^1.0.1",
