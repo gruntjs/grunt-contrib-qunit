@@ -9,7 +9,7 @@
   "repository": "gruntjs/grunt-contrib-qunit",
   "license": "MIT",
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "main": "tasks/qunit.js",
   "scripts": {
@@ -17,17 +17,17 @@
   },
   "dependencies": {
     "eventemitter2": "^6.4.9",
-    "p-each-series": "^2.1.0",
-    "puppeteer": "^9.0.0"
+    "p-each-series": "^2.2.0",
+    "puppeteer": "^19.5.1"
   },
   "devDependencies": {
     "difflet": "^1.0.1",
-    "grunt": "^1.5.3",
+    "grunt": "^1.6.1",
     "grunt-contrib-connect": "^3.0.0",
     "grunt-contrib-internal": "^8.0.2",
     "grunt-contrib-jshint": "^3.2.0",
     "grunt-shell": "^4.0.0",
-    "qunit": "^2.19.3"
+    "qunit": "^2.19.4"
   },
   "keywords": [
     "gruntplugin"
