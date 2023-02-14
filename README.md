@@ -1,4 +1,4 @@
-# grunt-contrib-qunit v6.2.1 [![Build Status](https://github.com/gruntjs/grunt-contrib-qunit/workflows/Tests/badge.svg)](https://github.com/gruntjs/grunt-contrib-qunit/actions?workflow=Tests)
+# grunt-contrib-qunit v7.0.0 [![Build Status](https://github.com/gruntjs/grunt-contrib-qunit/workflows/Tests/badge.svg)](https://github.com/gruntjs/grunt-contrib-qunit/actions?workflow=Tests)
 
 > Run QUnit unit tests in a headless Chrome instance
 
@@ -273,6 +273,7 @@ grunt.event.on('qunit.spawn', function (url) {
 
 ## Release History
 
+ * 2023-02-14   v7.0.0   Puppeteer version update. CI changes testing changes.
  * 2022-10-18   v6.2.1   Fix serialization of assertions on circular objects.
  * 2022-06-26   v6.2.0   Enable `--no-sandbox` by default for `CI` environments. Add support for `CHROMIUM_FLAGS` environment variable.
  * 2022-04-29   v6.1.0   Fix reporting of error details when used with QUnit 2.17 and later. Add Grunt events `qunit.on.*`, as forwarded from `QUnit.on()`.
