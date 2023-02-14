@@ -307,4 +307,4 @@ grunt.event.on('qunit.spawn', function (url) {
 
 Task submitted by ["Cowboy" Ben Alman](http://benalman.com/)
 
-*This file was generated on Tue Oct 18 2022 19:06:17.*
+*This is a generated file.*
