@@ -9,6 +9,7 @@
 /* global QUnit:true */
 (function (factory) {
   if (window.self !== window.top) {
+    // Ignore iframes. https://github.com/gruntjs/grunt-contrib-qunit/issues/202
     return;
   }
   if (typeof define === 'function' && define.amd) {
