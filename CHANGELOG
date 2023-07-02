@@ -1,8 +1,13 @@
+v7.0.1:
+  date: 2023-07-02
+  changes:
+    - Fix unexpected bridge activation in unrated iframes.
 v7.0.0:
   date: 2023-02-14
   changes:
-    - Puppeteer version update.
-    - CI changes testing changes.
+    - Update to Puppeteer 19.
+    - Require Node.js 14 or later.
+    - Change actual/expected value to JSON when possible.
 v6.2.1:
   date: 2022-10-18
   changes:
@@ -20,58 +25,51 @@ v6.1.0:
 v6.0.0:
   date: 2022-04-03
   changes:
-    - Puppeteer version to ^9.0.0.
-    - Updated dependencies.
-    - Minimum Node.js version is now 12.
-    - Minimum QUnit version is now 2.2.0.
+    - Update to Puppeteer 9.
+    - Require Node.js 12 or later.
+    - Require QUnit 2.2.0 or later.
 v5.0.0:
   date: 2021-04-18
   changes:
-    - Puppeteer version to ^5.0.0.
-    - Dependency updates.
+    - Update to Puppeteer 5.
 v4.0.0:
   date: 2020-06-17
   changes:
-    - Puppeteer version to v4.0.0.
-    - Dependency updates and typo fixes.
-    - Minimum node version is now version 10.
+    - Update to Puppeteer 4.
+    - Require Node.js 10 or later.
 v3.1.0:
   date: 2018-12-29
   changes:
-    - Updated to puppeteer ^1.11.0.
+    - Update to puppeteer 1.11.
 v3.0.1:
   date: 2018-08-12
   changes:
-    - Fixed regressions.
+    - Fix regressions.
 v3.0.0:
   date: 2018-07-24
   changes:
-    - Switch to using headless chrome / puppeteer instead of phantomjs
+    - Switch to using Headless Chromium via Puppeteer, instead of PhantomJS
 v2.0.0:
   date: 2017-04-04
   changes:
-    - Remove usage of `QUnit.jsDump`
-    - Upgrade qunitjs to 2.3.0 (#123)
-    - adding an Introduction to the README (#140)
+    - Remove use of `QUnit.jsDump`
+    - Upgrade qunitjs to 2.3.0
 v1.3.0:
   date: 2017-02-07
   changes:
-    - Add ability to run tests in seeded-random order through `--seed` flag
-    - Add note about min version of QUnit required to use the CLI flags
-    - Implement support for todo tests and revamp reporting logic (#137)
+    - Add `--seed` flag for running with seeded-random order.
+    - Add support for todo tests.
 v1.2.0:
   date: 2016-04-14
   changes:
     - Add support for filtering running modules using command line (--modules)
-    - Removed 'grunt.warn' output from `error.onError` handler, onus now on end user binding to event.
-    - Update docs.
+    - Remove 'grunt.warn' output from `error.onError` handler, onus now on end user binding to event.
 v1.1.0:
   date: 2016-03-11
   changes:
-    - Adding support for 'summaryOnly'.
+    - Add `summaryOnly` option.
     - Fix `options.force`.
     - Fix query string for `noGlobals`.
-    - Update docs.
 v1.0.1:
   date: 2016-02-05
   changes:
@@ -111,16 +109,15 @@ v0.4.0:
   date: 2014-01-17
   changes:
     - Update grunt-lib-phantomjs to v0.5.0.
-    - Explicitly set files to publish to npm. Ref gruntjs/gruntjs.com#65.
-    - Update qunit-overview.md, include CentOS dependencies. Closes gh-49.
+    - Explicitly set files to publish to npm. https://github.com/gruntjs/gruntjs.com/issues/65.
 v0.3.0:
   date: 2013-09-29
   changes:
-    - Update grunt-lib-phantomjs to v0.4.0.
-    - Add `qunit.fail.load` and `qunit.fail.timeout` events.
-    - Update QUnit to v1.12.0.
     - Add `force` option.
-    - Propagate `onError` events from phantomjs through the `qunit.error.onError` event.
+    - Add `qunit.fail.load` and `qunit.fail.timeout` events.
+    - Add `qunit.error.onError` event to oropagate `onError` from phantomjs.
+    - Update grunt-lib-phantomjs to v0.4.0.
+    - Update QUnit to v1.12.0.
     - Remove confusing error message.
 v0.2.2:
   date: 2013-06-06
@@ -144,13 +141,12 @@ v0.1.1rc6:
   date: 2013-01-18
   changes:
     - Updating grunt/gruntplugin dependencies to rc6.
-    - Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions.
 v0.1.1rc5:
   date: 2013-01-09
   changes:
     - Updating to work with grunt v0.4.0rc5.
     - Switching to `this.filesSrc` API.
-    - Adding `urls` option for specifying absolute test URLs.
+    - Add `urls` option for specifying absolute test URLs.
 v0.1.0:
   date: 2012-10-05
   changes:

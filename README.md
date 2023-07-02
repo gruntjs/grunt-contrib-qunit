@@ -1,4 +1,4 @@
-# grunt-contrib-qunit v7.0.0 [![Build Status](https://github.com/gruntjs/grunt-contrib-qunit/workflows/Tests/badge.svg)](https://github.com/gruntjs/grunt-contrib-qunit/actions?workflow=Tests)
+# grunt-contrib-qunit v7.0.1 [![Build Status](https://github.com/gruntjs/grunt-contrib-qunit/workflows/Tests/badge.svg)](https://github.com/gruntjs/grunt-contrib-qunit/actions?workflow=Tests)
 
 > Run QUnit unit tests in a headless Chrome instance
 
@@ -273,20 +273,21 @@ grunt.event.on('qunit.spawn', function (url) {
 
 ## Release History
 
- * 2023-02-14   v7.0.0   Puppeteer version update. CI changes testing changes.
+ * 2023-07-02   v7.0.1   Fix unexpected bridge activation in unrated iframes.
+ * 2023-02-14   v7.0.0   Update to Puppeteer 19. Require Node.js 14 or later. Change actual/expected value to JSON when possible.
  * 2022-10-18   v6.2.1   Fix serialization of assertions on circular objects.
  * 2022-06-26   v6.2.0   Enable `--no-sandbox` by default for `CI` environments. Add support for `CHROMIUM_FLAGS` environment variable.
  * 2022-04-29   v6.1.0   Fix reporting of error details when used with QUnit 2.17 and later. Add Grunt events `qunit.on.*`, as forwarded from `QUnit.on()`.
- * 2022-04-03   v6.0.0   Puppeteer version to ^9.0.0. Updated dependencies. Minimum Node.js version is now 12. Minimum QUnit version is now 2.2.0.
- * 2021-04-18   v5.0.0   Puppeteer version to ^5.0.0. Dependency updates.
- * 2020-06-17   v4.0.0   Puppeteer version to v4.0.0. Dependency updates and typo fixes. Minimum node version is now version 10.
- * 2018-12-29   v3.1.0   Updated to puppeteer ^1.11.0.
- * 2018-08-12   v3.0.1   Fixed regressions.
- * 2018-07-24   v3.0.0   Switch to using headless chrome / puppeteer instead of phantomjs
- * 2017-04-04   v2.0.0   Remove usage of `QUnit.jsDump` Upgrade qunitjs to 2.3.0 (#123) adding an Introduction to the README (#140)
- * 2017-02-07   v1.3.0   Add ability to run tests in seeded-random order through `--seed` flag Add note about min version of QUnit required to use the CLI flags Implement support for todo tests and revamp reporting logic (#137)
- * 2016-04-14   v1.2.0   Add support for filtering running modules using command line (--modules) Removed 'grunt.warn' output from `error.onError` handler, onus now on end user binding to event. Update docs.
- * 2016-03-11   v1.1.0   Adding support for 'summaryOnly'. Fix `options.force`. Fix query string for `noGlobals`. Update docs.
+ * 2022-04-03   v6.0.0   Update to Puppeteer 9. Require Node.js 12 or later. Require QUnit 2.2.0 or later.
+ * 2021-04-18   v5.0.0   Update to Puppeteer 5.
+ * 2020-06-17   v4.0.0   Update to Puppeteer 4. Require Node.js 10 or later.
+ * 2018-12-29   v3.1.0   Update to puppeteer 1.11.
+ * 2018-08-12   v3.0.1   Fix regressions.
+ * 2018-07-24   v3.0.0   Switch to using Headless Chromium via Puppeteer, instead of PhantomJS
+ * 2017-04-04   v2.0.0   Remove use of `QUnit.jsDump` Upgrade qunitjs to 2.3.0
+ * 2017-02-07   v1.3.0   Add `--seed` flag for running with seeded-random order. Add support for todo tests.
+ * 2016-04-14   v1.2.0   Add support for filtering running modules using command line (--modules) Remove 'grunt.warn' output from `error.onError` handler, onus now on end user binding to event.
+ * 2016-03-11   v1.1.0   Add `summaryOnly` option. Fix `options.force`. Fix query string for `noGlobals`.
  * 2016-02-05   v1.0.1   Change `QUnit.jsDump` to `QUnit.dump`.
  * 2016-02-05   v1.0.0   Update grunt-lib-phantomjs to 1.0.0, effectively upgrading to phantomjs 2.x. Remove grunt as a peerDependency.
  * 2015-04-03   v0.7.0   Log PhantomJS errors as warnings.
@@ -294,14 +295,14 @@ grunt.event.on('qunit.spawn', function (url) {
  * 2014-07-09   v0.5.2   Added support for reporting the duration of `testDone`. Other minor fixes.
  * 2014-05-31   v0.5.1   Updates grunt-lib-phantomjs.
  * 2014-05-31   v0.5.0   Add ability to hide PhantomJS console output. Add option for binding phantomjs console to grunt output. Default is `true` (do bind). Add `httpBase` option. Only call `jsDump.parse()` if a test failed.
- * 2014-01-17   v0.4.0   Update grunt-lib-phantomjs to v0.5.0. Explicitly set files to publish to npm. Ref gruntjs/gruntjs.com#65. Update qunit-overview.md, include CentOS dependencies. Closes gh-49.
- * 2013-09-29   v0.3.0   Update grunt-lib-phantomjs to v0.4.0. Add `qunit.fail.load` and `qunit.fail.timeout` events. Update QUnit to v1.12.0. Add `force` option. Propagate `onError` events from phantomjs through the `qunit.error.onError` event. Remove confusing error message.
+ * 2014-01-17   v0.4.0   Update grunt-lib-phantomjs to v0.5.0. Explicitly set files to publish to npm. https://github.com/gruntjs/gruntjs.com/issues/65.
+ * 2013-09-29   v0.3.0   Add `force` option. Add `qunit.fail.load` and `qunit.fail.timeout` events. Add `qunit.error.onError` event to oropagate `onError` from phantomjs. Update grunt-lib-phantomjs to v0.4.0. Update QUnit to v1.12.0. Remove confusing error message.
  * 2013-06-06   v0.2.2   Warn if no assertions ran in a single test. Spaces instead of newlines for clickable URLs. Wrap bridge.js in a IIFE.
  * 2013-04-05   v0.2.1   Update to use PhantomJS 1.9.0. Fixes PhantomJS not found errors.
  * 2013-02-28   v0.2.0   Update to use PhantomJS 1.8.1.
  * 2013-02-15   v0.1.1   First official release for Grunt 0.4.0.
- * 2013-01-18   v0.1.1rc6   Updating grunt/gruntplugin dependencies to rc6. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions.
- * 2013-01-09   v0.1.1rc5   Updating to work with grunt v0.4.0rc5. Switching to `this.filesSrc` API. Adding `urls` option for specifying absolute test URLs.
+ * 2013-01-18   v0.1.1rc6   Updating grunt/gruntplugin dependencies to rc6.
+ * 2013-01-09   v0.1.1rc5   Updating to work with grunt v0.4.0rc5. Switching to `this.filesSrc` API. Add `urls` option for specifying absolute test URLs.
  * 2012-10-05   v0.1.0   Work in progress, not yet officially released.
 
 ---
