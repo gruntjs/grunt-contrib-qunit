@@ -8,6 +8,9 @@
 
 /* global QUnit:true */
 (function (factory) {
+  if (window.self !== window.top) {
+    return;
+  }
   if (typeof define === 'function' && define.amd) {
     require(['qunit'], factory);
   } else {
