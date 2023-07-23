@@ -1,7 +1,7 @@
 {
   "name": "grunt-contrib-qunit",
   "description": "Run QUnit unit tests in a headless Chrome instance",
-  "version": "7.0.1",
+  "version": "8.0.0",
   "author": {
     "name": "Grunt Team",
     "url": "https://gruntjs.com/"
@@ -9,7 +9,7 @@
   "repository": "gruntjs/grunt-contrib-qunit",
   "license": "MIT",
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "main": "tasks/qunit.js",
   "scripts": {
@@ -18,13 +18,13 @@
   "dependencies": {
     "eventemitter2": "^6.4.9",
     "p-each-series": "^2.2.0",
-    "puppeteer": "^19.7.0"
+    "puppeteer": "^21.1.0"
   },
   "devDependencies": {
     "difflet": "^1.0.1",
     "grunt": "^1.6.1",
-    "grunt-contrib-connect": "^3.0.0",
-    "grunt-contrib-internal": "^8.0.2",
+    "grunt-contrib-connect": "^4.0.0",
+    "grunt-contrib-internal": "^9.0.0",
     "grunt-contrib-jshint": "^3.2.0",
     "grunt-shell": "^4.0.0",
     "qunit": "^2.19.4"

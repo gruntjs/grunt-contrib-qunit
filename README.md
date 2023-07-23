@@ -1,4 +1,4 @@
-# grunt-contrib-qunit v7.0.1 [![Build Status](https://github.com/gruntjs/grunt-contrib-qunit/workflows/Tests/badge.svg)](https://github.com/gruntjs/grunt-contrib-qunit/actions?workflow=Tests)
+# grunt-contrib-qunit v8.0.0 [![Build Status](https://github.com/gruntjs/grunt-contrib-qunit/workflows/Tests/badge.svg)](https://github.com/gruntjs/grunt-contrib-qunit/actions?workflow=Tests)
 
 > Run QUnit unit tests in a headless Chrome instance
 
@@ -273,6 +273,7 @@ grunt.event.on('qunit.spawn', function (url) {
 
 ## Release History
 
+ * 2023-09-04   v8.0.0   Update to Puppeteer 21 (switch to "Chrome for Testing", and "new" Headless mode). Require Node.js 16 or later.
  * 2023-07-02   v7.0.1   Fix unexpected bridge activation in unrated iframes.
  * 2023-02-14   v7.0.0   Update to Puppeteer 19. Require Node.js 14 or later. Change actual/expected value to JSON when possible.
  * 2022-10-18   v6.2.1   Fix serialization of assertions on circular objects.
