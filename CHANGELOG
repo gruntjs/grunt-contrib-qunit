@@ -1,3 +1,7 @@
+v8.0.1:
+  date: 2023-09-16
+  changes:
+    - Add stack trace to uncaught errors.
 v8.0.0:
   date: 2023-09-04
   changes:
