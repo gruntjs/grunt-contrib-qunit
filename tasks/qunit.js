@@ -234,7 +234,7 @@ module.exports = function(grunt) {
     // creating a fake test with "testEnd" event. Now, it is our responsiblity
     // to print these, via browser-level pageerror or `QUnit.on('error')`.
     grunt.log.writeln();
-    grunt.log.error(msg);
+    grunt.log.error(msg.stack || msg);
     grunt.event.emit('qunit.error.onError', msg);
   });
 
