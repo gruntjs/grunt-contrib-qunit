@@ -231,6 +231,6 @@ module.exports = function(grunt) {
   grunt.registerTask('test', ['jshint', 'connect', 'qunit', 'shell', 'really-test']);
 
   // By default, lint and run all tests.
-  grunt.registerTask('default', ['test', 'build-contrib']);
+  grunt.registerTask('default', ['test', 'contrib-core', 'contrib-ci:skipIfExists']);
 
 };

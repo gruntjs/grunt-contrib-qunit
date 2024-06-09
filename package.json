@@ -9,7 +9,7 @@
   "repository": "gruntjs/grunt-contrib-qunit",
   "license": "MIT",
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "main": "tasks/qunit.js",
   "scripts": {
