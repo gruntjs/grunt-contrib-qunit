@@ -107,7 +107,7 @@ module.exports = function(grunt) {
           // qunit:failPageError
           } else if (/test\/qunit_page_error\.html/.test(stdout) &&
               /ReferenceError: boom is not defined/.test(stdout) &&
-              /at .*qunit_page_error.html:15/.test(stdout)) {
+              /at .*qunit_page_error.html:16/.test(stdout)) {
             cb(err !== null);
 
           // qunit:failCircularObject

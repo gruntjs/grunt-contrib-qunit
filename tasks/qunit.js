@@ -261,7 +261,7 @@ module.exports = function(grunt) {
     });
     var puppeteerLaunchOptions = Object.assign(
       {
-        headless: 'new',
+        headless: true,
         args: defaultChromiumArgs
       },
       options.puppeteer

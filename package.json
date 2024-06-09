@@ -18,7 +18,7 @@
   "dependencies": {
     "eventemitter2": "^6.4.9",
     "p-each-series": "^2.2.0",
-    "puppeteer": "^21.1.0"
+    "puppeteer": "^22.0.0"
   },
   "devDependencies": {
     "difflet": "^1.0.1",
@@ -27,7 +27,7 @@
     "grunt-contrib-internal": "^9.0.0",
     "grunt-contrib-jshint": "^3.2.0",
     "grunt-shell": "^4.0.0",
-    "qunit": "^2.19.4"
+    "qunit": "^2.21.0"
   },
   "keywords": [
     "gruntplugin"
