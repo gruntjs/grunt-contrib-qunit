@@ -147,8 +147,7 @@ module.exports = function(grunt) {
     return failure;
   }
 
-
-  // QUnit hooks.
+  // QUnit events.
   eventBus.on('qunit.on.testStart', function(testStart) {
     var name = testStart.fullName.join(' > ');
     grunt.verbose.write(name + '...');

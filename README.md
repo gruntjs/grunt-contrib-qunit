@@ -239,21 +239,14 @@ grunt.initConfig({
 When using AMD to load QUnit and your tests, make sure to have a path for the `qunit` module defined.
 
 #### Events and reporting
-[QUnit callback](http://api.qunitjs.com/category/callbacks/) methods and arguments are also emitted through grunt's event system so that you may build custom reporting tools. Please refer to to the QUnit documentation for more information.
-
-The events, with arguments, are as follows:
+QUnit events are forwarded to Grunt's event system, enabling you to build custom reporting tools. Please refer to the QUnit API documentation on [QUnit events](https://qunitjs.com/api/callbacks/QUnit.on/) and [QUnit callbacks](https://qunitjs.com/api/callbacks/) for when and what data is exposed from these events.
 
 * `qunit.on.testStart` `(obj)`
 * `qunit.on.testEnd` `(obj)`
 * `qunit.on.runEnd` `(obj)`
 
 * `qunit.begin`
-* `qunit.moduleStart` `(name)`
-* `qunit.testStart` `(name)`
-* `qunit.log` `(result, actual, expected, message, source)`
-* `qunit.testDone` `(name, failed, passed, total, duration)`
-* `qunit.moduleDone` `(name, failed, passed, total)`
-* `qunit.done` `(failed, passed, total, runtime)`
+* `qunit.done`
 
 In addition to forwarding QUnit's events, the following events are also emitted by the Grunt plugin:
 
@@ -267,6 +260,14 @@ You may listen for these events like so:
 ```js
 grunt.event.on('qunit.spawn', function (url) {
   grunt.log.ok('Running test: ' + url);
+});
+grunt.event.on('qunit.on.testEnd', function (test) {
+  var name = test.fullName.join(' > ');
+  if (test.status === 'failed') {
+    grunt.log.error(name);
+  } else {
+    grunt.log.ok(name + ' # ' + test.status);
+  }
 });
 ```
 
