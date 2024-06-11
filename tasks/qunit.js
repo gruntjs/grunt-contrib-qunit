@@ -12,9 +12,8 @@
 var fs = require('fs');
 var path = require('path');
 var url = require('url');
-var EventEmitter = require('eventemitter2');
 // NPM libs.
-var pEachSeries = require('p-each-series');
+var EventEmitter = require('eventemitter2');
 var puppeteer = require('puppeteer');
 
 var Promise = global.Promise;
@@ -145,6 +144,13 @@ module.exports = function(grunt) {
       failure += '\n' + error.stack.replace(/^\s+(at) /g, '  $1 ');
     }
     return failure;
+  }
+
+  function waitForNextRunEnd(url) {
+    return new Promise(function(resolve, reject) {
+      eventBus.once('qunit.on.runEnd', function() { resolve(); });
+      eventBus.once('fail.*', function() { reject(url); });
+    });
   }
 
   // QUnit events.
@@ -352,7 +358,7 @@ module.exports = function(grunt) {
           eventBus.emit.apply(eventBus, [].slice.call(arguments));
         });
       })
-      .then(function() {
+      .then(async function() {
         // Pass through the console logs if instructed
         if (options.console) {
           page.on('console', function(msg) {
@@ -366,9 +372,9 @@ module.exports = function(grunt) {
             // evaluation features happen asynchronously via the browser, and in this
             // event handler we can't await those easily as the grunt output will have
             // moved on to other tests. If we want to print these, we'd have to refactor
-            // this so pEachSeries() below is aware of async code here. For now, we just
-            // let the useless "JSHandle" through and rely on developers to stringify any
-            // useful information ahead of time, e.g. `console.warn(String(err))`.
+            // this so that the for-loop over "urls" below is aware of async code here.
+            // For now, we just let the useless "JSHandle" through and rely on developers
+            // to stringify any useful information ahead of time, e.g. `console.warn(String(err))`.
             //
             // Ref https://pptr.dev/#?product=Puppeteer&version=v9.0.0&show=api-class-consolemessage
             var colors = {
@@ -394,22 +400,19 @@ module.exports = function(grunt) {
         // injected before any other DOMContentLoaded or window.load event handler.
         page.evaluateOnNewDocument('if (window.QUnit) {\n' + bridgContents.join(";") + '\n} else {\n' + 'document.addEventListener("DOMContentLoaded", function() {\n' + bridgContents.join(";") + '\n});\n}\n');
 
-        return pEachSeries(urls, function(url) {
+        for (const url of urls) {
           // Reset current module.
           grunt.event.emit('qunit.spawn', url);
           grunt.verbose.subhead('Testing ' + url + ' ').or.write('Testing ' + url + ' ');
 
-          return Promise.all([
-            // Setup listeners for qunit.done / fail events
-            new Promise(function(resolve, reject) {
-              eventBus.once('qunit.on.runEnd', function() { resolve(); });
-              eventBus.once('fail.*', function() { reject(url); });
-            }),
+          await Promise.all([
+            // Setup "once" listener for qunit.done / fail events
+            waitForNextRunEnd(url),
 
             // Navigate to the url to be tested
             page.goto(getPath(url), { timeout: options.timeout })
           ]);
-        });
+        }
       })
       .then(function() {
         // All tests have been run.

@@ -17,7 +17,6 @@
   },
   "dependencies": {
     "eventemitter2": "^6.4.9",
-    "p-each-series": "^2.2.0",
     "puppeteer": "^22.0.0"
   },
   "devDependencies": {
