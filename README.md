@@ -1,4 +1,4 @@
-# grunt-contrib-qunit v9.0.0 [![Build Status](https://github.com/gruntjs/grunt-contrib-qunit/workflows/Tests/badge.svg)](https://github.com/gruntjs/grunt-contrib-qunit/actions?workflow=Tests)
+# grunt-contrib-qunit v9.1.0 [![Build Status](https://github.com/gruntjs/grunt-contrib-qunit/workflows/Tests/badge.svg)](https://github.com/gruntjs/grunt-contrib-qunit/actions?workflow=Tests)
 
 > Run QUnit unit tests in a headless Chrome instance
 
@@ -109,7 +109,7 @@ When true, the whole task will not fail when there are individual test failures,
 Type: `boolean`  
 Default: `false`
 
-When true, this will suppress the default logging for individually failed tests. Customized logging can be performed by listening to and responding to `qunit.log` events.
+When true, this will suppress the default logging for individually failed tests. Customized logging can be performed by listening to `qunit.on.testEnd` events.
 
 #### puppeteer
 Type: `Object`  
@@ -246,6 +246,7 @@ QUnit events are forwarded to Grunt's event system, enabling you to build custom
 * `qunit.on.runEnd` `(obj)`
 
 * `qunit.begin`
+* `qunit.log` `(obj)`
 * `qunit.done`
 
 In addition to forwarding QUnit's events, the following events are also emitted by the Grunt plugin:
@@ -274,6 +275,7 @@ grunt.event.on('qunit.on.testEnd', function (test) {
 
 ## Release History
 
+ * 2024-06-11   v9.1.0   Re-introduce `qunit.log` Grunt event.
  * 2024-06-09   v9.0.0   Update to Puppeteer 22. Require Node.js 18 or later. Remove [details parameter](https://qunitjs.com/api/callbacks/QUnit.done/) to Grunt event `qunit.done`, deprecated since QUnit 2.2. Remove Grunt events `qunit.testStart`, `qunit.log`, `qunit.testDone`, `qunit.moduleStart`, `qunit.moduleDone`. Use `qunit.on.*` instead.
  * 2023-09-16   v8.0.1   Add stack trace to uncaught errors.
  * 2023-09-04   v8.0.0   Update to Puppeteer 21 (switch to "Chrome for Testing", and "new" Headless mode). Require Node.js 16 or later.

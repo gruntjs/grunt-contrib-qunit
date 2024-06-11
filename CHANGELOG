@@ -1,3 +1,7 @@
+v9.1.0:
+  date: 2024-06-11
+  changes:
+    - Re-introduce `qunit.log` Grunt event.
 v9.0.0:
   date: 2024-06-09
   changes:
