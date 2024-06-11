@@ -1,16 +1,21 @@
-var failures = [];
-QUnit.log(function(details) {
-  if (details.result === false) {
-    failures.push(details.message);
+QUnit.config.reorder = false;
+
+var failures;
+QUnit.on('testEnd', function(test) {
+  if (!failures) {
+    failures = test.errors;
   }
 });
 
 QUnit.todo('global pollution', function(assert) {
-  window.pollute = true;
-  assert.ok(pollute, 'nasty pollution');
+  window.myPollution = true;
+  assert.true(myPollution, 'nasty pollution');
+  // We expect QUnit to add an error to the end of this test
 });
 
-QUnit.test('actually check for global pollution', function(assert) {
+QUnit.test('check result of previous test', function(assert) {
   assert.expect(1);
-  assert.deepEqual(failures, ['Introduced global variable(s): pollute']);
+  assert.propContains(failures, [
+    { message: 'Introduced global variable(s): myPollution' }
+  ]);
 });
