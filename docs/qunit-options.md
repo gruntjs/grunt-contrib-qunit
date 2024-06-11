@@ -43,7 +43,7 @@ When true, the whole task will not fail when there are individual test failures,
 Type: `boolean`  
 Default: `false`
 
-When true, this will suppress the default logging for individually failed tests. Customized logging can be performed by listening to and responding to `qunit.log` events.
+When true, this will suppress the default logging for individually failed tests. Customized logging can be performed by listening to `qunit.on.testEnd` events.
 
 ## puppeteer
 Type: `Object`  

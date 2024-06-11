@@ -107,6 +107,33 @@
     sendMessage('qunit.begin');
   });
 
+  // It is encouraged to listen to `qunit.on.testEnd` instead, so that you
+  // don't have to deal with:
+  // * grouping tests by test and module (testName provides "fullName",
+  //   and provides FailedAssertion in one go instead of per-assertion).
+  // * inversion of "todo" tests (i.e. pass when failing).
+  // * undefined actual/expected for passing tests.
+  QUnit.log(function(obj) {
+    var actual;
+    var expected;
+    if (!obj.result) {
+      // Dumping large objects can be very slow, and the dump isn't used for
+      // passing tests, so only dump if the test failed.
+      actual = QUnit.dump.parse(obj.actual);
+      expected = QUnit.dump.parse(obj.expected);
+    }
+    sendMessage('qunit.log', {
+      result: obj.result,
+      actual: actual,
+      expected: expected,
+      message: obj.message,
+      source: obj.source,
+      module: obj.module,
+      name: obj.name,
+      todo: obj.todo
+    });
+  });
+
   QUnit.done(function() {
     sendMessage('qunit.done');
   });

@@ -105,6 +105,7 @@ QUnit events are forwarded to Grunt's event system, enabling you to build custom
 * `qunit.on.runEnd` `(obj)`
 
 * `qunit.begin`
+* `qunit.log` `(obj)`
 * `qunit.done`
 
 In addition to forwarding QUnit's events, the following events are also emitted by the Grunt plugin:
