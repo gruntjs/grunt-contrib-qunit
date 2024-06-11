@@ -1,4 +1,4 @@
-# grunt-contrib-qunit v9.1.0 [![Build Status](https://github.com/gruntjs/grunt-contrib-qunit/workflows/Tests/badge.svg)](https://github.com/gruntjs/grunt-contrib-qunit/actions?workflow=Tests)
+# grunt-contrib-qunit v9.1.1 [![Build Status](https://github.com/gruntjs/grunt-contrib-qunit/workflows/Tests/badge.svg)](https://github.com/gruntjs/grunt-contrib-qunit/actions?workflow=Tests)
 
 > Run QUnit unit tests in a headless Chrome instance
 
@@ -275,6 +275,7 @@ grunt.event.on('qunit.on.testEnd', function (test) {
 
 ## Release History
 
+ * 2024-06-11   v9.1.1   Remove dependency on `p-each-series` package.
  * 2024-06-11   v9.1.0   Re-introduce `qunit.log` Grunt event.
  * 2024-06-09   v9.0.0   Update to Puppeteer 22. Require Node.js 18 or later. Remove [details parameter](https://qunitjs.com/api/callbacks/QUnit.done/) to Grunt event `qunit.done`, deprecated since QUnit 2.2. Remove Grunt events `qunit.testStart`, `qunit.log`, `qunit.testDone`, `qunit.moduleStart`, `qunit.moduleDone`. Use `qunit.on.*` instead.
  * 2023-09-16   v8.0.1   Add stack trace to uncaught errors.
