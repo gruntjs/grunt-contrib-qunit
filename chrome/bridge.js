@@ -7,18 +7,13 @@
  */
 
 /* global QUnit:true */
-(function (factory) {
+(function() {
+  'use strict';
+
   if (window.self !== window.top) {
     // Ignore iframes. https://github.com/gruntjs/grunt-contrib-qunit/issues/202
     return;
   }
-  if (typeof define === 'function' && define.amd) {
-    require(['qunit'], factory);
-  } else {
-    factory(QUnit);
-  }
-}(function(QUnit) {
-  'use strict';
 
   var lastMessage = performance.now();
 
@@ -137,4 +132,4 @@
   QUnit.done(function() {
     sendMessage('qunit.done');
   });
-}));
+}());

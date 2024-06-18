@@ -94,9 +94,6 @@ grunt.initConfig({
 });
 ```
 
-## Loading QUnit with AMD
-When using AMD to load QUnit and your tests, make sure to have a path for the `qunit` module defined.
-
 ## Events and reporting
 QUnit events are forwarded to Grunt's event system, enabling you to build custom reporting tools. Please refer to the QUnit API documentation on [QUnit events](https://qunitjs.com/api/callbacks/QUnit.on/) and [QUnit callbacks](https://qunitjs.com/api/callbacks/) for when and what data is exposed from these events.
 
