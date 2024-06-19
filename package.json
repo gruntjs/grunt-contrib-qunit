@@ -6,7 +6,7 @@
     "name": "Grunt Team",
     "url": "https://gruntjs.com/"
   },
-  "repository": "gruntjs/grunt-contrib-qunit",
+  "repository": "https://github.com/gruntjs/grunt-contrib-qunit.git",
   "license": "MIT",
   "engines": {
     "node": ">=18"
