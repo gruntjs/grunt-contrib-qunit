@@ -1,4 +1,4 @@
-# grunt-contrib-qunit v9.1.1 [![Build Status](https://github.com/gruntjs/grunt-contrib-qunit/workflows/Tests/badge.svg)](https://github.com/gruntjs/grunt-contrib-qunit/actions?workflow=Tests)
+# grunt-contrib-qunit v10.0.0 [![Build Status](https://github.com/gruntjs/grunt-contrib-qunit/workflows/Tests/badge.svg)](https://github.com/gruntjs/grunt-contrib-qunit/actions?workflow=Tests)
 
 > Run QUnit unit tests in a headless Chrome instance
 
@@ -235,9 +235,6 @@ grunt.initConfig({
 });
 ```
 
-#### Loading QUnit with AMD
-When using AMD to load QUnit and your tests, make sure to have a path for the `qunit` module defined.
-
 #### Events and reporting
 QUnit events are forwarded to Grunt's event system, enabling you to build custom reporting tools. Please refer to the QUnit API documentation on [QUnit events](https://qunitjs.com/api/callbacks/QUnit.on/) and [QUnit callbacks](https://qunitjs.com/api/callbacks/) for when and what data is exposed from these events.
 
@@ -275,6 +272,7 @@ grunt.event.on('qunit.on.testEnd', function (test) {
 
 ## Release History
 
+ * 2024-06-18   v10.0.0   Remove support for delaying qunit.js via RequireJS. AMD continues to be supported for loading source code and tests, but load qunit.js in its own script before RequireJS, and reference QUnit directly. Examples on [qunitjs.com](https://qunitjs.com/api/config/autostart/).
  * 2024-06-11   v9.1.1   Remove dependency on `p-each-series` package.
  * 2024-06-11   v9.1.0   Re-introduce `qunit.log` Grunt event.
  * 2024-06-09   v9.0.0   Update to Puppeteer 22. Require Node.js 18 or later. Remove [details parameter](https://qunitjs.com/api/callbacks/QUnit.done/) to Grunt event `qunit.done`, deprecated since QUnit 2.2. Remove Grunt events `qunit.testStart`, `qunit.log`, `qunit.testDone`, `qunit.moduleStart`, `qunit.moduleDone`. Use `qunit.on.*` instead.
