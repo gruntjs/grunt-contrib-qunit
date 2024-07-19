@@ -1,3 +1,7 @@
+v10.1.0:
+  date: 2024-07-18
+  changes:
+    - Include errors from `QUnit.on('error')` in the output.
 v10.0.0:
   date: 2024-06-18
   changes:

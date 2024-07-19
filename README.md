@@ -1,4 +1,4 @@
-# grunt-contrib-qunit v10.0.0 [![Build Status](https://github.com/gruntjs/grunt-contrib-qunit/workflows/Tests/badge.svg)](https://github.com/gruntjs/grunt-contrib-qunit/actions?workflow=Tests)
+# grunt-contrib-qunit v10.1.0 [![Build Status](https://github.com/gruntjs/grunt-contrib-qunit/workflows/Tests/badge.svg)](https://github.com/gruntjs/grunt-contrib-qunit/actions?workflow=Tests)
 
 > Run QUnit unit tests in a headless Chrome instance
 
@@ -272,6 +272,7 @@ grunt.event.on('qunit.on.testEnd', function (test) {
 
 ## Release History
 
+ * 2024-07-18   v10.1.0   Include errors from `QUnit.on('error')` in the output.
  * 2024-06-18   v10.0.0   Remove support for delaying qunit.js via RequireJS. AMD continues to be supported for loading source code and tests, but load qunit.js in its own script before RequireJS, and reference QUnit directly. Examples on [qunitjs.com](https://qunitjs.com/api/config/autostart/).
  * 2024-06-11   v9.1.1   Remove dependency on `p-each-series` package.
  * 2024-06-11   v9.1.0   Re-introduce `qunit.log` Grunt event.
