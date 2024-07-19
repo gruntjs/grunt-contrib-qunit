@@ -99,6 +99,12 @@ module.exports = function(grunt) {
 >> Expected: true`)) {
             cb(err !== null);
 
+          // qunit:failNoTests
+          } else if (/test\/qunit_fail_notests\.html/.test(stdout) &&
+            stdout.includes(`>> global failure
+>> Message: No tests were run.`)) {
+            cb(err !== null);
+
           // qunit:failPageTimeout
           } else if (/test\/qunit_page_timeout\.html/.test(stdout) &&
               /Chrome timed out/.test(stdout)) {
@@ -134,6 +140,9 @@ module.exports = function(grunt) {
       failAssert: {
         command: 'grunt qunit:failAssert --with-failing'
       },
+      failNoTests: {
+        command: 'grunt qunit:failNoTests --with-failing'
+      },
       failCircularObject: {
         command: 'grunt qunit:failCircularObject --with-failing'
       },
@@ -153,6 +162,13 @@ module.exports = function(grunt) {
       options: {
         urls: [
           'http://localhost:9000/test/qunit_fail_assert.html'
+        ]
+      }
+    });
+    grunt.config.set('qunit.failNoTests', {
+      options: {
+        urls: [
+          'http://localhost:9000/test/qunit_fail_notests.html'
         ]
       }
     });

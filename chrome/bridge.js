@@ -40,6 +40,10 @@
   // QUnit reporter events
   // https://qunitjs.com/api/callbacks/QUnit.on/
 
+  QUnit.on('error', function(error) {
+    sendMessage('qunit.on.error', error);
+  });
+
   QUnit.on('testStart', function(obj) {
     sendMessage('qunit.on.testStart', obj);
   });

@@ -231,13 +231,30 @@ module.exports = function(grunt) {
     combinedRunEnd.status = 'failed';
   });
 
-  eventBus.on('error.onError', function (msg) {
+  eventBus.on('qunit.on.error', function (err) {
     // It is the responsibility of QUnit to ensure a run is marked as failure
     // if there are (unexpected) messages received from window.onerror.
     //
     // Prior to QUnit 2.17, details of global failures were printed by
     // creating a fake test with "testEnd" event. Now, it is our responsiblity
-    // to print these, via browser-level pageerror or `QUnit.on('error')`.
+    // to print via `QUnit.on('error')`.
+    //
+    // NOTE: Avoid relying solely on Puppeteer's "pageerror" event, as that only
+    // catches the subset of execution errors that make their way to window.onerror.
+    // It misses out on unhandled rejections from the browser, the "No tests were run"
+    // internal QUnit error, and anything else reported to QUnit.onUncaughtException
+    // by QUnit plugins.
+    // https://qunitjs.com/api/extension/QUnit.onUncaughtException/
+    grunt.log.writeln();
+    grunt.log.error(err.stack || err);
+    grunt.event.emit('qunit.error.onError', err);
+  });
+
+  eventBus.on('error.onError', function (msg) {
+    // This is important in addition to `QUnit.on('error')` to catch uncaught
+    // errors that happen before the bridge is in effect (which in practice
+    // will happen at DOMContentLoaded, after qunit.js and test files have done
+    // their initial execution, but before QUnit.begin event and any actual tests).
     grunt.log.writeln();
     grunt.log.error(msg.stack || msg);
     grunt.event.emit('qunit.error.onError', msg);
