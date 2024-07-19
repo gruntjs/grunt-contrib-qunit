@@ -1,3 +1,7 @@
+v10.1.1:
+  date: 2024-07-18
+  changes:
+    - Fix formatting of non-string errors from `QUnit.on('error')` events.
 v10.1.0:
   date: 2024-07-18
   changes:

@@ -110,6 +110,12 @@ module.exports = function(grunt) {
               /Chrome timed out/.test(stdout)) {
             cb(err !== null);
 
+          // qunit:failOnError
+          } else if (/test\/qunit_on_error\.html/.test(stdout) &&
+            stdout.includes('>> Error: boom') &&
+            /at .*qunit_on_error.html:15/.test(stdout)) {
+            cb(err !== null);
+
           // qunit:failPageError
           } else if (/test\/qunit_page_error\.html/.test(stdout) &&
               /ReferenceError: boom is not defined/.test(stdout) &&
@@ -146,6 +152,9 @@ module.exports = function(grunt) {
       failCircularObject: {
         command: 'grunt qunit:failCircularObject --with-failing'
       },
+      failOnError: {
+        command: 'grunt qunit:failOnError --with-failing'
+      },
       failPageError: {
         command: 'grunt qunit:failPageError --with-failing'
       },
@@ -176,6 +185,13 @@ module.exports = function(grunt) {
       options: {
         urls: [
           'http://localhost:9000/test/qunit_circular_object_fail.html'
+        ]
+      }
+    });
+    grunt.config.set('qunit.failOnError', {
+      options: {
+        urls: [
+          'http://localhost:9000/test/qunit_on_error.html'
         ]
       }
     });

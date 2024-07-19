@@ -246,7 +246,7 @@ module.exports = function(grunt) {
     // by QUnit plugins.
     // https://qunitjs.com/api/extension/QUnit.onUncaughtException/
     grunt.log.writeln();
-    grunt.log.error(err.stack || err);
+    grunt.log.error(err);
     grunt.event.emit('qunit.error.onError', err);
   });
 

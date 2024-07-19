@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Test Suite</title>
+  <link rel="stylesheet" href="../node_modules/qunit/qunit/qunit.css" media="screen">
+  <script src="../node_modules/qunit/qunit/qunit.js"></script>
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script>
+    QUnit.moduleStart(function () {
+      try {
+        throw new Error('boom');
+      } catch (e) {
+        QUnit.onUncaughtException(e);
+      }
+    });
+    QUnit.test('basic test', function(assert) {
+      assert.ok(true);
+    });
+  </script>
+</body>
+</html>

@@ -41,7 +41,7 @@
   // https://qunitjs.com/api/callbacks/QUnit.on/
 
   QUnit.on('error', function(error) {
-    sendMessage('qunit.on.error', error);
+    sendMessage('qunit.on.error', error.stack || String(error));
   });
 
   QUnit.on('testStart', function(obj) {
