@@ -9,6 +9,7 @@ v10.1.0:
 v10.0.0:
   date: 2024-06-18
   changes:
+    - Require QUnit 2.17 or later.
     - Remove support for delaying qunit.js via RequireJS.
       AMD continues to be supported for loading source code and tests, but load qunit.js in its own script before RequireJS, and reference QUnit directly. Examples on [qunitjs.com](https://qunitjs.com/api/config/autostart/).
 v9.1.1:
