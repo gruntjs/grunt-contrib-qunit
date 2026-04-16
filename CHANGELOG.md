@@ -1,3 +1,10 @@
+## v10.2.0:
+- date: 2026-04-15
+- changes:
+    - Update from Puppeteer 22 (Chrome 127) to Puppeteer 24 (Chrome 147).
+    - Fix `url.parse()` deprecation warning on Node.js 24.
+    - Increase default timeout from 5s to 10s (it seems Chrome launch times got more spotty, at least via GitHub Actions).
+
 ## v10.1.1:
 - date: 2024-07-18
 - changes:
