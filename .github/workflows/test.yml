@@ -34,11 +34,9 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Install npm dependencies
-        run: npm ci
+      - run: npm install
 
-      - name: Run tests
-        run: npm test
+      - run: npm test
 
       # We test multiple Windows shells because of prior stdout buffering issues
       # filed against Grunt. https://github.com/joyent/node/issues/3584
