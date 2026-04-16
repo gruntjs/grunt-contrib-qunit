@@ -1,4 +1,7 @@
- [![Build Status](https://github.com/gruntjs/grunt-contrib-qunit/workflows/Tests/badge.svg)](https://github.com/gruntjs/grunt-contrib-qunit/actions?workflow=Tests)
+[![npm](https://img.shields.io/npm/v/grunt-contrib-qunit.svg?style=flat)](https://www.npmjs.com/package/grunt-contrib-qunit)
+[![Build Status](https://github.com/gruntjs/grunt-contrib-qunit/workflows/Tests/badge.svg)](https://github.com/gruntjs/grunt-contrib-qunit/actions?workflow=Tests)
+[![Built with Grunt](https://gruntjs.com/builtwith.svg)](https://gruntjs.com/)
+[![Tested with QUnit](https://qunitjs.com/testedwith.svg)](https://qunitjs.com/)
 
 # grunt-contrib-qunit
 
@@ -17,7 +20,6 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 ```js
 grunt.loadNpmTasks('grunt-contrib-qunit');
 ```
-
 
 ## QUnit task
 
