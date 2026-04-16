@@ -261,7 +261,7 @@ module.exports = function(grunt) {
     // Merge task-specific and/or target-specific options with these defaults.
     options = this.options({
       // Default Chrome timeout.
-      timeout: 5000,
+      timeout: 10000,
       // QUnit-Chrome bridge file to be injected.
       inject: asset('chrome/bridge.js'),
       // Explicit non-file URLs to test.
