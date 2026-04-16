@@ -2,10 +2,10 @@
     "root": true,
     "extends": "grunt",
     "parserOptions": {
-        "ecmaVersion": 2017
+        "ecmaVersion": 2018
     },
     "env": {
-        "es2017": true
+        "es2018": true
     },
     "rules": {
         "one-var": ["error", "never"]

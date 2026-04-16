@@ -11,7 +11,7 @@
 // Nodejs libs.
 var fs = require('fs');
 var path = require('path');
-var url = require('url');
+var querystring = require('querystring');
 // NPM libs.
 var EventEmitter = require('eventemitter2');
 var puppeteer = require('puppeteer');
@@ -101,14 +101,6 @@ function generateHash(module) {
   }
 
   return hex.slice(-8);
-}
-
-function getPath(url) {
-  if (url.substr(0, 7) === 'http://' || url.substr(0, 8) === 'https://') {
-    return url;
-  }
-
-  return 'file://' + path.resolve(process.cwd(), url);
 }
 
 module.exports = function(grunt) {
@@ -291,7 +283,6 @@ module.exports = function(grunt) {
 
     // This task is asynchronous.
     var done = this.async();
-    var urls;
 
     // Read the content of the specified bridge files
     var bridgeFiles = Array.isArray(options.inject) ? options.inject : [options.inject];
@@ -307,16 +298,17 @@ module.exports = function(grunt) {
       }
     }
 
+    var unformedUrls;
     if (options.httpBase) {
       // If URLs are explicitly referenced, use them still
-      urls = options.urls;
+      unformedUrls = options.urls;
       // Then create URLs for the src files
       this.filesSrc.forEach(function(testFile) {
-        urls.push(options.httpBase + '/' + testFile);
+        unformedUrls.push(options.httpBase + '/' + testFile);
       });
     } else {
       // Combine any specified URLs with src files.
-      urls = options.urls.concat(this.filesSrc);
+      unformedUrls = options.urls.concat(this.filesSrc);
     }
 
     // The final tasks to run before terminating the task
@@ -329,33 +321,50 @@ module.exports = function(grunt) {
       done(success);
     }
 
-    function appendToUrls(queryParam, value) {
-      // Append the query param to all urls
-      urls = urls.map(function(testUrl) {
-        var parsed = url.parse(testUrl, true);
-        parsed.query[queryParam] = value;
-        delete parsed.search;
-        return url.format(parsed);
+    // For console output and eventBus, keep original short strings as configured by
+    // and familiar to the user, such as "test/example.html", which are not valid URLs.
+    // For page.goto(), we need a valid URL.
+    //
+    // The appended query strings should be reflected in both, which we used to do
+    // with the now-deprecated url.parse()/url.format() that allow and preserve
+    // unset protocols and relative paths, unlike its WHATWG URL replacement.
+    function appendToUnformedUrl(urlish, queryParam, value) {
+      let [beforeFrag, ...fragmentBits] = urlish.split('#');
+      let [beforeSearch, ...searchBits] = beforeFrag.split('?');
+      const search = querystring.stringify({
+        ...querystring.parse(searchBits.join('?')),
+        [queryParam]: value
       });
+      return beforeSearch + '?' + search +
+        (fragmentBits.length ? '#' + fragmentBits.join('#') : '');
     }
 
-    if (options.noGlobals) {
+    var urls = new Map();
+    for (let shortUrl of unformedUrls) {
       // Append a noglobal query string param to all urls
-      appendToUrls('noglobals', 'true');
-    }
+      if (options.noGlobals) {
+        shortUrl = appendToUnformedUrl(shortUrl, 'noglobals', 'true');
+      }
 
-    if (grunt.option('modules')) {
-      var modules = grunt.option('modules').split(',');
-      var hashes = modules.map(function(module) {
-        return generateHash(module.trim());
-      });
       // Append moduleId to all urls
-      appendToUrls('moduleId', hashes);
-    }
+      if (grunt.option('modules')) {
+        const hashes = grunt.option('modules').split(',').map(function(module) {
+          return generateHash(module.trim());
+        });
+        shortUrl = appendToUnformedUrl(shortUrl, 'moduleId', hashes);
+      }
 
-    if (grunt.option('seed')) {
       // Append seed to all urls
-      appendToUrls('seed', grunt.option('seed'));
+      if (grunt.option('seed')) {
+        shortUrl = appendToUnformedUrl(shortUrl, 'seed', grunt.option('seed'));
+      }
+
+      // Expand "test/example.html" to file URL with absolute file path
+      const url = (shortUrl.startsWith('http://') || shortUrl.startsWith('https://')) ?
+        shortUrl :
+        'file://' + path.resolve(process.cwd(), shortUrl);
+
+      urls.set(shortUrl, url);
     }
 
     // Reset combined data.
@@ -424,17 +433,17 @@ module.exports = function(grunt) {
             '\n});\n}\n'
         );
 
-        for (const url of urls) {
+        for (const [shortUrl, url] of urls) {
           // Reset current module.
-          grunt.event.emit('qunit.spawn', url);
-          grunt.verbose.subhead('Testing ' + url + ' ').or.write('Testing ' + url + ' ');
+          grunt.event.emit('qunit.spawn', shortUrl);
+          grunt.verbose.subhead('Testing ' + shortUrl + ' ').or.write('Testing ' + shortUrl + ' ');
 
           await Promise.all([
             // Setup "once" listener for qunit.done / fail events
-            waitForNextRunEnd(url),
+            waitForNextRunEnd(shortUrl),
 
             // Navigate to the url to be tested
-            page.goto(getPath(url), { timeout: options.timeout })
+            page.goto(url, { timeout: options.timeout })
           ]);
         }
       })
