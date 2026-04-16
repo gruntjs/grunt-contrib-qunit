@@ -21,13 +21,13 @@ var Promise = global.Promise;
 // Shared functions
 
 // Allow an error message to retain its color when split across multiple lines.
-function formatMessage (message) {
+function formatMessage(message) {
   var str = String(message);
   if (typeof message === 'object' && /^\[object .*\]$/.test(str)) {
     // try to use the JSON as a better string representation
     try {
       str = JSON.stringify(message, null, 2);
-    } catch ( _ ) {
+    } catch (_) {
     }
   }
   return String(str).split('\n')
@@ -38,7 +38,7 @@ function formatMessage (message) {
 }
 
 
-function createRunEnd () {
+function createRunEnd() {
   return {
     status: 'passed',
     testCounts: {
@@ -80,7 +80,7 @@ function generateMessage(combined) {
 }
 
 // Copied from QUnit source code
-function generateHash (module) {
+function generateHash(module) {
   var hex;
   var i = 0;
   var hash = 0;
@@ -104,7 +104,7 @@ function generateHash (module) {
 }
 
 function getPath(url) {
-  if (url.substr( 0, 7 ) === 'http://' || url.substr( 0, 8 ) === 'https://') {
+  if (url.substr(0, 7) === 'http://' || url.substr(0, 8) === 'https://') {
     return url;
   }
 
@@ -127,7 +127,7 @@ module.exports = function(grunt) {
   var asset = path.join.bind(null, __dirname, '..');
 
   // If options.force then log an error, otherwise exit with a warning
-  function warnUnlessForced (message) {
+  function warnUnlessForced(message) {
     if (options && options.force) {
       grunt.log.error(message);
     } else {
@@ -231,7 +231,7 @@ module.exports = function(grunt) {
     combinedRunEnd.status = 'failed';
   });
 
-  eventBus.on('qunit.on.error', function (err) {
+  eventBus.on('qunit.on.error', function(err) {
     // It is the responsibility of QUnit to ensure a run is marked as failure
     // if there are (unexpected) messages received from window.onerror.
     //
@@ -250,7 +250,7 @@ module.exports = function(grunt) {
     grunt.event.emit('qunit.error.onError', err);
   });
 
-  eventBus.on('error.onError', function (msg) {
+  eventBus.on('error.onError', function(msg) {
     // This is important in addition to `QUnit.on('error')` to catch uncaught
     // errors that happen before the bridge is in effect (which in practice
     // will happen at DOMContentLoaded, after qunit.js and test files have done
@@ -296,7 +296,7 @@ module.exports = function(grunt) {
     // Read the content of the specified bridge files
     var bridgeFiles = Array.isArray(options.inject) ? options.inject : [options.inject];
     var bridgContents = [
-      "__grunt_contrib_qunit_timeout__ = " + JSON.stringify( options.timeout ) + ";"
+      '__grunt_contrib_qunit_timeout__ = ' + JSON.stringify(options.timeout) + ';'
     ];
 
     for (var i = 0; i < bridgeFiles.length; i++) {
@@ -329,7 +329,7 @@ module.exports = function(grunt) {
       done(success);
     }
 
-    function appendToUrls (queryParam, value) {
+    function appendToUrls(queryParam, value) {
       // Append the query param to all urls
       urls = urls.map(function(testUrl) {
         var parsed = url.parse(testUrl, true);
@@ -415,7 +415,14 @@ module.exports = function(grunt) {
         // Tell the client that when DOMContentLoaded fires, it needs to tell this
         // script to inject the bridge. This should ensure that the bridge gets
         // injected before any other DOMContentLoaded or window.load event handler.
-        page.evaluateOnNewDocument('if (window.QUnit) {\n' + bridgContents.join(";") + '\n} else {\n' + 'document.addEventListener("DOMContentLoaded", function() {\n' + bridgContents.join(";") + '\n});\n}\n');
+        page.evaluateOnNewDocument(
+          'if (window.QUnit) {\n' +
+            bridgContents.join(';') +
+            '\n} else {\n' +
+            'document.addEventListener("DOMContentLoaded", function() {\n' +
+            bridgContents.join(';') +
+            '\n});\n}\n'
+        );
 
         for (const url of urls) {
           // Reset current module.
@@ -453,7 +460,7 @@ module.exports = function(grunt) {
       })
       .catch(function(err) {
         // If anything goes wrong, terminate the grunt task
-        grunt.log.error("There was an error with headless chrome");
+        grunt.log.error('There was an error with headless chrome');
         grunt.fail.fatal(err);
         finishTask(false);
       });

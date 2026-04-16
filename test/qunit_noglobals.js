@@ -9,6 +9,7 @@ QUnit.on('testEnd', function(test) {
 
 QUnit.todo('global pollution', function(assert) {
   window.myPollution = true;
+  // eslint-disable-next-line no-undef
   assert.true(myPollution, 'nasty pollution');
   // We expect QUnit to add an error to the end of this test
 });

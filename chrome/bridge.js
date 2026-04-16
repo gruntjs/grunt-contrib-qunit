@@ -6,7 +6,7 @@
  * Licensed under the MIT license.
  */
 
-/* global QUnit:true */
+/* eslint-env qunit, browser */
 (function() {
   'use strict';
 
@@ -56,14 +56,14 @@
     // In that case, replace actual and expected
     var errors = obj.errors;
     if (!canBeJSONStringified(errors)) {
-      errors = obj.errors.map(function (error) {
+      errors = obj.errors.map(function(error) {
         return {
           passed: error.passed,
           message: error.message,
           stack: error.stack,
           actual: replaceIfCannotBeJSONStringified(error.actual),
           expected: replaceIfCannotBeJSONStringified(error.expected)
-        }
+        };
       });
     }
 

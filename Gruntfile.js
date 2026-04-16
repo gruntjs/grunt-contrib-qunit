@@ -12,16 +12,6 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    jshint: {
-      all: [
-        'Gruntfile.js',
-        'tasks/**/*.js'
-      ],
-      options: {
-        jshintrc: '.jshintrc'
-      }
-    },
-
     // Create a local web server for testing http:// URIs.
     connect: {
       rootServer: {
@@ -254,13 +244,12 @@ module.exports = function(grunt) {
   grunt.loadTasks('tasks');
 
   // These plugins provide necessary tasks.
-  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-internal');
   grunt.loadNpmTasks('grunt-shell');
 
   // Whenever the "test" task is run, run some basic tests.
-  grunt.registerTask('test', ['jshint', 'connect', 'qunit', 'shell', 'really-test']);
+  grunt.registerTask('test', ['connect', 'qunit', 'shell', 'really-test']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['test', 'contrib-core', 'contrib-ci:skipIfExists']);
