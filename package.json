@@ -29,7 +29,6 @@
     "eslint": "^8.57.0",
     "grunt": "^1.6.1",
     "grunt-contrib-connect": "^5.0.0",
-    "grunt-contrib-internal": "^9.0.0",
     "grunt-shell": "^4.0.0",
     "qunit": "^2.21.0"
   },

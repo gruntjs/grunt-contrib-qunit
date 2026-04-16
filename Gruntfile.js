@@ -245,13 +245,9 @@ module.exports = function(grunt) {
 
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-contrib-internal');
   grunt.loadNpmTasks('grunt-shell');
 
   // Whenever the "test" task is run, run some basic tests.
   grunt.registerTask('test', ['connect', 'qunit', 'shell', 'really-test']);
-
-  // By default, lint and run all tests.
-  grunt.registerTask('default', ['test', 'contrib-core', 'contrib-ci:skipIfExists']);
 
 };
