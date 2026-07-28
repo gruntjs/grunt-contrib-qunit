@@ -33,7 +33,8 @@
     "qunit": "^2.21.0"
   },
   "keywords": [
-    "gruntplugin"
+    "gruntplugin",
+    "qunit-plugin"
   ],
   "files": [
     "tasks",
