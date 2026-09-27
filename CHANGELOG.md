@@ -1,3 +1,8 @@
+## v10.2.1:
+- date: 2026-09-27
+- changes:
+    - Tested with QUnit 3.0. This plugin continues to support QUnit 2.17 or later.
+
 ## v10.2.0:
 - date: 2026-04-15
 - changes:

@@ -73,7 +73,7 @@ https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md
 
 #### timeout
 Type: `Number`  
-Default: `5000`
+Default: `10_000`
 
 The amount of time (in milliseconds) that grunt will wait for a QUnit `start()` call before failing the task with an error.
 
