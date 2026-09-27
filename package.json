@@ -30,7 +30,7 @@
     "grunt": "^1.6.1",
     "grunt-contrib-connect": "^5.0.0",
     "grunt-shell": "^4.0.0",
-    "qunit": "^2.21.0"
+    "qunit": "^3.0.0"
   },
   "keywords": [
     "gruntplugin",

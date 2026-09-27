@@ -91,13 +91,13 @@ module.exports = function(grunt) {
 
           // qunit:failNoTests
           } else if (/test\/qunit_fail_notests\.html/.test(stdout) &&
-            stdout.includes(`>> global failure
->> Message: No tests were run.`)) {
+            stdout.includes('>> Error: No tests were run.')) {
             cb(err !== null);
 
-          // qunit:failPageTimeout
-          } else if (/test\/qunit_page_timeout\.html/.test(stdout) &&
-              /Chrome timed out/.test(stdout)) {
+          // qunit:failTestTimeout
+          } else if (/test\/qunit_fail_timeout\.html/.test(stdout) &&
+            stdout.includes(`> last forever
+>> Message: Test took longer than 3000ms`)) {
             cb(err !== null);
 
           // qunit:failOnError
@@ -110,6 +110,11 @@ module.exports = function(grunt) {
           } else if (/test\/qunit_page_error\.html/.test(stdout) &&
               /ReferenceError: boom is not defined/.test(stdout) &&
               /at .*qunit_page_error.html:16/.test(stdout)) {
+            cb(err !== null);
+
+          // qunit:failPageTimeout
+          } else if (/test\/qunit_page_timeout\.html/.test(stdout) &&
+              /Chrome timed out/.test(stdout)) {
             cb(err !== null);
 
           // qunit:failCircularObject
@@ -138,6 +143,9 @@ module.exports = function(grunt) {
       },
       failNoTests: {
         command: 'grunt qunit:failNoTests --with-failing'
+      },
+      failTestTimeout: {
+        command: 'grunt qunit:failTestTimeout --with-failing'
       },
       failCircularObject: {
         command: 'grunt qunit:failCircularObject --with-failing'
@@ -171,6 +179,13 @@ module.exports = function(grunt) {
         ]
       }
     });
+    grunt.config.set('qunit.failTestTimeout', {
+      options: {
+        urls: [
+          'http://localhost:9000/test/qunit_fail_timeout.html'
+        ]
+      }
+    });
     grunt.config.set('qunit.failCircularObject', {
       options: {
         urls: [
@@ -194,6 +209,7 @@ module.exports = function(grunt) {
     });
     grunt.config.set('qunit.failPageTimeout', {
       options: {
+        timeout: 3000,
         urls: [
           'http://localhost:9000/test/qunit_page_timeout.html'
         ]
