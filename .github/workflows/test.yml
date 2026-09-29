@@ -20,7 +20,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
-        node: [18, 20, 24]
+        node: [22, 24, 26]
 
     steps:
       - name: Clone repository
