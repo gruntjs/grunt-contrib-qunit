@@ -1,3 +1,9 @@
+## v11.0.0:
+- date: 2026-09-29
+- changes:
+    - Update from Puppeteer 24 (Chrome 147) to Puppeteer 25 (Chrome 154).
+    - Require Node.js 22 or later.
+
 ## v10.2.1:
 - date: 2026-09-27
 - changes:
